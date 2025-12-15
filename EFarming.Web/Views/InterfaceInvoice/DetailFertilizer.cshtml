@@ -1,0 +1,357 @@
+﻿@model List<List<object>>
+
+@{
+    ViewBag.Title = "Detail Interface Invoice Fertilizer";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int TotalSuccessfulRegistration = 0;
+    int TotalFarmNotExist = 0;
+    int TotalIsNotPartner = 0;
+    int TotalProductCodeNotFound = 0;
+    int TotalErrorRegistry = 0;
+
+    if (Model != null)
+    {
+        foreach (var item in Model)
+        {
+            if (item[0].ToString() == "SuccessfulRegistration")
+            {
+                TotalSuccessfulRegistration++;
+            }
+            else if (item[0].ToString() == "FarmNotExist")
+            {
+                TotalFarmNotExist++;
+            }
+            else if (item[0].ToString() == "IsNotPartner")
+            {
+                TotalIsNotPartner++;
+            }
+            else if (item[0].ToString() == "ProductCodeNotFound")
+            {
+                TotalProductCodeNotFound++;
+            }
+            else if (item[0].ToString() == "ErrorRegistry")
+            {
+                TotalErrorRegistry++;
+            }
+        }
+    }
+    int TotalNotRegistry = TotalErrorRegistry +  TotalProductCodeNotFound + TotalIsNotPartner  + TotalFarmNotExist;
+}
+
+@if (Model != null)
+{
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-12">
+            <h2 class="col-lg-11 page-name">Lista de resultados sobre la información de facturación fertilizantes</h2><br />
+            <a class="col-lg-1 btn btn-success btn-lg" href="@Url.Action("IndexFertilizer","InterfaceInvoice")">Volver</a>
+        </div>
+    </div>
+    <div class="wrapper wrapper-content">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content row">
+                    <div class="showback">
+                        <div class="col-md-12">
+                            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" @*id="headingOne"*@>
+                                        <h4 class="panel-title">
+                                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                Reporte general sobre la información cargada de facturación fertilizantes
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div @*id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne"*@>
+                                        <div class="panel-body">
+                                            <div class="col-md-5 col-lg-5 col-sm-5 ">
+                                                <div class="panel panel-success">
+                                                    <div class="panel-heading" style="text-align:center">
+                                                        <h3 class="panel-title ">Facturación registrada correctamente</h3>
+                                                    </div>
+                                                </div>
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Total:</th>
+                                                            <th>@TotalSuccessfulRegistration</th>
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+                                            </div>
+                                            <div class="col-md-3 col-lg-3 col-sm-3 ">
+                                                <div class="panel panel-danger">
+                                                    <div class="panel-heading" style="text-align:center">
+                                                        <h3 class="panel-title">Facturación no registrada</h3>
+                                                    </div>
+                                                </div>
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Total:</th>
+                                                            <th>@TotalNotRegistry</th>
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @if (TotalNotRegistry > 0)
+                                    {
+                                        <div class="panel-heading" role="tab" @*id="headingTwo"*@>
+                                            <h4 class="panel-title">
+                                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                                    Reporte de Facturación de fertilizantes no registrada
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div @*id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo"*@>
+                                            <div class="panel-body">
+                                                <div class="col-md-12 col-lg-12 col-sm-12 ">
+                                                    @if (TotalErrorRegistry > 0)
+                                                    {
+                                                        <div class="panel panel-default">
+                                                            <div class="panel-heading" role="tab" id="headingThree">
+                                                                <h4 class="panel-title">
+                                                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                                                        Formato de dato incorrecto o campos obligatorios vacios
+                                                                    </a>
+                                                                </h4>
+                                                            </div>
+                                                            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                                                <div class="panel-body">
+                                                                    <div class="col-md-8 col-lg-8 col-sm-8 ">
+                                                                        <div class="panel panel-default">
+                                                                            <div class="panel-heading" style="text-align:center">
+                                                                                <h3 class="panel-title">Datos incorrectos</h3>
+                                                                            </div>
+                                                                        </div>
+                                                                        <table class="table table-bordered">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th style="text-align:center">DOCUMENTO TERCERO</th>
+                                                                                    <th style="text-align:center">NOMBRE DEL PRODUCTO</th>
+                                                                                    <th style="text-align:center">FECHA FACTURA</th>
+                                                                                    <th style="text-align:center">NÚMERO FACTURA</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                @foreach (var item in Model)
+                                                                                {
+                                                                                    if (item[0].ToString() == "ErrorRegistry")
+                                                                                    {
+                                                                                        var dt = @String.Format("{0:dd/MM/yyyy}", item[4]);
+                                                                                        <tr>
+                                                                                            @if (item[1].ToString() == "")
+                                                                                            {
+                                                                                                <td style="background:#f2dede">@item[1]</td>
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                <td>@item[1]</td>
+                                                                                            }
+                                                                                            @if (item[2].ToString() == "")
+                                                                                            {
+                                                                                                <td style="background:#f2dede">@item[2]</td>
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                <td>@item[2]</td>
+                                                                                            }
+                                                                                            @if(dt == "01/01/1900")
+                                                                                            {
+                                                                                                <td style="background:#f2dede"></td>
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                <td>@dt</td>
+                                                                                            }
+                                                                                            @if (item[3].ToString() == "")
+                                                                                            {
+                                                                                                <td style="background:#f2dede">@item[3]</td>
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                <td>@item[3]</td>
+                                                                                            }                                                                                        
+                                                                                        </tr>
+                                                                                    }
+                                                                                }
+                                                                            </tbody>
+                                                                            <tfoot>
+                                                                                <tr>
+                                                                                    <th colspan="3">TOTAL:</th>
+                                                                                    <th>@TotalErrorRegistry</th>
+                                                                                </tr>
+                                                                            </tfoot>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    } 
+                                                    @if (TotalProductCodeNotFound > 0)
+                                                    {
+                                                        <div class="panel panel-default">
+                                                            <div class="panel-heading" role="tab" id="headingSix">
+                                                                <h4 class="panel-title">
+                                                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                                                        El código de clasificación del producto no es válido
+                                                                    </a>
+                                                                </h4>
+                                                            </div>
+                                                            <div id="collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix">
+                                                                <div class="panel-body">
+                                                                    <div class="col-md-6 col-lg-6 col-sm-6 ">
+                                                                        <div class="panel panel-default">
+                                                                            <div class="panel-heading" style="text-align:center">
+                                                                                <h3 class="panel-title">Código de clasificación del producto no valido</h3>
+                                                                            </div>
+                                                                        </div>
+                                                                        <table class="table table-bordered">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th style="text-align:center">DOCUMENTO TERCERO</th>
+                                                                                    <th style="text-align:center">NÚMERO FACTURA</th>
+                                                                                    <th style="text-align:center">CÓDIGO DE CLASIFICACIÓN DEL PRODUCTO</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                @foreach (var item in Model)
+                                                                                {
+                                                                                    if (item[0].ToString() == "ProductCodeNotFound")
+                                                                                    {
+                                                                                        <tr>
+                                                                                            <td>@item[1]</td>
+                                                                                            <td>@item[2]</td>
+                                                                                            <td style="background:#f2dede">@item[3]</td>
+                                                                                        </tr>
+                                                                                    }
+                                                                                }
+                                                                            </tbody>
+                                                                            <tfoot>
+                                                                                <tr>
+                                                                                    <th colspan="2">TOTAL:</th>
+                                                                                    <th>@TotalProductCodeNotFound</th>
+                                                                                </tr>
+                                                                            </tfoot>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    }                                                   
+                                                    @if (TotalIsNotPartner > 0)
+                                                    {
+                                                        <div class="panel panel-default">
+                                                            <div class="panel-heading" role="tab" id="headingFive">
+                                                                <h4 class="panel-title">
+                                                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                                                        El productor no es asociado
+                                                                    </a>
+                                                                </h4>
+                                                            </div>
+                                                            <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+                                                                <div class="panel-body">
+                                                                    <div class="col-md-6 col-lg-6 col-sm-6 ">
+                                                                        <div class="panel panel-default">
+                                                                            <div class="panel-heading" style="text-align:center">
+                                                                                <h3 class="panel-title">No es socio</h3>
+                                                                            </div>
+                                                                        </div>
+                                                                        <table class="table table-bordered">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th style="text-align:center">DOCUMENTO TERCERO</th>
+                                                                                    <th style="text-align:center">NÚMERO FACTURA</th>
+                                                                                    <th style="text-align:center">ES SOCIO?  S/N</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                @foreach (var item in Model)
+                                                                                {
+                                                                                    if (item[0].ToString() == "IsNotPartner")
+                                                                                    {
+                                                                                        <tr>
+                                                                                            <td>@item[1]</td>
+                                                                                            <td>@item[2]</td>
+                                                                                            <td style="background:#f2dede">@item[3]</td>
+                                                                                        </tr>
+                                                                                    }
+                                                                                }
+                                                                            </tbody>
+                                                                            <tfoot>
+                                                                                <tr>
+                                                                                    <th colspan="2">TOTAL:</th>
+                                                                                    <th>@TotalIsNotPartner</th>
+                                                                                </tr>
+                                                                            </tfoot>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    }                                                   
+                                                    @if (TotalFarmNotExist > 0)
+                                                    {
+                                                        <div class="panel panel-default">
+                                                            <div class="panel-heading" role="tab" id="headingEight">
+                                                                <h4 class="panel-title">
+                                                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                                                                        La finca no se encontró en la base de datos
+                                                                    </a>
+                                                                </h4>
+                                                            </div>
+                                                            <div id="collapseEight" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEight">
+                                                                <div class="panel-body">
+                                                                    <div class="col-md-5 col-lg-5 col-sm-5 ">
+                                                                        <div class="panel panel-default">
+                                                                            <div class="panel-heading" style="text-align:center">
+                                                                                <h3 class="panel-title">Códigos de fincas no registrados </h3>
+                                                                            </div>
+                                                                        </div>
+                                                                        <table class="table table-bordered">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th style="text-align:center">DOCUMENTO TERCERO</th>
+                                                                                    <th style="text-align:center">NÚMERO FACTURA</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                @foreach (var item in Model)
+                                                                                {
+                                                                                    if (item[0].ToString() == "FarmNotExist")
+                                                                                    {
+                                                                                        <tr>
+                                                                                            <td style="background:#f2dede">@item[1]</td>
+                                                                                            <td>@item[2]</td>
+                                                                                        </tr>
+                                                                                    }
+                                                                                }
+                                                                            </tbody>
+                                                                            <tfoot>
+                                                                                <tr>
+                                                                                    <th>TOTAL:</th>
+                                                                                    <th>@TotalFarmNotExist</th>
+                                                                                </tr>
+                                                                            </tfoot>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+            </div>
+        </div>
+    </div>
+}

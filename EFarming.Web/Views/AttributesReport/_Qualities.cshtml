@@ -1,0 +1,50 @@
+﻿
+
+@*@model PagedList.IPagedList<EFarming.Core.QualityModule.SensoryProfileAggregate.SensoryProfileAssessment>*@
+@model  ICollection<EFarming.DTO.QualityModule.SensoryProfileAssessmentDTO>
+
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+
+
+
+<h3><strong>Attributes</strong></h3>
+<h5>FARM @Model.First().Farm.Name</h5>
+<h5>Taster @Model.First().User.FirstName @Model.First().User.LastName</h5>
+<table class="table table-bordered table-responsive">
+    <tbody>
+
+        @foreach (var attr in (List<EFarming.DTO.QualityModule.QualityAttributeDTO>)ViewBag.QualityAttributes)
+        {
+            var ans = Model.First().GetAnswersByAttribute(attr);
+            var desc = attr.Description;
+            if (ans != null)
+
+            {
+                if (ans.FirstOrDefault() != null)
+                {
+                    <tr>
+                        <td><strong> @desc </strong></td>
+                        <td>@ans.FirstOrDefault().Answer</td>
+                    </tr>
+                }
+
+
+            }
+
+        }
+        <tr>
+            <td> <h4><strong> TOTAL SCORE </strong></h4> </td>
+            <td> <h4><strong> @Model.First().TotalScore(ViewBag.QualityAttributes) </strong></h4></td>
+        </tr>
+
+<tbody>
+</table>
+
+<div class="form-group">
+    <div class="col-sm-offset-3 col-sm-9">
+
+        <a class="btn btn-link link-delete modal-close" data-dismiss="modal">@Message.Close</a>
+    </div>
+</div>

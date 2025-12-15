@@ -1,0 +1,18 @@
+namespace EFarming.DAL.Migrations
+{
+    using System;
+    using System.Data.Entity.Migrations;
+    
+    public partial class AddingSecondClientReferenceForTheContract : DbMigration
+    {
+        public override void Up()
+        {
+            AddColumn("dbo.ComercialAgreements", "SecondClientRef", c => c.String());
+        }
+        
+        public override void Down()
+        {
+            DropColumn("dbo.ComercialAgreements", "SecondClientRef");
+        }
+    }
+}

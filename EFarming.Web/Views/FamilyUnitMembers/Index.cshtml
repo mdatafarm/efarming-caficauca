@@ -1,0 +1,87 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+@model EFarming.DTO.FarmModule.FarmDTO
+<div class="row" id="family-unit-members-content">
+    <div class="col-lg-12">
+        <h3 class="page-header">@FarmMessages.Family_Unit</h3>
+        <table class="table table-hover table-condensed table-striped">
+            <thead>
+                <tr>
+                    <th>@Message.Owner</th>
+                    <th>@Message.First_Name</th>
+                    <th>@Message.Last_Name</th>
+                    <th>@Message.Age</th>
+                    <th>@Message.Identification</th>
+                    <th>@Message.Education</th>
+                    <th>@Message.Relationship</th>
+                    <th>@Message.Marital_Status</th>
+                    <th>Teléfono</th>
+                    <th>
+                        @if (!User.IsReader())
+                        {
+                            <span class="pull-right">
+                                <a href="@Url.Action("Create", "FamilyUnitMembers", new { farmId = Model.Id, page = ((IPagedList<EFarming.DTO.FarmModule.FamilyUnitMemberDTO>)ViewBag.PagedFamilyUnitMembers).PageNumber })" data-toggle="modal" data-target="#modal" class="btn btn-success btn-xs">
+                                    <span class="glyphicon glyphicon-plus">
+                                    </span>
+                                    @Message.Add
+                                </a>
+                            </span>
+                        }
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var member in (IPagedList<EFarming.DTO.FarmModule.FamilyUnitMemberDTO>)ViewBag.PagedFamilyUnitMembers)
+                {
+                    <tr>
+                        <td>
+                            @{
+                                if (member.IsOwner)
+                                {
+                                    <span class="glyphicon glyphicon-ok"></span> 
+                                    <span>&nbsp;@member.IDProductor</span>
+                                }
+                                else
+                                {
+                                    <a class="btn btn-link link-edit make-owner" href="@Url.Action("Owner", "FamilyUnitMembers", new { id = member.Id, farmId = member.FarmId, page = ((IPagedList<EFarming.DTO.FarmModule.FamilyUnitMemberDTO>)ViewBag.PagedFamilyUnitMembers).PageNumber })">
+                                        @Message.Make_Owner
+                                    </a>
+                                }
+                            }
+                        </td>
+                        @{
+                            var now = DateTime.Now;
+                            var age = now.Year - member.Age.Year;
+                        }
+                        <td>@member.FirstName</td>
+                        <td>@member.LastName</td>
+                        <td>@age</td>
+                        <td>@member.Identification</td>
+                        <td>@member.Education</td>
+                        <td>@member.Relationship</td>
+                        <td>@member.MaritalStatus</td>
+                        <td>@member.PhoneNumber</td>
+                        <td>
+                            @if (!User.IsReader())
+                            {
+                                <span class="pull-right">
+                                    <a class="btn btn-link link-edit" href="@Url.Action("Edit", "FamilyUnitMembers", new { id = member.Id, farmId = member.FarmId, page = ((IPagedList<EFarming.DTO.FarmModule.FamilyUnitMemberDTO>)ViewBag.PagedFamilyUnitMembers).PageNumber })" data-toggle="modal" data-target="#modal">
+                                        <span class="glyphicon glyphicon-edit"></span>
+                                        @Message.Edit
+                                    </a>
+                                    <a class="btn btn-link link-delete" href="@Url.Action("Delete", "FamilyUnitMembers", new { id = member.Id, farmId = member.FarmId, page = ((IPagedList<EFarming.DTO.FarmModule.FamilyUnitMemberDTO>)ViewBag.PagedFamilyUnitMembers).PageNumber })" data-toggle="modal" data-target="#modal">
+                                        <span class="glyphicon glyphicon-remove-sign"></span>
+                                        @Message.Delete
+                                    </a>
+                                </span>
+                            }
+                        </td>
+                    </tr>
+                            }
+            </tbody>
+        </table>
+        @Html.PagedListPager((IPagedList<EFarming.DTO.FarmModule.FamilyUnitMemberDTO>)ViewBag.PagedFamilyUnitMembers,
+    page => Url.Action("Index", "FamilyUnitMembers", new { page, farmId = Model.Id }),
+            PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new System.Web.Mvc.Ajax.AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "family-unit-members-content" }))
+    </div>
+</div>

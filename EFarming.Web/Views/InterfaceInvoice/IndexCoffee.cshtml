@@ -1,0 +1,80 @@
+﻿@model List<List<object>>
+
+@{
+    ViewBag.Title = "Interface Invoice Coffee";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    DateTime today = DateTime.Now.Date;
+}
+
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="container-fluid">
+                <h1>Interfaz faturación café</h1>
+                <h2>Descargar plantilla facturación</h2>
+                <a href="~/Content/TemplateInteface/Plantilla Facturación café.xlsx" download="@today.ToString("yyMMdd")-Plantilla Facturación café.xlsx" class="btn btn-lg btn-success">Descargar</a>
+                <br />
+            </div>
+        </div>
+        @*<div class="col-md-1 col-lg-1 col-sm-1"></div>*@
+        <div class="col-md-6 col-lg-6 col-sm-6 text-justify">
+            <h2>Cargar Archivo</h2>
+            <h4>
+                El nombre del archivo a cargar debe contener la siguiente estructura:
+                Fecha del día actual:AAMMDD - Versión del archivo: 1 - Plantilla Facturación café
+                <br /><b>EJEMPLOS:</b>
+                <br /> 180326-1-Plantilla Facturación café
+                <br /> 180326-2-Plantilla Facturación café
+            </h4>
+            <form action="/InterfaceInvoice/UploadInvoiceCoffee" enctype="multipart/form-data" method="post">
+                <input type="file" id="excelfile" name="excelfile" />
+                <br />
+                <input class="btn btn-lg btn-success" type="submit" value="Subir Archivo" />
+            </form>
+            <h3 style="color:red" id="Message">@ViewBag.message</h3>
+        </div>
+    </div>
+    <hr />
+</div>
+<br /><br />
+
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-md-12 ">
+        <div class="col-lg-12  showback text-justify">
+            <div class="col-lg-12  text-justify">
+                <center><h1>RECOMENDACIONES</h1></center>
+                <h4 class="text-justify">
+                    <p>1. De click en el botón descargar, para obtener la plantilla en la cual deben ingresar la información de facturación de café que se va a cargar.</p>
+                    <p>2. Conservar el orden, nombre de los encabezados y formato de celdas establecidos para cada columna.</p>
+                    <p>3. No se puede adicionar nuevas columnas al archivo.</p>
+                    <p>4. Los siguientes datos son muy importantes para realizar el proceso de validaciones, por tal motivo se requiere que al momento de subir la información estén debidamente diligenciados, como se muestra en los siguientes ejemplos: </p>
+                </h4>
+            </div>
+            <div class="col-lg-5 text-justify">
+                <h4 class="text-justify">
+                    <p><b>CODIGO DEL ASOCIADO: (COLUMNA A)</b> <BR /><b>EJEMPLO:</b> 1057585311</p>
+                    <p><b>FECHA FACTURA: (COLUMNA C)</b><BR /><b>EJEMPLO:</b> 20/02/2018</p>
+                    <p><b>NÚMERO FACTURA: (COLUMNA D)</b><BR /><b>EJEMPLO:</b> 41567</p>
+                    <p><b>CÓDIGO DEL PRODUCTO: (COLUMNA J)</b> <BR /><b>EJEMPLO:</b> 1123</p>
+                    @*<p><b>TIPO DE DOCUMENTO : (COLUMNA K)</b> <BR /><b>EJEMPLO:</b> CF</p>
+                        <p><b>ES SOCIO? S/N: (COLUMNA L)</b> <BR /><b>EJEMPLO:</b> S</p>*@
+                    @*<p><b>ESTADO : (COLUMNA M)</b> <BR /><b>EJEMPLO:</b> P</p>*@
+                    @*<p><img class="img-thumbnail" src="~/Images/FacturacionCafe.PNG" /> </p>*@
+                </h4>
+            </div>
+            <div class="col-lg-7 text-justify">
+                <p><img class="img-thumbnail" src="~/Images/FacturaciónCafé.PNG" /> </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $('#excelfile').on('click', function (e) {
+        console.log('a');
+        document.getElementById("Message").style.display = 'none';
+    });
+</script>

@@ -1,0 +1,18 @@
+﻿@model EFarming.DTO.FarmModule.FarmDTO
+<ul class="list-group">
+    @foreach (var item in (System.Collections.Generic.List<EFarming.DTO.AdminModule.SoilTypeDTO>)ViewBag.SoilTypes)
+    {
+        <li class="list-group-item">
+
+            @if (EFarming.Web.Helpers.CheckBoxHelper.IsChecked(item, Model.SoilTypes))
+            {
+                <input type="checkbox" name="SoilTypes" value="@item.Id" checked="checked" />
+            }
+            else
+            {
+                <input type="checkbox" name="SoilTypes" value="@item.Id" />
+            }
+            @item.Name
+        </li>
+    }
+</ul>

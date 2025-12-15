@@ -1,0 +1,55 @@
+﻿@model EFarming.Core.ProjectModule.ProjectAggregate.Project
+@{
+    ViewBag.Title = "DetailsProject";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+
+            <h4 class="panel-title">Project information</h4>
+        </div>
+
+        <div class="panel-body">
+
+
+            <dl class="dl-horizontal">
+                <dt>
+                    Name
+                </dt>
+
+                <dd>
+                    @Model.Name
+                </dd>
+                <dt>
+                    Description
+                </dt>
+
+                <dd>
+                    @Model.Description
+                </dd>
+                <dt>
+                    Fincas
+                </dt>
+                @foreach (var farm in Model.Farms)
+                {
+                    <dd>
+                        @farm.Code @farm.Name
+                    </dd>
+                }
+            </dl>
+        </div>
+
+        <div class="form-group col-md-12" style="margin-top:10px">
+            <div class="col-md-offset-4 col-md-2">
+                <div class="col-md-2">@Html.ActionLink("Edit", "EditProject", new { id = Model.Id }, new { @class = "btn btn-success btn-lg" })</div>
+            </div>
+            <div>
+                <div class="col-md-2">@Html.ActionLink(Message.Back, "ProjectsList", null, new { @class = "btn btn-default btn-block btn-lg" })</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

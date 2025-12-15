@@ -1,0 +1,36 @@
+﻿@model Twilio.UsageResult
+
+@{
+    ViewBag.Title = "StateAccount";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>StateAccount</h2>
+
+@if (Model != null)
+{
+    <table class="table table-responsive">
+        <tr>
+	  <td>Category</td>
+            <td>Descrition</td>
+	  <td>type</td>
+	  <td>Date</td>
+	  <td>Unids</td>
+            <td>Price</td>            
+	  <td>Use</td>
+        </tr>
+        @foreach (var u in Model.UsageRecords)
+        {
+            <tr>
+                <td>@u.Category</td>
+                <td>@u.Description</td>
+                <td>@u.CountUnit</td>
+                <td>@u.EndDate</td>	      
+                <td>@u.Count</td>
+                <td>@u.Price</td>
+                <td>@u.Usage</td>
+            </tr>
+        }        
+    </table>
+    
+}

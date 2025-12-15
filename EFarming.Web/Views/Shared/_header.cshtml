@@ -1,0 +1,165 @@
+﻿<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+	  <!-- Este codigo no funciona. -->
+	  <!-- CHK -->
+            <!--<picture>
+                <source srcset="~/Images/logo.png" media="(min-width: 900px)">
+                <source srcset="~/Images/logo.png" media="(min-width: 700px)">
+                <source srcset="~/Images/LogoEfarmingSmall.png" media="(min-width: 300px)">
+                <img src="~/Images/logo.png" alt="LogoEfarmingSmall">
+            </picture>
+	  -->
+            <!-- Se quita el original y se coloca la etiqueta dinamica picture para que se redimencione de acuerdo a cada dispositivo -->
+            <a class="navbar-brand" href="#"><img src="~/Images/logo.png" alt="e-farming" /></a>
+            @*<a class="navbar-brand" href="#"><img style="max-width:260px" src="~/Images/Clientes/3d93e18b-b323-41c1-b8cc-585493d77303.png" alt="logo" /></a>*@
+
+            <!-- Se quita este mensaje pues no era relevante ni tiene contexto dentro de la navegacion -->
+            <!-- Se tiene que mejorar esto y contextualizarlo dentro de las opciones elegidas por el usuario. -->
+            @*<a class="navbar-brand navbar-title" href="#">@Message.Title</a>*@
+
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-top-links  navbar-right">
+                <li>
+                    <span class="fa-stack fa-lg userm">
+                        <i class="fa fa-circle fa-stack-2x"></i>
+                        <i class="fa fa-user fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <span class="m-r-sm text-muted welcome-message">
+                        @Message.Welcome
+                        @User.FirstName
+                    </span>
+                </li>
+                <!-- ejemplo top menu -->
+                <!--
+                <li class="dropdown">
+                    <a href="#" data-toggle="dropdown" class="dropdown-toggle count-info">
+                        <i class="fa fa-envelope"></i>  <span class="label label-warning">16</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-messages">
+                        <li>
+                            <div class="dropdown-messages-box">
+                                <a class="pull-left ugreen" href="#">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-user fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                                <div class="media-body">
+                                    <small class="pull-right">46h ago</small>
+                                    <strong>Pablo Aristizabal</strong> started watching farm <strong>La Bonita</strong>. <br>
+                                    <small class="text-muted">3 days ago at 7:58 pm - 10.06.2014</small>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <div class="dropdown-messages-box">
+                                <a class="pull-left ugreen" href="#">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-user fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                                <div class="media-body ">
+                                    <small class="pull-right text-navy">5h ago</small>
+                                    <strong>Pablo Aristizabal</strong> started watching farm <strong>El Cairo</strong>. <br>
+                                    <small class="text-muted">Yesterday 1:21 pm - 11.06.2014</small>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <div class="text-center link-block">
+                                <a href="#">
+                                    <i class="fa fa-envelope"></i> <strong>Read All Messages</strong>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown ">
+                    <a href="#" data-toggle="dropdown" class="dropdown-toggle count-info">
+                        <i class="fa fa-bell"></i>  <span class="label label-primary">8</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-alerts">
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-envelope fa-fw"></i> You have 16 messages
+                                    <span class="pull-right text-muted small">4 minutes ago</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa fa-tree fa-fw"></i> 3 New Farms
+                                    <span class="pull-right text-muted small">12 minutes ago</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-upload fa-fw"></i> Evaluation Complete
+                                    <span class="pull-right text-muted small">4 minutes ago</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <div class="text-center link-block">
+                                <a href="#">
+                                    <strong>See All Alerts</strong>
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                    -->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        <i class="glyphicon glyphicon-list"></i>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a href="@Url.Action("Edit", "Accounts", new { id = User.UserId })">
+                                @Message.Edit_Account
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        @if (User.IsAdmin())
+                        {
+                            <li>
+                                <a href="@Url.Action("Index", "Departments", new { area = "Admin" })">
+                                    @Message.GoTo_Admin
+                                </a>
+                            </li>
+                        }
+                        <li>
+                            <a href="@Url.Action("LogOut","Accounts", new { area = ""})">
+                                <i class="fa fa-sign-out"></i>
+                                @Message.Logout
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- final top menu -->
+            </ul>
+            
+        </div>
+    </div>
+</div>

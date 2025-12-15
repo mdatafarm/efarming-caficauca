@@ -1,0 +1,47 @@
+﻿@model EFarming.DTO.FarmModule.FarmDTO
+<div id="carousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        @{
+            string activeSlide = "active";
+        }
+        @for (int slide = 0; slide < Model.Images.Count; slide++)
+        {
+            <li data-target="#carousel" data-slide-to="@activeSlide"></li>
+            activeSlide = string.Empty;
+        }
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        @{
+            activeSlide = "active";
+            foreach (var image in Model.Images)
+            {
+                string[] substrings = image.Name.Split('.');
+
+                if (substrings[1] != "pdf")
+                {
+                    <div class="item @activeSlide">
+                        <img src="@image.Url" alt="image.Name" class="centered">
+                    </div>
+                }
+                else
+                {
+                    <div class="item @activeSlide">
+                        <embed src="@image.Url" type="application/pdf" style="height:500px; width:500px"/>
+                    </div>
+                }
+                activeSlide = string.Empty;
+            }
+        }
+    </div>
+
+    <!-- Controls -->
+    <a class="left carousel-control" href="#carousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    <a class="right carousel-control" href="#carousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+    </a>
+</div>

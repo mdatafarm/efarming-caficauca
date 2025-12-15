@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = Message.Delete_Item;
+}
+
+<h2>Eliminar</h2>
+<div class="alert alert-danger fade in">
+    <h4>@Message.Delete_Item</h4>
+    <p>
+        @Message.Delete_Item_Text
+
+        @Message.Confirmation_Question
+    </p>
+    <p>
+        @using (Html.BeginForm("Delete", null, new { id = ViewBag.Id }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-9">
+                    <button type="submit" class="btn btn-danger">@Message.Confirmation_Text</button>
+                    @Html.ActionLink(Message.Cancel, "Index", null, new { @class = "btn btn-default" })
+                </div>
+            </div>
+        }
+    </p>
+</div>

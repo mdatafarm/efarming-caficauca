@@ -1,0 +1,16 @@
+﻿@model EFarming.DTO.FarmModule.PlantationDTO
+<div class="row remote" id="plantation-form">
+    <div class="col-md-10 col-md-offset-1">
+        <h4>@FarmMessages.Plantations</h4>
+        <form action="@Url.Action("Edit", "Plantations")" class="form-horizontal to-validate remote-form" role="form" data-target="plantations-content">
+            @Html.Partial("~/Views/Plantations/_FormPlantation.cshtml", Model)
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    var selectedPlantationType = "@Model.PlantationTypeId";
+    var selectedPlantatonVariety = "@Model.PlantationVarietyId";
+    var selectedPlantationStatus = "@Model.PlantationStatusId";
+</script>
+<script src="~/Scripts/mvvm/plantation.js"></script>
+<script src="~/Scripts/remote-validation.js"></script>

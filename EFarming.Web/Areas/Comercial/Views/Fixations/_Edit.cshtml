@@ -1,0 +1,19 @@
+﻿@model EFarming.Core.ComercialModule.Fixation
+
+@Html.HiddenFor(model => model.Id)
+@*<td>
+    @Html.DropDownList("FixationTypeId", null, htmlAttributes: new { @class = "form-control" })
+    @Html.ValidationMessageFor(model => model.FixationTypeId, "", new { @class = "text-danger" })
+</td>*@
+<td>
+    @Html.DropDownListFor(m => m.FixationTypeId, null, htmlAttributes: new { @class = "form-control" })
+    @Html.ValidationMessageFor(model => model.FixationTypeId, "", new { @class = "text-danger" })
+</td>
+<td>
+    @Html.EditorFor(model => model.FixationDate, new { htmlAttributes = new { id = "date" + Model.Agreement.OurRef.ToString(), @class = "form-control dateField"} })
+    @Html.ValidationMessageFor(model => model.FixationDate, "", new { @class = "text-danger" })
+</td>
+<td>
+    @Html.EditorFor(model => model.FixationLevel, new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(model => model.FixationLevel, "", new { @class = "text-danger" })
+</td>

@@ -1,0 +1,184 @@
+﻿@model IEnumerable<EFarming.Web.Controllers.TechnicianReportsController.GroupedInformation>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/themes/base/all.css" rel="stylesheet" />
+
+@section scripts{
+    <script src="~/Scripts/jquery-ui-1.10.4.min.js"></script>
+    <script src="~/Scripts/Sustainability/TechnicianReports.js"></script>
+}
+
+@{
+    double? totalContactedFarms = 0d;
+    double? TotalContacts = 0d;
+    double? TotalAsociatedFarms = 0d;
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2 class="page-name">Contactos</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="@Url.Action("Index", "TechnicianReports")">
+                    Reportes
+                </a>
+            </li>
+
+            <li class="active">
+                <strong>Contactos</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+
+<div class="row wrapper border-bottom white-bg page-heading" style="margin-top:15px">
+    <div class="col-lg-10" style="margin-top:15px">
+        <form class="form-inline col-md-12" role="form" method="get" action="~/TechnicianReports/Index">
+            <input type="hidden" name="ProjectId" value="@ViewBag.ProjectId" />
+            <label> Filtro por fecha: </label>
+            <hr>
+            <div class="form-group">
+                <label for="year">Desde: </label>
+                <input type="text" id="start" name="start" class="form-control dateField" value="@string.Format("{0:dd/MM/yyyy}", ViewBag.SelectedStart)" readonly />
+            </div>
+            <div class="form-group">
+                <label for="year">Hasta: </label>
+                <input type="text" id="end" name="end" class="form-control dateField" value="@string.Format("{0:dd/MM/yyyy}", ViewBag.SelectedEnd)" readonly/>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-default">Buscar</button>
+                <input type="button" id="SendFiltersToExcel" name="SendFiltersToExcel" class="btn btn-success" value="Exportar" />
+            </div>
+        </form>
+
+        <form class="form-inline col-md-12 hidden" id="ExportToExcelFl" name="ExportToExcelFl" role="form" method="get" action="~/TechnicianReports/ToExcelContacts">
+            <div class="form-group">
+                <label for="year">Desde: </label>
+                <input type="text" id="start2" name="start2" class="form-control dateField" />
+            </div>
+            <div class="form-group">
+                <label for="year">Hasta: </label>
+                <input type="text" id="end2" name="end2" class="form-control dateField" />
+            </div>
+            <div class="form-group">
+                <input type="submit" id="SendFiltersToExcel" name="SendFiltersToExcel" class="btn btn-success" value="Exportar" />
+            </div>
+        </form>
+
+        <input type="text" id="result" name="result" class="form-control hidden" value="">
+    </div>
+</div>
+
+<div class="wrapper wrapper-content">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content row">
+                <div class="col-lg-9">
+                    <table class="table table-striped  table-hover table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Promotor</th>
+                                <th>Contactos</th>
+                                <th>Fincas contactadas</th>
+                                <th>Fincas asociadas</th>
+                                <th>porcentaje de contacto</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.TechnicianName</td>
+                                    <td class="textAling">@item.ContactsNumber</td>
+                                    <td class="textAling">@item.ContactsByFarm</td>
+                                    <td class="textAling">@item.NumberOfFarms</td>
+                                    <td class="textAling">@item.Percentage.Value.ToString("0.##") %</td>
+                                </tr>
+                                totalContactedFarms = totalContactedFarms + item.ContactsByFarm;
+                                TotalContacts = TotalContacts + item.ContactsNumber;
+                                TotalAsociatedFarms = TotalAsociatedFarms + item.NumberOfFarms;
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                @{
+                                    double? TotalPercentage = (totalContactedFarms / TotalAsociatedFarms) * 100.0;
+                                }
+                                <th></th>
+                                <th class="textAling">@string.Format("{0:#,##0}", TotalContacts)</th>
+                                <th class="textAling">@string.Format("{0:#,##0}", totalContactedFarms)</th>
+                                <th class="textAling">@string.Format("{0:#,##0}", TotalAsociatedFarms)</th>
+                                <th class="textAling">@TotalPercentage.Value.ToString("0.##") %</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="col-lg-3">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-content information-content">
+                            <div class="file-manager">
+                                <h4 class="information">Información</h4>
+                                <div class="space-25"></div>
+                                <ul class="folder-list m-b-md">
+                                    <li>
+                                        <i class="fa fa-angle-right">&nbsp;</i>
+                                        Proyecto:
+
+                                    </li>
+                                    <li>
+                                        <span style="margin-left:50px"><strong>@ViewBag.Project</strong></span>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-list">&nbsp;</i>
+                                        Proyectos:
+                                        <ul>
+                                            @foreach (var project in ViewBag.Projects)
+                                            {
+                                                <li>
+                                                    <a href="@Url.Action("Index", "TechnicianReports", new { ProjectId = project.Id, start = ViewBag.SelectedStart, end = ViewBag.SelectedEnd })">
+                                                        @project.Name
+                                                    </a>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var startDate = "@string.Format("{0:dd/MM/yyyy}", ViewBag.SelectedStart)";
+    var endDate = "@string.Format("{0:dd/MM/yyyy}", ViewBag.SelectedEnd)";
+</script>
+
+<script type="text/javascript">
+    $(function() {
+        $("#SendFiltersToExcel").click(function () {
+            var start = $("#start").val();
+            var end = $("#end").val();
+            //alert(start + " " + end);
+            updateResult(start, end);
+            return false;
+        });
+
+        function updateResult(start, end) {
+            var url = "ToExcelContacts?start=" + start + "&end=" + end; // Establecer URL de la acción
+            $("#result").val(url);
+            $("#start2").val(start);
+            $("#end2").val(end);
+            document.ExportToExcelFl.submit()
+            //document.getElementById('enlace').setAttribute('href', url);
+            //alert(url);
+        }
+    });
+</script>

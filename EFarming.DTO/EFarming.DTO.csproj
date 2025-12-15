@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B077CAD7-6121-4FB2-A2A4-7A19333FD652}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EFarming.DTO</RootNamespace>
+    <AssemblyName>EFarming.DTO</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>bin\Debug\EFarming.DTO.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Common.Logging, Version=3.4.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.3.4.1\lib\net40\Common.Logging.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Common.Logging.Core, Version=3.4.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.Core.3.4.1\lib\net40\Common.Logging.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AdminModule\AssessmentTemplateDTO.cs" />
+    <Compile Include="AdminModule\CooperativeDTO.cs" />
+    <Compile Include="AdminModule\CountryDTO.cs" />
+    <Compile Include="AdminModule\DepartmentDTO.cs" />
+    <Compile Include="AdminModule\FarmStatusDTO.cs" />
+    <Compile Include="AdminModule\FarmSubstatusDTO.cs" />
+    <Compile Include="AdminModule\FloweringPeriodQualificationDTO.cs" />
+    <Compile Include="AdminModule\LoginDTO.cs" />
+    <Compile Include="AdminModule\MunicipalityDTO.cs" />
+    <Compile Include="AdminModule\OtherActivityDTO.cs" />
+    <Compile Include="AdminModule\OwnershipTypeDTO.cs" />
+    <Compile Include="AdminModule\PlantationStatusDTO.cs" />
+    <Compile Include="AdminModule\PlantationTypeDTO.cs" />
+    <Compile Include="AdminModule\PlantationVarietyDTO.cs" />
+    <Compile Include="AdminModule\RoleDTO.cs" />
+    <Compile Include="AdminModule\SoilTypeDTO.cs" />
+    <Compile Include="AdminModule\SupplyChainDTO.cs" />
+    <Compile Include="AdminModule\SupplierDTO.cs" />
+    <Compile Include="AdminModule\SupplyChainStatusDTO.cs" />
+    <Compile Include="AdminModule\UserDTO.cs" />
+    <Compile Include="AdminModule\VillageDTO.cs" />
+    <Compile Include="APIModule\DepartmentAPIDTO.cs" />
+    <Compile Include="APIModule\FarmAPIDTO.cs" />
+    <Compile Include="APIModule\FarmSearchAPIDTO.cs" />
+    <Compile Include="APIModule\MunicipalityAPIDTO.cs" />
+    <Compile Include="APIModule\PlantationTypeAPIDTO.cs" />
+    <Compile Include="APIModule\PlantationVarietyAPIDTO.cs" />
+    <Compile Include="APIModule\VillageAPIDTO.cs" />
+    <Compile Include="ContactModule\ContactNameList.cs" />
+    <Compile Include="ContactModule\Item.cs" />
+    <Compile Include="DashboardModule\PlantationInformationDTO.cs" />
+    <Compile Include="ExtensionMethods\QualityExtensionsDTO.cs" />
+    <Compile Include="FarmModule\FamilyUnitMemberDTO.cs" />
+    <Compile Include="FarmModule\FarmDTO.cs" />
+    <Compile Include="FarmModule\FarmDTOAPI.cs" />
+    <Compile Include="FarmModule\FarmOtherActivityDTO.cs" />
+    <Compile Include="FarmModule\FertilizerDTO.cs" />
+    <Compile Include="FarmModule\FloweringPeriodDTO.cs" />
+    <Compile Include="FarmModule\ImageDTO.cs" />
+    <Compile Include="FarmModule\ProductivityDTO.cs" />
+    <Compile Include="FarmModule\SoilAnalysisDTO.cs" />
+    <Compile Include="FarmModule\PlantationDTO.cs" />
+    <Compile Include="FarmModule\WorkerDTO.cs" />
+    <Compile Include="FertilizersCalculatorModule\AverageExtractionDTO.cs" />
+    <Compile Include="FertilizersCalculatorModule\FertilizerInformationDTO.cs" />
+    <Compile Include="ImpactModule\CategoryDTO.cs" />
+    <Compile Include="ImpactModule\CriteriaDTO.cs" />
+    <Compile Include="ImpactModule\CriteriaOptionDTO.cs" />
+    <Compile Include="ImpactModule\ImpactAssessmentDTO.cs" />
+    <Compile Include="ImpactModule\IndicatorDTO.cs" />
+    <Compile Include="ImpactModule\RequirementDTO.cs" />
+    <Compile Include="ProjectModule\ProjectDTO.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QualityModule\AlmacenamientoDTO.cs" />
+    <Compile Include="QualityModule\ChecklistDTO.cs" />
+    <Compile Include="QualityModule\DespulpadoDTO.cs" />
+    <Compile Include="QualityModule\FermentacionDTO.cs" />
+    <Compile Include="QualityModule\InfraestructuraDTO.cs" />
+    <Compile Include="QualityModule\MantenimientoDTO.cs" />
+    <Compile Include="QualityModule\MicrolotDTO.cs" />
+    <Compile Include="QualityModule\OpenTextAttributeDTO.cs" />
+    <Compile Include="QualityModule\OptionAttributeDTO.cs" />
+    <Compile Include="QualityModule\QualityAttributeDTO.cs" />
+    <Compile Include="QualityModule\QualityProfileDTO.cs" />
+    <Compile Include="QualityModule\RangeAttributeDTO.cs" />
+    <Compile Include="QualityModule\RecoleccionDTO.cs" />
+    <Compile Include="QualityModule\SecadoDTO.cs" />
+    <Compile Include="QualityModule\SensoryProfileAnswerDTO.cs" />
+    <Compile Include="QualityModule\SensoryProfileAssessmentDTO.cs" />
+    <Compile Include="SustainabilityModule\ContactDTO.cs" />
+    <Compile Include="SustainabilityModule\ContactTypeDTO.cs" />
+    <Compile Include="SustainabilityModule\LocationDTO.cs" />
+    <Compile Include="SustainabilityModule\TopicDTO.cs" />
+    <Compile Include="TasqModule\TasqGroupedQuestionsAPI.cs" />
+    <Compile Include="TasqModule\TasqAssessmentAPI.cs" />
+    <Compile Include="TasqModule\TasqModuleApi.cs" />
+    <Compile Include="TasqModule\TasqQuestionAPI.cs" />
+    <Compile Include="TasqModule\TasqSurveyHeaderAPI.cs" />
+    <Compile Include="TraceabilityModule\InvoiceDTO.cs" />
+    <Compile Include="TraceabilityModule\LotDTO.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EFarming.Common\EFarming.Common.csproj">
+      <Project>{675c4e4d-10ff-4b18-98e3-5e2e06d6fcc0}</Project>
+      <Name>EFarming.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

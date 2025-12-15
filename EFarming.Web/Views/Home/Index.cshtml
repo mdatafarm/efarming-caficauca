@@ -1,0 +1,44 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout_without_menu.cshtml";
+}
+
+<div class="wrapper wrapper-content">
+    <div class="row">
+        @*<div class="col-lg-2 col-sm-2">
+            <a href="@Url.Action("CommercialDashboard", "CommercialReports")" title="Comercial" class="icon-home">
+                <span class="e-icon-trace sgv-icon"></span>
+            </a>
+            <h2 class="icon-title">Commercial</h2>
+            <span class="icon-description clearfix">Commercial dashboard and utilities</span>
+        </div>*@
+        <div class="col-lg-4 col-sm-4">
+            <a href="@Url.Action("Index", "AssessmentTemplates", new { area = "SustainabilityArea"})" title="@Message.Sustainability" class="icon-home ">
+                <span class="e-icon-susta sgv-icon"></span>
+                <!-- <img src="images/sustainability.png"/> -->
+            </a>
+            <h2 class="icon-title">@Message.Sustainability</h2>
+            <span class="icon-description clearfix">@Message.Sustainability_Title</span>
+        </div>
+        @*<div class="col-lg-2 col-sm-2">
+            <a href="@Url.Action("Clasification", "QualityReports")" title="@QualityMessage.Quality_Attributes" class="icon-home">
+                <span class="e-icon-quality sgv-icon"></span>
+            </a>
+            <h2 class="icon-title">@Message.Quality</h2>
+            <span class="icon-description clearfix">Quality dashboard</span>
+        </div>*@
+        <div class="col-lg-4 col-sm-4">
+            <a href="@Url.Action("ProjectsList", "Projects")" title="@Message.Traceability" class="icon-home">
+                <span class="e-icon-farms sgv-icon"></span>
+            </a>
+            <h2 class="icon-title">Proyectos</h2>
+            <span class="icon-description clearfix">Gestion de proyectos</span>
+        </div>
+        <div class="col-lg-4 col-sm-4">
+            <a href="@Url.Action("Index", "Farms")" title="Farms" class="icon-home">
+                <span class="e-icon-farms sgv-icon"></span>
+            </a>
+            <h2 class="icon-title">@FarmMessages.Farms</h2>
+            <span class="icon-description clearfix">Información de fincas</span>
+        </div>
+    </div> <!-- end row -->
+</div>

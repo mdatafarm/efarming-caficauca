@@ -1,0 +1,57 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout_without_menu.cshtml";
+}
+
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-lg-4 col-sm-4">
+            <a href="@Url.Action(ViewBag.Action, "Overview", new { id = ViewBag.Id })" title="@DashboardMessage.Overview_Performance" class="icon-home ">
+                <span class="e-icon-susta sgv-icon"></span>
+            </a>
+            <h2 class="icon-title">@DashboardMessage.Overview_Performance</h2>
+            <span class="icon-description clearfix">@DashboardMessage.Overview_Performance</span>
+        </div>
+        <div class="col-lg-4 col-sm-4">
+            <a href="@Url.Action(ViewBag.Action, "Evolution", new { id = ViewBag.Id })" title="@DashboardMessage.Evolution_Performance" class="icon-home">
+                <span class="e-icon-quality sgv-icon"></span>
+            </a>
+            <h2 class="icon-title">@DashboardMessage.Evolution_Performance</h2>
+            <span class="icon-description clearfix">@DashboardMessage.Evolution_Performance</span>
+        </div>
+        <div class="col-lg-4 col-sm-4">
+            <a href="@Url.Action(ViewBag.Action, "gap", new { id = ViewBag.Id })" title="@DashboardMessage.GAP" class="icon-home">
+                <span class="e-icon-trace sgv-icon"></span>
+            </a>
+            <h2 class="icon-title">@DashboardMessage.GAP</h2>
+            <span class="icon-description clearfix">@DashboardMessage.GAP</span>
+        </div>
+    </div> <!-- end row -->
+
+</div>
+@section filter{
+    <br />
+    <form class="form-inline" role="form" id="dashboard-form">
+        <div class="form-group">
+            <label for="Country">@Message.Country:</label>
+            @Html.DropDownList("country", (IEnumerable<SelectListItem>)ViewBag.Countries, string.Format(Message.SelectA, Message.Country), new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <label for="Supplier">@Message.Supplier:</label>
+            @Html.DropDownList("supplier", (IEnumerable<SelectListItem>)ViewBag.Suppliers, string.Format(Message.SelectA, Message.Supplier), new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <label for="SupplyChain">@Message.Supply_Chain:</label>
+            @Html.DropDownList("supplyChain", (IEnumerable<SelectListItem>)ViewBag.SupplyChains, string.Format(Message.SelectA, Message.SupplierChain), new { @class = "form-control" })
+        </div>
+    </form>
+}
+
+@section scripts{
+    <script type="text/javascript">
+        $(function () {
+            $('.form-control').change(function () {
+                $('#dashboard-form').submit();
+            });
+        });
+    </script>
+}

@@ -1,0 +1,28 @@
+﻿@model EFarming.DTO.FarmModule.FloweringPeriodDTO
+
+@Html.HiddenFor(model => model.FarmId)
+@Html.HiddenFor(model => model.PlantationId)
+
+<div class="form-group has-feedback">
+    <label class="control-label hidden-xs col-sm-3" for="FloweringPeriodQualificationId">@AdminMessage.Flowering_Period_Qualification</label>
+    <div class="col-sm-8">
+        <select class="form-control" id="FloweringPeriodQualificationId" name="FloweringPeriodQualificationId" required
+                data-bind="value: floweringPeriodQualification, options: floweringPeriodQualifications, optionsText:'name', optionsValue:'id',optionsCaption: '@string.Format(Message.SelectA, AdminMessage.Flowering_Period_Qualification)'"></select>
+        <span class="hide glyphicon form-control-feedback"></span>
+        <span class="help-block"></span>
+    </div>
+</div>
+<div class="form-group has-feedback">
+    @Html.LabelFor(model => model.StartDate, @Message.Start_Date, new { @class = "col-sm-3 control-label hidden-xs" })
+    <div class="col-sm-8">
+        @Html.TextBoxFor(model => model.StartDate, new { @class = "form-control dateField", placeholder = @Message.End_Date, required = "required", type = "date" })
+        <span class="glyphicon form-control-feedback"></span>
+        <span class="help-block"></span>
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-sm-offset-3 col-sm-9">
+        <button class="btn btn-success">@Message.Save</button>
+        <a class="btn btn-link link-delete modal-close" data-dismiss="modal">@Message.Close</a>
+    </div>
+</div>

@@ -1,0 +1,197 @@
+﻿@model List<EFarming.Core.ComercialModule.Fixation>
+
+@using System.Threading
+@using System.Globalization;
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Comercial/Views/Shared/_PdfLayout.cshtml";
+    var imagePath = Server.MapPath("~/Images");
+}
+
+
+
+@if (Model != null)
+{
+    foreach (var item in Model)
+    {
+        <div>
+            <div style="height:100%">
+                @{
+                    string path = imagePath + @"\" + item.Agreement.Seller.Header + ".png";
+                    string imageWidth = "";
+                    string imageHeight = "";
+                    if (item.Agreement.Seller.Header == "expocafe")
+                    {
+                        imageWidth = "366";
+                        imageHeight = "81";
+                    }
+                    else
+                    {
+                        imageWidth = "134";
+                        imageHeight = "81";
+                    }
+                }
+                <img src="@path" alt="@item.Agreement.Seller.Header" height="@imageHeight" width="@imageWidth" />
+                <div class="documentHeader">
+                    <table style="border-bottom-width:medium">
+                        <tr>
+                            <td colspan="2">
+                                @Html.DisplayFor(model => item.Agreement.Client.Name)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                @Html.DisplayFor(model => item.Agreement.Client.Address)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                @Html.DisplayFor(model => item.Agreement.Client.ZipCode)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(model => item.Agreement.Client.Country)
+                            </td>
+                            <td style="text-align:right"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <div style="height: 30px;"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td valign="bottom" colspan="2" class="title" style="font-size: 16px; text-align:right; border-bottom-width:3px">
+                                Attn. @Html.DisplayFor(model => item.Agreement.Agent.Name)
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="documentBody">
+                    <table>
+                        <tr>
+                            <td valign="top">
+                                <table>
+                                    <tr>
+                                        <td colspan="2" class="title">
+                                            <b>PRICE FIXATION REPORT <span style="color:blue">@Html.DisplayFor(model => item.Agreement.OurRef) / @Html.DisplayFor(model => item.Agreement.YourRef)</span></b>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <div style="height: 30px;"></div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">We confirm that the above mentioned contract has been fully priced as follows:</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="color:white">_</td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="top" class="tdleft">Quality: </td>
+                                        <td class="tdright">@Html.DisplayFor(model => item.Agreement.Quality)</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tdleft">Volume: </td>
+                                        <td class="tdright">@Html.DisplayFor(model => item.Agreement.Volume) Bags of 70 kg each.</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tdleft">Differential: </td>
+                                        <td class="tdright">
+                                            @{
+                                                string pricedate = item.Agreement.PriceDate == null ? "" : item.Agreement.PriceDate;
+                                            }
+                                            @pricedate + @item.Agreement.PriceDifferential cts-lb
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tdleft">Shipment month:</td>
+                                        <td>@item.Agreement.ShipmentDate.ToString("MMMM yyyy", CultureInfo.CreateSpecificCulture("en-US"))</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <div style="height: 30px;"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table class="tableFixations" border="1">
+                                    <tr>
+                                        <th class="thfixations">Transaction Date</th>
+                                        <th class="thfixations">NY’C Contract</th>
+                                        <th class="thfixations">Fixation Price</th>
+                                        <th class="thfixations">Final Price</th>
+                                        <th class="thfixations">USD $ / 70 kg bag</th>
+                                    </tr>
+                                    <tr>
+                                        @{
+                                            string NYC = item.Agreement.PriceDate == null ? "" : item.Agreement.PriceDate.Substring(2, 1);
+                                            decimal? finalPrice = item.FixationLevel + item.Agreement.PriceDifferential;
+                                            //decimal? constant = Convert.ToDecimal(1.54322);
+                                            decimal? USDKg = finalPrice * Convert.ToDecimal(1.54322);
+                                            string USDKgs = USDKg.ToString();
+                                        }
+                                        <td>@item.Agreement.Date.ToString("dd/MM/yyyy", CultureInfo.CreateSpecificCulture("en-US"))</td>
+                                        <td>@NYC</td>
+                                        <td>@item.FixationLevel ct-lb</td>
+                                        <td>@finalPrice ct-lb</td>
+                                        <td>@String.Format("{0:0.00}", USDKg)</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td valign="bottom">
+                                <div style="height: 100px;"></div>
+                                <div>
+                                    Kind regards,
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="signature">
+                    <table>
+                        <tr>
+                            <td class="halfCellLeftSignature">
+                                <img src="@imagePath\signature.png" alt="signature" width="163" height="54" />
+                            </td>
+                            <td class="halfCell"></td>
+                        </tr>
+                        <tr>
+                            <td class="halfCellLeftSignature">
+                                __________________________
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="halfCellLeftSignature">
+                                @Html.DisplayFor(model => item.Agreement.Seller.Name)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="halfCellLeftSignature">
+                                Authorized signature
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="documentFooter">
+                    <table>
+                        <tr>
+                            <td colspan="2" class="documentFooter">
+                                @Html.DisplayFor(model => item.Agreement.Seller.Footer)
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+
+}
+

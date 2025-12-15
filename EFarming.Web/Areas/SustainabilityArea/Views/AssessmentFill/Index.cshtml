@@ -1,0 +1,140 @@
+﻿@using EFarming.Core.AdminModule.AssessmentAggregate
+
+
+@{
+    ViewBag.Title = "Diligenciar Encuestas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2 class="page-name">Diligenciar Encuestas</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="@Url.Action("Index", "Contacts")">
+                    Sostenibilidad
+                </a>
+            </li>
+
+            <li class="active">
+                <strong>Diligenciar Encuestas</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Seleccione el tipo de encuesta</label>
+                            <select id="AssesmentTemplateID" class="form-control">
+                                @if (@ViewBag.TypeAssessment != null)
+                                {
+                                    <option value="-1">Seleccione...</option>
+                                    foreach (AssessmentTemplate ta in @ViewBag.TypeAssessment)
+                                    {
+                                        if (ViewBag.TemplateID != null && ViewBag.TemplateID == ta.Id)
+                                        {
+                                            <option value="@ta.Id" selected>@ta.Name</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@ta.Id">@ta.Name</option>
+                                        }
+                                    }
+                                }
+
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <br />
+                            <a id="btn_new_ass" class="btn btn-default btn-sm pull-right" style="display:none;" href="">Nueva encuesta</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">&nbsp;</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table id="tb_Assessments" class="table table-bordered table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <td>Finca</td>
+                                            <td>Productor</td>
+                                            <td>Fecha</td>
+                                            <td>Estado</td>
+                                            <td>Acciones</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        @if(ViewBag.Answers != null)
+                                        {
+                                            foreach(var a in ViewBag.Answers)
+                                            {
+                                        <tr>
+                                            <td>@a.Nomb_Finca</td>
+                                            <td>@a.Name_Producer</td>
+                                            <td>@a.Fecha</td>
+                                            <td>@a.A_NOT_NULLS / @a.Total_Q</td>
+                                            <td>
+                                                @*<a href="@Url.Action("EditAnswers", "AssessmentsReport", new {area = "", id_Assement = @a.Id_Assement, TASQAssessments = ViewBag.TemplateID, searchStartDate2 = "null", searchEndDate2 = "null" })" class="btn btn-link link-edit">
+                                                    <span class="glyphicon glyphicon-edit"></span>
+                                                </a>*@
+                                                <a href="@Url.Action("AssessmentFill", "AssessmentFill", new {area = "SustainabilityArea", AssessmentID = @a.Id_Assement, TemplateID = ViewBag.TemplateID })" class="btn btn-link link-edit">
+                                                    <span class="glyphicon glyphicon-file"></span>
+                                                </a>
+                                                @*&nbsp;
+        <a onclick="return confirm('Are you sure to delete this survey?');" href="@Url.Action("DeleteAnswers", "AssessmentsReport", new {area = "", id_Assement = @a.Id_Assement, TASQAssessments = ViewBag.TemplateID, searchStartDate2 = "null", searchEndDate2 = "null" })" class="btn btn-link link-edit">
+            <span class="glyphicon glyphicon-remove"></span>
+        </a>*@
+                                            </td>
+                                        </tr>
+                                            }
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+     $(document).ready(function () {
+
+        if ($('#AssesmentTemplateID').val() != "-1") {
+            $('#btn_new_ass').show();
+            var link = document.getElementById("btn_new_ass");
+            link.setAttribute("href", "/SustainabilityArea/AssessmentFill/NewAssessment/?TemplateID=" + $('#AssesmentTemplateID').val());
+        }
+        else {
+            
+            $('#btn_new_ass').hide();
+        }
+    });
+
+
+    $('#AssesmentTemplateID').on('change', function () {
+        if (this.value != "-1") {
+            window.location.href = '@Url.Content("~/SustainabilityArea/AssessmentFill/Index/")' + '?TemplateID=' + this.value; 
+            
+            var link = document.getElementById("btn_new_ass");
+            link.setAttribute("href", "SustainabilityArea/AssessmentFill/NewAssessment/?TemplateID="+$('#AssesmentTemplateID').val());
+        }
+        else {
+            alert('Choose a type');
+            window.location.href = '@Url.Content("~/SustainabilityArea/AssessmentFill/Index/")'; 
+            $('#btn_new_ass').hide();
+        }
+    });
+</script>

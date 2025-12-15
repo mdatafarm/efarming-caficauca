@@ -1,0 +1,298 @@
+﻿@model EFarming.Web.Controllers.QualityReportsController.SensoryProfileResult
+@{
+    ViewBag.Title = "PDF";
+    Layout = "~/Views/Shared/_layoutRotativaPdf.cshtml";
+}
+<link href="@Server.MapPath("~/Content/themes/base/all.css")" rel="stylesheet" />
+
+<div class="row">
+    <div class="col-md-12" width="100%">
+        <div class="row showback">
+            <table colspan="12" align="center" width="100%" class="PDF">
+                <tr>
+                    <td colspan="12" align="center" style="background:#d9d9d9"><h4><strong><br />RESULTADOS ANALISIS SENSORIAL</strong></h4></td>
+                </tr>
+                <tr>
+                    <td colspan="12" align="center">
+                        <img src="@Server.MapPath("~/Images/Clientes/3d93e18b-b323-41c1-b8cc-585493d77303.png")" alt="logo" width="18%" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="12" align="center" style="background:#f2f2f2;"><strong>INFORMACIÓN GENERAL MUESTRA</strong></td>
+                </tr>
+                <tr>
+                    <td align="center" colspan="3" width="30%" style="border-right-color:white;"><strong> Productor </strong></td>
+                    <td align="center" colspan="3" width="30%">@Model.FarmerName</td>
+                    <td colspan="2" width="20%" style="border-right-color:white;padding:5px"><strong> Código </strong></td>
+                    <td align="center" colspan="4" width="40%">@Model.CodeAAA</td>
+                </tr>
+                <tr>
+                    <td align="center" colspan="3" width="30%" style="border-right-color:white;"><strong> Fecha ingreso muestra </strong></td>
+                    <td align="center" colspan="3" width="30%">@*@Model.FirstOrDefault().EntryDate*@</td>
+                    <td colspan="1" width="10%" style="border-right-color:white;padding:5px"><strong> Catador </strong></td>
+                    <td align="center" colspan="5" width="50%">@Model.Agronomist</td>
+                </tr>
+                <tr>
+                    <td align="center" colspan="3" width="30%" style="border-right-color:white;"><strong> Fecha de análiis </strong></td>
+                    <td align="center" colspan="3" width="30%">@string.Format("{0:d-MMM-yy}", Model.AnalysisDate)</td>
+                    <td colspan="2" width="20%" style="border-right-color:white;padding:5px"><strong> Cantidad analizada </strong></td>
+                    <td align="center" colspan="4" width="40%">@Model.AnalyzedAmount</td>
+                </tr>
+                <tr>
+                    <td colspan="12" align="center" style="background:#d9d9d9"><strong> INFORMACIÓN GENERAL FINCA </strong></td>
+                </tr>
+                <tr>
+                    <td colspan="3" width="30%" align="center" style="border-right-color:white;"><strong> Nombre de la finca </strong></td>
+                    <td colspan="2" width="20%" style="border-right-color:white;">&nbsp;</td>
+                    <td align="center" colspan="7" width="70%">@Model.FarmName</td>
+                </tr>
+                <tr>
+                    <td colspan="3" width="30%" align="center" style="border-right-color:white;"><strong> Vereda </strong></td>
+                    <td colspan="2" width="20%" style="border-right-color:white;">&nbsp;</td>
+                    <td align="center" colspan="7" width="70%">@Model.VillageName</td>
+                </tr>
+                <tr>
+                    <td colspan="3" width="30%" align="center" style="border-right-color:white;"><strong> Municipio </strong></td>
+                    <td colspan="2" width="20%" style="border-right-color:white;">&nbsp;</td>
+                    <td align="center" colspan="7" width="70%">@Model.MunicipalityName</td>
+                </tr>
+                <tr>
+                    <td colspan="12" align="center" style="background:#d9d9d9"> <strong> OBSERVACIONES </strong></td>
+                </tr>
+                <tr>
+                    <td colspan="12" align="center" style="border-right-color:white;"><strong> @Model.Observations </strong></td>
+                </tr>
+                <tr>
+                    <td colspan="12" align="center" style="background:#d9d9d9"> <strong> PERFIL </strong></td>
+                </tr>
+                <tr>
+                    <td align="center" colspan="3" width="30%" style="border-right-color:white;"><strong> Fragancia/Aroma </strong></td>
+                    <td align="center" colspan="3" width="30%"><strong>@Model.Fragancia</strong></td>
+                    <td align="center" colspan="6" width="60%" style="border-bottom-color:white;background:#f2f2f2"><strong> Atributos Positivos </strong></td>
+                </tr>
+                <tr>
+                    <td colspan="3" width="30%" align="center" style="border-right-color:white;"><strong> Sabor </strong></td>
+                    <td align="center" colspan="3" width="30%"><strong>@Model.Sabor</strong></td>
+                    <td align="center" colspan="6" rowspan="4" width="60%" style="border-top-color:white;">
+                        <ul style="list-style-type: none; padding:0">
+                            @foreach (var itemPositiveAttribute in Model.ResultPositiveAttribute)
+                            {
+                                <li><strong>@itemPositiveAttribute.Answer</strong></li>
+                            }
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" width="30%" align="center" style="border-right-color:white;"><strong> Sabor residual </strong></td>
+                    <td align="center" colspan="3" width="30%"><strong>@Model.SaborResidual</strong></td>
+                </tr>
+                <tr>
+                    <td align="center" colspan="3" width="30%" style="border-right-color:white;"><strong> Acidez </strong></td>
+                    <td align="center" colspan="3" width="30%"><strong>@Model.Acidez</strong></td>
+                </tr>
+                <tr>
+                    <td colspan="3" width="30%" align="center" style="border-right-color:white;"><strong> Cuerpo </strong></td>
+                    <td align="center" colspan="3" width="30%"><strong>@Model.Cuerpo</strong></td>
+                </tr>
+                <tr>
+                    <td colspan="3" width="30%" align="center" style="border-right-color:white;"><strong> Balance </strong></td>
+                    <td align="center" colspan="3" width="30%"><strong>@Model.Balance</strong></td>
+                    <td align="center" colspan="6" width="60%" style="border-bottom-color:white;background:#f2f2f2"><strong> Defectos </strong></td>
+                </tr>
+                <tr>
+                    <td colspan="3" width="30%" align="center" style="border-right-color:white;"><strong> Dulzor </strong></td>
+                    <td align="center" colspan="3" width="30%"><strong>@Model.Dulzor</strong></td>
+                    <td align="center" colspan="6" rowspan="3" width="60%" style="border-top-color:white;">
+                        <ul style="list-style-type: none; padding:0">
+                            @foreach (var itemPositiveAttribute in Model.ResultDefect.OrderBy(o => o.Answer))
+                            {
+                                <li><strong>@itemPositiveAttribute.Answer</strong></li>
+                            }
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" width="30%" align="center" style="border-right-color:white;"><strong> Puntaje catador </strong></td>
+                    <td align="center" colspan="3" width="30%"><strong>@Model.PuntajeCatador</strong></td>
+                </tr>
+                <tr>
+                    <td colspan="3" width="30%" align="center" style="border-right-color:white;"><strong> Taza limpia </strong></td>
+                    <td align="center" colspan="3" width="30%"><strong>@Model.TazaLimpia</strong></td>
+                </tr>
+                <tr>
+                    <td colspan="3" width="30%" align="center" style="border-right-color:white;"><strong> Uniformidad </strong></td>
+                    <td align="center" colspan="3" width="30%"><strong>@Model.Uniformidad</strong></td>
+                </tr>
+                <tr>
+                    <td colspan="3" width="30%" align="center" style="border-right-color:white;background:#f2f2f2"><strong> Total </strong></td>
+                    <td align="center" colspan="3" width="30%" style="background:#f2f2f2"><strong>@Model.PuntajeTotal</strong></td>
+                </tr>
+                <tr>
+                    <td colspan="4" width="40%" align="center" style="background:#d9d9d9"><strong> Clasificación perfil </strong></td>
+                    <td colspan="8" width="80%" align="center" style="background:@Model.ClassificationColor"><strong>@Model.ResultClassification</strong></td>
+                </tr>
+                <tr>
+                    <td colspan="4" width="40%" align="center" style="border-right-color:white;vertical-align:middle"><strong> Percepción organoléptica </strong></td>
+                    <td colspan="8" id="bar" align="center" style="height:300px; width:800px"></td>
+                </tr>
+                <tr>
+                    <td colspan="12" align="center" style="background:#d9d9d9"> <strong> RECOMENDACIONES </strong></td>
+                </tr>
+                <tr>
+                    <td colspan="12" align="justify" style="padding:6px">
+                        @if (Model.ResultRecommendation != null)
+                        {
+                            <ul style="list-style-type: none; padding:0">
+                                @foreach (var itemRecommendation in Model.ResultRecommendation.OrderBy(o => o.OrderOpcion))
+                                {
+                                    <li>@itemRecommendation.Recommendations</li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            @Model.ResultRecommendationClassification
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" width="20%" align="center" style="border-right-color:white;vertical-align:middle;padding:3px"><strong> Recolección </strong></td>
+                    <td colspan="10" width="100%" align="justify">Planee y supervice la cosecha, coseche solo frutos maduros</td>
+                </tr>
+                <tr>
+                    <td colspan="2" width="20%" align="center" style="border-right-color:white;vertical-align:middle;padding:3px"><strong> Beneficio </strong></td>
+                    <td colspan="10" width="100%" align="justify">
+                        Beneficie su café el mismo día de la cosecha<br />
+                        Evite la mezcla de cochadas, realice mantenimiento a sus equipos<br />
+                        Lave bien su café, no deje residuos de mucilago
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" width="20%" align="center" style="border-right-color:white;vertical-align:middle;padding:3px"><strong> Secado </strong></td>
+                    <td colspan="10" width="100%" align="justify">
+                        No suspenda el secado de su café, revuelva el café con regularidad<br />
+                        Use capas de secado delgadas, entre 3 y 5 centimetros de espesor<br />
+                        En silos no supere nunca los 50° Celsius para el secado de su café
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" width="20%" align="center" style="border-right-color:white;vertical-align:middle;padding:3px"><strong> Almacenamiento </strong></td>
+                    <td colspan="10" width="100%" align="justify">
+                        Almacene su café sobre estibas retirado del suelo, aislado de las paredes<br>
+                        Use sacos limpios para el almacenamiento del café
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="7" width="70%" align="justify" style="padding:6px">NOTA: Los resultados expresados en este analisis son de carácter  educativo y aseguramiento a la calidad. Análisis sin valor comercial</td>
+                    <td colspan="5" width="50%" align="center" style="padding:6px">El resultado unicamente tiene validez para la muestra analizada</td>
+                </tr>
+            </table>
+            <input value="@Model.Fragancia" id="Fragancia" name="Fragancia" type="hidden" />
+            <input value="@Model.Aroma" id="Aroma" name="Aroma" type="hidden" />
+            <input value="@Model.Sabor" id="Sabor" name="Sabor" type="hidden" />
+            <input value="@Model.SaborResidual" id="SaborResidual" name="SaborResidual" type="hidden" />
+            <input value="@Model.Acidez" id="Acidez" name="Acidez" type="hidden" />
+            <input value="@Model.Cuerpo" id="Cuerpo" name="Cuerpo" type="hidden" />
+            <input value="@Model.Balance" id="Balance" name="Balance" type="hidden" />
+            <input value="@Model.Dulzor" id="Dulzor" name="Dulzor" type="hidden" />
+            <input value="@Model.PuntajeCatador" id="PuntajeCatador" name="PuntajeCatador" type="hidden" />
+            <input value="@Model.TazaLimpia" id="TazaLimpia" name="TazaLimpia" type="hidden" />
+            <input value="@Model.Uniformidad" id="Uniformidad" name="Uniformidad" type="hidden" />
+        </div>
+    </div>
+</div>
+
+
+<style>
+    .PDF {
+        font-family: Calibri;
+        font-size: 15px;
+        text-align: justify;
+        color: black;
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+
+    table, td, th {
+        border: 1px solid black;
+    }
+</style>
+<script src="http://code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+<script src="https://code.highcharts.com/modules/data.js"></script>
+<script src="https://code.highcharts.com/modules/drilldown.js"></script>
+<script>
+    function charts() {
+        var DataArray = [$("#Fragancia").val(), $("#Sabor").val(), $("#SaborResidual").val(), $("#Acidez").val(), $("#Cuerpo").val(), $("#Balance").val(), $("#Dulzor").val(), $("#PuntajeCatador").val(), $("#TazaLimpia").val(), $("#Uniformidad").val()];
+        console.log(DataArray)
+       Highcharts.chart('bar', {
+
+            chart: {
+                polar: true,
+                type: 'line',
+                width: 500,
+                height: 280,
+                marginTop: 10,
+                spacingBottom: 15,
+                spacingTop: 10
+            },
+
+            title: {
+                text: '',
+                x: -80
+            },
+
+            pane: {
+                size: '100%'
+            },
+
+            xAxis: {
+                categories: ['Fragancia', 'Sabor', 'Sabor residual', 'Acidez', 'Cuerpo', 'Balance', 'Dulzor', 'Puntaje catador', 'Taza Limpia', 'Uniformidad'],
+                tickmarkPlacement: 'on',
+                lineWidth: 0
+            },
+
+
+            yAxis: {
+                categories: ['0', '1', '2', '3', '4'],
+                gridLineInterpolation: 'polygon',
+                lineWidth: 0,
+                min: 0
+            },
+
+            plotOptions: {
+                line: {
+                    animation: false,
+                    dataLabels: {
+                        enabled: true,
+                    },
+                }
+            },
+
+
+            tooltip: {
+                shared: true,
+                pointFormat: '<span style="color:{series.color}">{series.name}: <b>{point.y:,.1f}</b><br/>'
+            },
+
+            legend: {
+                align: 'center',
+                y: 500,
+                layout: 'vertical'
+            },
+
+            series: [
+                {
+                    data: JSON.parse("[" + DataArray + "]"),
+                    pointPlacement: 'on',
+                    lineWidth: 3
+                }
+            ]
+        });
+    };
+
+    charts();
+</script>

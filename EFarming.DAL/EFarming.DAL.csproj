@@ -1,0 +1,1546 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4458A58C-2928-402C-835B-7503B97A50D0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EFarming.DAL</RootNamespace>
+    <AssemblyName>EFarming.DAL</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>bin\Debug\EFarming.DAL.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Common.Logging, Version=3.4.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.3.4.1\lib\net40\Common.Logging.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Common.Logging.Core, Version=3.4.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.Core.3.4.1\lib\net40\Common.Logging.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus, Version=8.0.5.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.8.0.5\lib\net35\EPPlus.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Data.Edm, Version=5.6.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Data.Edm.5.6.2\lib\net40\Microsoft.Data.Edm.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.OData, Version=5.6.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Data.OData.5.6.2\lib\net40\Microsoft.Data.OData.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.Services.Client, Version=5.6.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Data.Services.Client.5.6.2\lib\net40\Microsoft.Data.Services.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Configuration, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.2.0.3\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Storage, Version=4.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\WindowsAzure.Storage.4.2.1\lib\net40\Microsoft.WindowsAzure.Storage.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Spatial, Version=5.6.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\System.Spatial.5.6.2\lib\net40\System.Spatial.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Contract\IQueryableUnitOfWork.cs" />
+    <Compile Include="Contract\ISql.cs" />
+    <Compile Include="DriverDataAccess.cs" />
+    <Compile Include="EntityConfiguration\AgentConfiguration.cs" />
+    <Compile Include="EntityConfiguration\AgreementConfiguration.cs" />
+    <Compile Include="EntityConfiguration\AssessmentTemplateConfiguration.cs" />
+    <Compile Include="EntityConfiguration\ChecklistConfiguration.cs" />
+    <Compile Include="EntityConfiguration\ClientConfiguration.cs" />
+    <Compile Include="EntityConfiguration\CountryConfiguration.cs" />
+    <Compile Include="EntityConfiguration\InvoiceConfiguration.cs" />
+    <Compile Include="EntityConfiguration\LotConfiguration.cs" />
+    <Compile Include="EntityConfiguration\MicrolotConfiguration.cs" />
+    <Compile Include="EntityConfiguration\SellerConfiguration.cs" />
+    <Compile Include="EntityConfiguration\SupplyChainStatusConfiguration.cs" />
+    <Compile Include="EntityConfiguration\ProjectConfiguration.cs" />
+    <Compile Include="EntityConfiguration\QualityAttributeConfiguration.cs" />
+    <Compile Include="EntityConfiguration\BasicConfiguration.cs" />
+    <Compile Include="EntityConfiguration\CooperativesConfiguration.cs" />
+    <Compile Include="EntityConfiguration\DepartmentConfiguration.cs" />
+    <Compile Include="EntityConfiguration\FamilyUnitMemberConfiguration.cs" />
+    <Compile Include="EntityConfiguration\FarmConfiguration.cs" />
+    <Compile Include="EntityConfiguration\FarmOtherActivityConfiguration.cs" />
+    <Compile Include="EntityConfiguration\FarmStatusConfiguration.cs" />
+    <Compile Include="EntityConfiguration\FarmSubstatusConfiguration.cs" />
+    <Compile Include="EntityConfiguration\FertilizerConfiguration.cs" />
+    <Compile Include="EntityConfiguration\FloweringPeriodConfiguration.cs" />
+    <Compile Include="EntityConfiguration\FloweringPeriodQualificationConfiguration.cs" />
+    <Compile Include="EntityConfiguration\ImageConfiguration.cs" />
+    <Compile Include="EntityConfiguration\ImpactAssessmentConfiguration.cs" />
+    <Compile Include="EntityConfiguration\IndicatorConfiguration.cs" />
+    <Compile Include="EntityConfiguration\MunicipalityConfiguration.cs" />
+    <Compile Include="EntityConfiguration\OtherActivityConfiguration.cs" />
+    <Compile Include="EntityConfiguration\OwnershipTypeConfiguration.cs" />
+    <Compile Include="EntityConfiguration\PlantationConfiguration.cs" />
+    <Compile Include="EntityConfiguration\PlantationStatusConfiguration.cs" />
+    <Compile Include="EntityConfiguration\PlantationTypeConfiguration.cs" />
+    <Compile Include="EntityConfiguration\PlantationVarietyConfiguration.cs" />
+    <Compile Include="EntityConfiguration\ProductivityConfiguration.cs" />
+    <Compile Include="EntityConfiguration\QualityProfileConfiguration.cs" />
+    <Compile Include="EntityConfiguration\SensoryProfileConfiguration.cs" />
+    <Compile Include="EntityConfiguration\SoilAnalysisConfiguration.cs" />
+    <Compile Include="EntityConfiguration\SoilTypeConfiguration.cs" />
+    <Compile Include="EntityConfiguration\SupplyChainConfiguration.cs" />
+    <Compile Include="EntityConfiguration\SupplierConfiguration.cs" />
+    <Compile Include="EntityConfiguration\VillageConfiguration.cs" />
+    <Compile Include="EntityConfiguration\WorkerConfiguration.cs" />
+    <Compile Include="Migrations\201405140140382_InitialMigrate.cs" />
+    <Compile Include="Migrations\201405140140382_InitialMigrate.Designer.cs">
+      <DependentUpon>201405140140382_InitialMigrate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201405140222550_BasicFarmInfo.cs" />
+    <Compile Include="Migrations\201405140222550_BasicFarmInfo.Designer.cs">
+      <DependentUpon>201405140222550_BasicFarmInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201405141550023_RemoveSecondaryCodeUniqueness.cs" />
+    <Compile Include="Migrations\201405141550023_RemoveSecondaryCodeUniqueness.Designer.cs">
+      <DependentUpon>201405141550023_RemoveSecondaryCodeUniqueness.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201405141553254_RemoveSecondaryCodeRequired.cs" />
+    <Compile Include="Migrations\201405141553254_RemoveSecondaryCodeRequired.Designer.cs">
+      <DependentUpon>201405141553254_RemoveSecondaryCodeRequired.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201405141616269_AddAuditToFarms.cs" />
+    <Compile Include="Migrations\201405141616269_AddAuditToFarms.Designer.cs">
+      <DependentUpon>201405141616269_AddAuditToFarms.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201405141641475_NullableAuditDates.cs" />
+    <Compile Include="Migrations\201405141641475_NullableAuditDates.Designer.cs">
+      <DependentUpon>201405141641475_NullableAuditDates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201405190111207_RemovePK.cs" />
+    <Compile Include="Migrations\201405190111207_RemovePK.Designer.cs">
+      <DependentUpon>201405190111207_RemovePK.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201405190113127_ChangeIntToGuidKeys.cs" />
+    <Compile Include="Migrations\201405190113127_ChangeIntToGuidKeys.Designer.cs">
+      <DependentUpon>201405190113127_ChangeIntToGuidKeys.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201405190244265_AddDepartmentAndMunicipality.cs" />
+    <Compile Include="Migrations\201405190244265_AddDepartmentAndMunicipality.Designer.cs">
+      <DependentUpon>201405190244265_AddDepartmentAndMunicipality.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201405272206391_AddAuthorization.cs" />
+    <Compile Include="Migrations\201405272206391_AddAuthorization.Designer.cs">
+      <DependentUpon>201405272206391_AddAuthorization.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201405281343570_AddSaltField.cs" />
+    <Compile Include="Migrations\201405281343570_AddSaltField.Designer.cs">
+      <DependentUpon>201405281343570_AddSaltField.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201405281356228_AddSaltFieldLength.cs" />
+    <Compile Include="Migrations\201405281356228_AddSaltFieldLength.Designer.cs">
+      <DependentUpon>201405281356228_AddSaltFieldLength.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201405292135509_AddVillages.cs" />
+    <Compile Include="Migrations\201405292135509_AddVillages.Designer.cs">
+      <DependentUpon>201405292135509_AddVillages.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201405301433089_AddFarmStatuses.cs" />
+    <Compile Include="Migrations\201405301433089_AddFarmStatuses.Designer.cs">
+      <DependentUpon>201405301433089_AddFarmStatuses.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201405301925218_AddFarmSubstatuses.cs" />
+    <Compile Include="Migrations\201405301925218_AddFarmSubstatuses.Designer.cs">
+      <DependentUpon>201405301925218_AddFarmSubstatuses.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201405302149457_AddMissingConfigurations.cs" />
+    <Compile Include="Migrations\201405302149457_AddMissingConfigurations.Designer.cs">
+      <DependentUpon>201405302149457_AddMissingConfigurations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201405312002160_AddOwnershipTypes.cs" />
+    <Compile Include="Migrations\201405312002160_AddOwnershipTypes.Designer.cs">
+      <DependentUpon>201405312002160_AddOwnershipTypes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201405312335596_AddCooperatives.cs" />
+    <Compile Include="Migrations\201405312335596_AddCooperatives.Designer.cs">
+      <DependentUpon>201405312335596_AddCooperatives.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201406031311090_AddSoilTypes.cs" />
+    <Compile Include="Migrations\201406031311090_AddSoilTypes.Designer.cs">
+      <DependentUpon>201406031311090_AddSoilTypes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201406031408143_AddPlantationTypes.cs" />
+    <Compile Include="Migrations\201406031408143_AddPlantationTypes.Designer.cs">
+      <DependentUpon>201406031408143_AddPlantationTypes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201406031441227_AddPlantationVarieties.cs" />
+    <Compile Include="Migrations\201406031441227_AddPlantationVarieties.Designer.cs">
+      <DependentUpon>201406031441227_AddPlantationVarieties.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201406031609140_AddPlantationStatus.cs" />
+    <Compile Include="Migrations\201406031609140_AddPlantationStatus.Designer.cs">
+      <DependentUpon>201406031609140_AddPlantationStatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201406031646407_AddFloweringPeriodQualifications.cs" />
+    <Compile Include="Migrations\201406031646407_AddFloweringPeriodQualifications.Designer.cs">
+      <DependentUpon>201406031646407_AddFloweringPeriodQualifications.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201406031837445_AddOtherActivities.cs" />
+    <Compile Include="Migrations\201406031837445_AddOtherActivities.Designer.cs">
+      <DependentUpon>201406031837445_AddOtherActivities.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201406041400098_changeFarmInfo.cs" />
+    <Compile Include="Migrations\201406041400098_changeFarmInfo.Designer.cs">
+      <DependentUpon>201406041400098_changeFarmInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201406052033275_AddProductivityInfoToFarms.cs" />
+    <Compile Include="Migrations\201406052033275_AddProductivityInfoToFarms.Designer.cs">
+      <DependentUpon>201406052033275_AddProductivityInfoToFarms.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201406052231049_ChangeInfrastructureName.cs" />
+    <Compile Include="Migrations\201406052231049_ChangeInfrastructureName.Designer.cs">
+      <DependentUpon>201406052231049_ChangeInfrastructureName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201406061445552_AddSoilAnalysisToFarms.cs" />
+    <Compile Include="Migrations\201406061445552_AddSoilAnalysisToFarms.Designer.cs">
+      <DependentUpon>201406061445552_AddSoilAnalysisToFarms.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201406102208383_AddSoilTypesToFarm.cs" />
+    <Compile Include="Migrations\201406102208383_AddSoilTypesToFarm.Designer.cs">
+      <DependentUpon>201406102208383_AddSoilTypesToFarm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201406112002272_AddPlantationsToProductivity.cs" />
+    <Compile Include="Migrations\201406112002272_AddPlantationsToProductivity.Designer.cs">
+      <DependentUpon>201406112002272_AddPlantationsToProductivity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201406161510141_AddWorkersToFarm.cs" />
+    <Compile Include="Migrations\201406161510141_AddWorkersToFarm.Designer.cs">
+      <DependentUpon>201406161510141_AddWorkersToFarm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201406161901395_AddFertilizersToFarm.cs" />
+    <Compile Include="Migrations\201406161901395_AddFertilizersToFarm.Designer.cs">
+      <DependentUpon>201406161901395_AddFertilizersToFarm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201406171403266_AddOtherActivitiesToFarm.cs" />
+    <Compile Include="Migrations\201406171403266_AddOtherActivitiesToFarm.Designer.cs">
+      <DependentUpon>201406171403266_AddOtherActivitiesToFarm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201406181653035_AddFamilyUnitMembersToFarms.cs" />
+    <Compile Include="Migrations\201406181653035_AddFamilyUnitMembersToFarms.Designer.cs">
+      <DependentUpon>201406181653035_AddFamilyUnitMembersToFarms.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201406261636344_AddImagesToFarms.cs" />
+    <Compile Include="Migrations\201406261636344_AddImagesToFarms.Designer.cs">
+      <DependentUpon>201406261636344_AddImagesToFarms.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201406271425412_AddThumbNameToImages.cs" />
+    <Compile Include="Migrations\201406271425412_AddThumbNameToImages.Designer.cs">
+      <DependentUpon>201406271425412_AddThumbNameToImages.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407022059046_AddImpactIndicators.cs" />
+    <Compile Include="Migrations\201407022059046_AddImpactIndicators.Designer.cs">
+      <DependentUpon>201407022059046_AddImpactIndicators.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407031536327_RemoveRelationshipBetweenFarmsAndIndicators.cs" />
+    <Compile Include="Migrations\201407031536327_RemoveRelationshipBetweenFarmsAndIndicators.Designer.cs">
+      <DependentUpon>201407031536327_RemoveRelationshipBetweenFarmsAndIndicators.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407072202547_ChangeCriteriaDescriptionLength.cs" />
+    <Compile Include="Migrations\201407072202547_ChangeCriteriaDescriptionLength.Designer.cs">
+      <DependentUpon>201407072202547_ChangeCriteriaDescriptionLength.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407081543580_ChangeIndicatorPropertiesLength.cs" />
+    <Compile Include="Migrations\201407081543580_ChangeIndicatorPropertiesLength.Designer.cs">
+      <DependentUpon>201407081543580_ChangeIndicatorPropertiesLength.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407091406289_ChangeDescriptionLengthForCriteriaOptions.cs" />
+    <Compile Include="Migrations\201407091406289_ChangeDescriptionLengthForCriteriaOptions.Designer.cs">
+      <DependentUpon>201407091406289_ChangeDescriptionLengthForCriteriaOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407141359563_AddImpactAssessmentsToFarms.cs" />
+    <Compile Include="Migrations\201407141359563_AddImpactAssessmentsToFarms.Designer.cs">
+      <DependentUpon>201407141359563_AddImpactAssessmentsToFarms.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407211935165_UpdateUserInfo.cs" />
+    <Compile Include="Migrations\201407211935165_UpdateUserInfo.Designer.cs">
+      <DependentUpon>201407211935165_UpdateUserInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407212134044_AddOnInstallFieldToUsers.cs" />
+    <Compile Include="Migrations\201407212134044_AddOnInstallFieldToUsers.Designer.cs">
+      <DependentUpon>201407212134044_AddOnInstallFieldToUsers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407221335288_AddEnabledAttribute.cs" />
+    <Compile Include="Migrations\201407221335288_AddEnabledAttribute.Designer.cs">
+      <DependentUpon>201407221335288_AddEnabledAttribute.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407221350005_RemoveUnnecesaryEnabledAttribute.cs" />
+    <Compile Include="Migrations\201407221350005_RemoveUnnecesaryEnabledAttribute.Designer.cs">
+      <DependentUpon>201407221350005_RemoveUnnecesaryEnabledAttribute.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407222131556_AddDeletedAtFieldToTrackDeletions.cs" />
+    <Compile Include="Migrations\201407222131556_AddDeletedAtFieldToTrackDeletions.Designer.cs">
+      <DependentUpon>201407222131556_AddDeletedAtFieldToTrackDeletions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407231641080_AddAttributesForSensoryProfile.cs" />
+    <Compile Include="Migrations\201407231641080_AddAttributesForSensoryProfile.Designer.cs">
+      <DependentUpon>201407231641080_AddAttributesForSensoryProfile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407251516325_ChangeAttributesTableName.cs" />
+    <Compile Include="Migrations\201407251516325_ChangeAttributesTableName.Designer.cs">
+      <DependentUpon>201407251516325_ChangeAttributesTableName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407251545099_RemoveAttributeIdField.cs" />
+    <Compile Include="Migrations\201407251545099_RemoveAttributeIdField.Designer.cs">
+      <DependentUpon>201407251545099_RemoveAttributeIdField.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407281543299_RemoveOpenTextEntity.cs" />
+    <Compile Include="Migrations\201407281543299_RemoveOpenTextEntity.Designer.cs">
+      <DependentUpon>201407281543299_RemoveOpenTextEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407281853583_RemoveValueFieldFromOptionAttribute.cs" />
+    <Compile Include="Migrations\201407281853583_RemoveValueFieldFromOptionAttribute.Designer.cs">
+      <DependentUpon>201407281853583_RemoveValueFieldFromOptionAttribute.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407282043281_AddSensoryProfileAssessments.cs" />
+    <Compile Include="Migrations\201407282043281_AddSensoryProfileAssessments.Designer.cs">
+      <DependentUpon>201407282043281_AddSensoryProfileAssessments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407302157545_AddAssociatedPeopleToFarms.cs" />
+    <Compile Include="Migrations\201407302157545_AddAssociatedPeopleToFarms.Designer.cs">
+      <DependentUpon>201407302157545_AddAssociatedPeopleToFarms.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407311823352_FarmSubstatusIsNotRequired.cs" />
+    <Compile Include="Migrations\201407311823352_FarmSubstatusIsNotRequired.Designer.cs">
+      <DependentUpon>201407311823352_FarmSubstatusIsNotRequired.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407311841252_FarmGeolocationIsNotRequired.cs" />
+    <Compile Include="Migrations\201407311841252_FarmGeolocationIsNotRequired.Designer.cs">
+      <DependentUpon>201407311841252_FarmGeolocationIsNotRequired.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407311954496_FamilyUnitMemberOptionalFields.cs" />
+    <Compile Include="Migrations\201407311954496_FamilyUnitMemberOptionalFields.Designer.cs">
+      <DependentUpon>201407311954496_FamilyUnitMemberOptionalFields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408041633041_AddInvoicesToFarms.cs" />
+    <Compile Include="Migrations\201408041633041_AddInvoicesToFarms.Designer.cs">
+      <DependentUpon>201408041633041_AddInvoicesToFarms.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408051324253_CorretNameOfReceiptInvoice.cs" />
+    <Compile Include="Migrations\201408051324253_CorretNameOfReceiptInvoice.Designer.cs">
+      <DependentUpon>201408051324253_CorretNameOfReceiptInvoice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408201618577_AnswerNotRequired.cs" />
+    <Compile Include="Migrations\201408201618577_AnswerNotRequired.Designer.cs">
+      <DependentUpon>201408201618577_AnswerNotRequired.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201409301321367_AddCategories.cs" />
+    <Compile Include="Migrations\201409301321367_AddCategories.Designer.cs">
+      <DependentUpon>201409301321367_AddCategories.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410012124257_AddScoreToCategories.cs" />
+    <Compile Include="Migrations\201410012124257_AddScoreToCategories.Designer.cs">
+      <DependentUpon>201410012124257_AddScoreToCategories.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410022033010_AddCountryAndSupplierToFarm.cs" />
+    <Compile Include="Migrations\201410022033010_AddCountryAndSupplierToFarm.Designer.cs">
+      <DependentUpon>201410022033010_AddCountryAndSupplierToFarm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410031519111_AddMandatoryFieldToCriteria.cs" />
+    <Compile Include="Migrations\201410031519111_AddMandatoryFieldToCriteria.Designer.cs">
+      <DependentUpon>201410031519111_AddMandatoryFieldToCriteria.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410061519467_FarmCooperativeIdNotRequired.cs" />
+    <Compile Include="Migrations\201410061519467_FarmCooperativeIdNotRequired.Designer.cs">
+      <DependentUpon>201410061519467_FarmCooperativeIdNotRequired.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410061521063_FarmOwnershipTypeIdNotRequired.cs" />
+    <Compile Include="Migrations\201410061521063_FarmOwnershipTypeIdNotRequired.Designer.cs">
+      <DependentUpon>201410061521063_FarmOwnershipTypeIdNotRequired.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410151500269_AddAssessmentTemplates.cs" />
+    <Compile Include="Migrations\201410151500269_AddAssessmentTemplates.Designer.cs">
+      <DependentUpon>201410151500269_AddAssessmentTemplates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410152020329_AddAssessmentTemplatesToCategoriesAndQualityAttributes.cs" />
+    <Compile Include="Migrations\201410152020329_AddAssessmentTemplatesToCategoriesAndQualityAttributes.Designer.cs">
+      <DependentUpon>201410152020329_AddAssessmentTemplatesToCategoriesAndQualityAttributes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410261703013_AddProjects.cs" />
+    <Compile Include="Migrations\201410261703013_AddProjects.Designer.cs">
+      <DependentUpon>201410261703013_AddProjects.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201411111410208_AddOwnerFieldToFamilyMember.cs" />
+    <Compile Include="Migrations\201411111410208_AddOwnerFieldToFamilyMember.Designer.cs">
+      <DependentUpon>201411111410208_AddOwnerFieldToFamilyMember.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201411121440484_AddLots.cs" />
+    <Compile Include="Migrations\201411121440484_AddLots.Designer.cs">
+      <DependentUpon>201411121440484_AddLots.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201411121615105_RemoveCooperativeFromInvoice.cs" />
+    <Compile Include="Migrations\201411121615105_RemoveCooperativeFromInvoice.Designer.cs">
+      <DependentUpon>201411121615105_RemoveCooperativeFromInvoice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201411121858246_ChangeWeightType.cs" />
+    <Compile Include="Migrations\201411121858246_ChangeWeightType.Designer.cs">
+      <DependentUpon>201411121858246_ChangeWeightType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201411122136085_AddPositionToQualityAttributes.cs" />
+    <Compile Include="Migrations\201411122136085_AddPositionToQualityAttributes.Designer.cs">
+      <DependentUpon>201411122136085_AddPositionToQualityAttributes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201412021344017_AddMicrolots.cs" />
+    <Compile Include="Migrations\201412021344017_AddMicrolots.Designer.cs">
+      <DependentUpon>201412021344017_AddMicrolots.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201412021418557_AddTypeToSensoryProfileAssessments.cs" />
+    <Compile Include="Migrations\201412021418557_AddTypeToSensoryProfileAssessments.Designer.cs">
+      <DependentUpon>201412021418557_AddTypeToSensoryProfileAssessments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201412111618391_AddVillageAndMunicipalityToMicrolot.cs" />
+    <Compile Include="Migrations\201412111618391_AddVillageAndMunicipalityToMicrolot.Designer.cs">
+      <DependentUpon>201412111618391_AddVillageAndMunicipalityToMicrolot.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201501201435126_AddProductivePlantsToPlantations.cs" />
+    <Compile Include="Migrations\201501201435126_AddProductivePlantsToPlantations.Designer.cs">
+      <DependentUpon>201501201435126_AddProductivePlantsToPlantations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201501232055371_ChangeFertilizerMeasureToDouble.cs" />
+    <Compile Include="Migrations\201501232055371_ChangeFertilizerMeasureToDouble.Designer.cs">
+      <DependentUpon>201501232055371_ChangeFertilizerMeasureToDouble.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201501271504564_AddQualityProfileToSupplyChains.cs" />
+    <Compile Include="Migrations\201501271504564_AddQualityProfileToSupplyChains.Designer.cs">
+      <DependentUpon>201501271504564_AddQualityProfileToSupplyChains.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201501271636085_AddOpenTextAttribute.cs" />
+    <Compile Include="Migrations\201501271636085_AddOpenTextAttribute.Designer.cs">
+      <DependentUpon>201501271636085_AddOpenTextAttribute.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201501272135381_RemoveQualityAttributeId.cs" />
+    <Compile Include="Migrations\201501272135381_RemoveQualityAttributeId.Designer.cs">
+      <DependentUpon>201501272135381_RemoveQualityAttributeId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201502021530409_AddSupplyChainStatus.cs" />
+    <Compile Include="Migrations\201502021530409_AddSupplyChainStatus.Designer.cs">
+      <DependentUpon>201502021530409_AddSupplyChainStatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201502022024027_AddSupplyChainInfo.cs" />
+    <Compile Include="Migrations\201502022024027_AddSupplyChainInfo.Designer.cs">
+      <DependentUpon>201502022024027_AddSupplyChainInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201502031318163_AddLogoUrlToSuppliers.cs" />
+    <Compile Include="Migrations\201502031318163_AddLogoUrlToSuppliers.Designer.cs">
+      <DependentUpon>201502031318163_AddLogoUrlToSuppliers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201502092125266_AddTasterToSensoryProfileAssessments.cs" />
+    <Compile Include="Migrations\201502092125266_AddTasterToSensoryProfileAssessments.Designer.cs">
+      <DependentUpon>201502092125266_AddTasterToSensoryProfileAssessments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201502092156495_ChangeTasterToUser.cs" />
+    <Compile Include="Migrations\201502092156495_ChangeTasterToUser.Designer.cs">
+      <DependentUpon>201502092156495_ChangeTasterToUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201502242027225_AddPrincipalAttributeToSetMainPicture.cs" />
+    <Compile Include="Migrations\201502242027225_AddPrincipalAttributeToSetMainPicture.Designer.cs">
+      <DependentUpon>201502242027225_AddPrincipalAttributeToSetMainPicture.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201502251842491_AddSustainabilityRequirements.cs" />
+    <Compile Include="Migrations\201502251842491_AddSustainabilityRequirements.Designer.cs">
+      <DependentUpon>201502251842491_AddSustainabilityRequirements.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503290212170_AddChecklistInformation.cs" />
+    <Compile Include="Migrations\201503290212170_AddChecklistInformation.Designer.cs">
+      <DependentUpon>201503290212170_AddChecklistInformation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505100413500_AddObservationToChecklistEntities.cs" />
+    <Compile Include="Migrations\201505100413500_AddObservationToChecklistEntities.Designer.cs">
+      <DependentUpon>201505100413500_AddObservationToChecklistEntities.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505100521034_migracion_Juange.cs" />
+    <Compile Include="Migrations\201505100521034_migracion_Juange.Designer.cs">
+      <DependentUpon>201505100521034_migracion_Juange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505210309570_AddSIgnaturesToChecklist.cs" />
+    <Compile Include="Migrations\201505210309570_AddSIgnaturesToChecklist.Designer.cs">
+      <DependentUpon>201505210309570_AddSIgnaturesToChecklist.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505211311535_tmp.cs" />
+    <Compile Include="Migrations\201505211311535_tmp.Designer.cs">
+      <DependentUpon>201505211311535_tmp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505222312476_cambios_juange.cs" />
+    <Compile Include="Migrations\201505222312476_cambios_juange.Designer.cs">
+      <DependentUpon>201505222312476_cambios_juange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505261509398_26May.cs" />
+    <Compile Include="Migrations\201505261509398_26May.Designer.cs">
+      <DependentUpon>201505261509398_26May.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505262142464_tmpMay26.cs" />
+    <Compile Include="Migrations\201505262142464_tmpMay26.Designer.cs">
+      <DependentUpon>201505262142464_tmpMay26.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201509021927348_ClientCreation.cs" />
+    <Compile Include="Migrations\201509021927348_ClientCreation.Designer.cs">
+      <DependentUpon>201509021927348_ClientCreation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201509031429134_AddingClientFieldsAndAgentEntity.cs" />
+    <Compile Include="Migrations\201509031429134_AddingClientFieldsAndAgentEntity.Designer.cs">
+      <DependentUpon>201509031429134_AddingClientFieldsAndAgentEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201509031844016_AddingClientIdFieldToAgents.cs" />
+    <Compile Include="Migrations\201509031844016_AddingClientIdFieldToAgents.Designer.cs">
+      <DependentUpon>201509031844016_AddingClientIdFieldToAgents.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201509032014130_AgreementCreation.cs" />
+    <Compile Include="Migrations\201509032014130_AgreementCreation.Designer.cs">
+      <DependentUpon>201509032014130_AgreementCreation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201509041244045_SellerCreation.cs" />
+    <Compile Include="Migrations\201509041244045_SellerCreation.Designer.cs">
+      <DependentUpon>201509041244045_SellerCreation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201509041248227_AddingAgreementsAndSellersRelation.cs" />
+    <Compile Include="Migrations\201509041248227_AddingAgreementsAndSellersRelation.Designer.cs">
+      <DependentUpon>201509041248227_AddingAgreementsAndSellersRelation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201509101246316_ChangeNameOfComercialTables.cs" />
+    <Compile Include="Migrations\201509101246316_ChangeNameOfComercialTables.Designer.cs">
+      <DependentUpon>201509101246316_ChangeNameOfComercialTables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201509101932090_AddingFieldValidationsInComercialModels.cs" />
+    <Compile Include="Migrations\201509101932090_AddingFieldValidationsInComercialModels.Designer.cs">
+      <DependentUpon>201509101932090_AddingFieldValidationsInComercialModels.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510132123211_Adding_AgentId_In_Agreements.cs" />
+    <Compile Include="Migrations\201510132123211_Adding_AgentId_In_Agreements.Designer.cs">
+      <DependentUpon>201510132123211_Adding_AgentId_In_Agreements.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510142031327_Nullable_Price_Fields.cs" />
+    <Compile Include="Migrations\201510142031327_Nullable_Price_Fields.Designer.cs">
+      <DependentUpon>201510142031327_Nullable_Price_Fields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510142046438_Add_FinalPrice_Change_PriceLots.cs" />
+    <Compile Include="Migrations\201510142046438_Add_FinalPrice_Change_PriceLots.Designer.cs">
+      <DependentUpon>201510142046438_Add_FinalPrice_Change_PriceLots.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510151607043_Add_MoreInformationTable.cs" />
+    <Compile Include="Migrations\201510151607043_Add_MoreInformationTable.Designer.cs">
+      <DependentUpon>201510151607043_Add_MoreInformationTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510161537108_Change_PricesDate_Format_From_Date_To_String.cs" />
+    <Compile Include="Migrations\201510161537108_Change_PricesDate_Format_From_Date_To_String.Designer.cs">
+      <DependentUpon>201510161537108_Change_PricesDate_Format_From_Date_To_String.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510161943572_Short_Field_In_MoreInformation_Table.cs" />
+    <Compile Include="Migrations\201510161943572_Short_Field_In_MoreInformation_Table.Designer.cs">
+      <DependentUpon>201510161943572_Short_Field_In_MoreInformation_Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510231247331_Adding_Fixation_Fields.cs" />
+    <Compile Include="Migrations\201510231247331_Adding_Fixation_Fields.Designer.cs">
+      <DependentUpon>201510231247331_Adding_Fixation_Fields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510231321477_MaxLenght_Short_Field.cs" />
+    <Compile Include="Migrations\201510231321477_MaxLenght_Short_Field.Designer.cs">
+      <DependentUpon>201510231321477_MaxLenght_Short_Field.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511031528043_Adding_YourRef_Field.cs" />
+    <Compile Include="Migrations\201511031528043_Adding_YourRef_Field.Designer.cs">
+      <DependentUpon>201511031528043_Adding_YourRef_Field.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511181252471_Adding_FixationType_Table_And_Fixations_Table.cs" />
+    <Compile Include="Migrations\201511181252471_Adding_FixationType_Table_And_Fixations_Table.Designer.cs">
+      <DependentUpon>201511181252471_Adding_FixationType_Table_And_Fixations_Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511181905134_FixationDate_And_FixationLevel_Can_Be_Null.cs" />
+    <Compile Include="Migrations\201511181905134_FixationDate_And_FixationLevel_Can_Be_Null.Designer.cs">
+      <DependentUpon>201511181905134_FixationDate_And_FixationLevel_Can_Be_Null.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511241603445_Adding_Table_NYPositions.cs" />
+    <Compile Include="Migrations\201511241603445_Adding_Table_NYPositions.Designer.cs">
+      <DependentUpon>201511241603445_Adding_Table_NYPositions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512181421402_AddTablesForInvoices.cs" />
+    <Compile Include="Migrations\201512181421402_AddTablesForInvoices.Designer.cs">
+      <DependentUpon>201512181421402_AddTablesForInvoices.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512231335569_ContractIdReference_For_Lots.cs" />
+    <Compile Include="Migrations\201512231335569_ContractIdReference_For_Lots.Designer.cs">
+      <DependentUpon>201512231335569_ContractIdReference_For_Lots.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512241421484_TablesForMerchandiseDescription.cs" />
+    <Compile Include="Migrations\201512241421484_TablesForMerchandiseDescription.Designer.cs">
+      <DependentUpon>201512241421484_TablesForMerchandiseDescription.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512241550389_TableForShipment.cs" />
+    <Compile Include="Migrations\201512241550389_TableForShipment.Designer.cs">
+      <DependentUpon>201512241550389_TableForShipment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512241558550_LotAndShipmentRelation.cs" />
+    <Compile Include="Migrations\201512241558550_LotAndShipmentRelation.Designer.cs">
+      <DependentUpon>201512241558550_LotAndShipmentRelation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512282016533_AddingFieldsForTheIcoMark.cs" />
+    <Compile Include="Migrations\201512282016533_AddingFieldsForTheIcoMark.Designer.cs">
+      <DependentUpon>201512282016533_AddingFieldsForTheIcoMark.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512291623267_AddingRelationReference.cs" />
+    <Compile Include="Migrations\201512291623267_AddingRelationReference.Designer.cs">
+      <DependentUpon>201512291623267_AddingRelationReference.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601041534184_AddingDescriptionFieldsForTheLots.cs" />
+    <Compile Include="Migrations\201601041534184_AddingDescriptionFieldsForTheLots.Designer.cs">
+      <DependentUpon>201601041534184_AddingDescriptionFieldsForTheLots.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601121356438_ModelForTheInvoices.cs" />
+    <Compile Include="Migrations\201601121356438_ModelForTheInvoices.Designer.cs">
+      <DependentUpon>201601121356438_ModelForTheInvoices.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601121650021_ChangingIdentityForTheInvoiceModel.cs" />
+    <Compile Include="Migrations\201601121650021_ChangingIdentityForTheInvoiceModel.Designer.cs">
+      <DependentUpon>201601121650021_ChangingIdentityForTheInvoiceModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601121859237_ChangingIdentityForTheInvoiceModel1.cs" />
+    <Compile Include="Migrations\201601121859237_ChangingIdentityForTheInvoiceModel1.Designer.cs">
+      <DependentUpon>201601121859237_ChangingIdentityForTheInvoiceModel1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601121951248_ChangingIdentityForTheInvoiceModel2.cs" />
+    <Compile Include="Migrations\201601121951248_ChangingIdentityForTheInvoiceModel2.Designer.cs">
+      <DependentUpon>201601121951248_ChangingIdentityForTheInvoiceModel2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601131557329_RefTypeForTheLotReferences.cs" />
+    <Compile Include="Migrations\201601131557329_RefTypeForTheLotReferences.Designer.cs">
+      <DependentUpon>201601131557329_RefTypeForTheLotReferences.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601181540580_AddingInvoiceReferenceForMoreInformation.cs" />
+    <Compile Include="Migrations\201601181540580_AddingInvoiceReferenceForMoreInformation.Designer.cs">
+      <DependentUpon>201601181540580_AddingInvoiceReferenceForMoreInformation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601201907460_SettingInvoiceDatesNotRequeired.cs" />
+    <Compile Include="Migrations\201601201907460_SettingInvoiceDatesNotRequeired.Designer.cs">
+      <DependentUpon>201601201907460_SettingInvoiceDatesNotRequeired.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601202004517_ChangingExpocafeReceiptDateName.cs" />
+    <Compile Include="Migrations\201601202004517_ChangingExpocafeReceiptDateName.Designer.cs">
+      <DependentUpon>201601202004517_ChangingExpocafeReceiptDateName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601221505506_AddingSomeFieldsToSeller.cs" />
+    <Compile Include="Migrations\201601221505506_AddingSomeFieldsToSeller.Designer.cs">
+      <DependentUpon>201601221505506_AddingSomeFieldsToSeller.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601221511552_AddingCountryForSeller.cs" />
+    <Compile Include="Migrations\201601221511552_AddingCountryForSeller.Designer.cs">
+      <DependentUpon>201601221511552_AddingCountryForSeller.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601261333214_AddingLotReferencesForTheShipment.cs" />
+    <Compile Include="Migrations\201601261333214_AddingLotReferencesForTheShipment.Designer.cs">
+      <DependentUpon>201601261333214_AddingLotReferencesForTheShipment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601271254553_AddingSecondClientReferenceForTheContract.cs" />
+    <Compile Include="Migrations\201601271254553_AddingSecondClientReferenceForTheContract.Designer.cs">
+      <DependentUpon>201601271254553_AddingSecondClientReferenceForTheContract.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602042047535_AddingContactEntities.cs" />
+    <Compile Include="Migrations\201602042047535_AddingContactEntities.Designer.cs">
+      <DependentUpon>201602042047535_AddingContactEntities.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602081944319_AddingType_idFieldForContact.cs" />
+    <Compile Include="Migrations\201602081944319_AddingType_idFieldForContact.Designer.cs">
+      <DependentUpon>201602081944319_AddingType_idFieldForContact.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602082209554_TopicNameWithMoreCharacters.cs" />
+    <Compile Include="Migrations\201602082209554_TopicNameWithMoreCharacters.Designer.cs">
+      <DependentUpon>201602082209554_TopicNameWithMoreCharacters.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602082213081_TopicNameWithMoreCharacters1.cs" />
+    <Compile Include="Migrations\201602082213081_TopicNameWithMoreCharacters1.Designer.cs">
+      <DependentUpon>201602082213081_TopicNameWithMoreCharacters1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602091609366_LocationIdAddedToTheContactTable.cs" />
+    <Compile Include="Migrations\201602091609366_LocationIdAddedToTheContactTable.Designer.cs">
+      <DependentUpon>201602091609366_LocationIdAddedToTheContactTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602121420370_ChangingMaxLenghtForContactComment.cs" />
+    <Compile Include="Migrations\201602121420370_ChangingMaxLenghtForContactComment.Designer.cs">
+      <DependentUpon>201602121420370_ChangingMaxLenghtForContactComment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603092104116_AddingTablesForTASQAssessment.cs" />
+    <Compile Include="Migrations\201603092104116_AddingTablesForTASQAssessment.Designer.cs">
+      <DependentUpon>201603092104116_AddingTablesForTASQAssessment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603092156159_AddingTableForFlagsAndRelations.cs" />
+    <Compile Include="Migrations\201603092156159_AddingTableForFlagsAndRelations.Designer.cs">
+      <DependentUpon>201603092156159_AddingTableForFlagsAndRelations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603141915305_ChangingMaxLenghtForModuleName.cs" />
+    <Compile Include="Migrations\201603141915305_ChangingMaxLenghtForModuleName.Designer.cs">
+      <DependentUpon>201603141915305_ChangingMaxLenghtForModuleName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603141918409_AddingModuleOrderForModule.cs" />
+    <Compile Include="Migrations\201603141918409_AddingModuleOrderForModule.Designer.cs">
+      <DependentUpon>201603141918409_AddingModuleOrderForModule.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603141931437_ChangingSubModuleEntity.cs" />
+    <Compile Include="Migrations\201603141931437_ChangingSubModuleEntity.Designer.cs">
+      <DependentUpon>201603141931437_ChangingSubModuleEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603141954312_ChangingTasqCriteria.cs" />
+    <Compile Include="Migrations\201603141954312_ChangingTasqCriteria.Designer.cs">
+      <DependentUpon>201603141954312_ChangingTasqCriteria.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603142028034_ChangingTasqAssessment.cs" />
+    <Compile Include="Migrations\201603142028034_ChangingTasqAssessment.Designer.cs">
+      <DependentUpon>201603142028034_ChangingTasqAssessment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603142050430_TasqAssessmentNameWithMaxLenght150.cs" />
+    <Compile Include="Migrations\201603142050430_TasqAssessmentNameWithMaxLenght150.Designer.cs">
+      <DependentUpon>201603142050430_TasqAssessmentNameWithMaxLenght150.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603151510210_DeletingAssessmentIdField.cs" />
+    <Compile Include="Migrations\201603151510210_DeletingAssessmentIdField.Designer.cs">
+      <DependentUpon>201603151510210_DeletingAssessmentIdField.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603291640540_ChangingPlantationFields.cs" />
+    <Compile Include="Migrations\201603291640540_ChangingPlantationFields.Designer.cs">
+      <DependentUpon>201603291640540_ChangingPlantationFields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603292133331_DeletingEndDateForFloweringPeriods.cs" />
+    <Compile Include="Migrations\201603292133331_DeletingEndDateForFloweringPeriods.Designer.cs">
+      <DependentUpon>201603292133331_DeletingEndDateForFloweringPeriods.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603301342364_FamilyMemberEntityModified.cs" />
+    <Compile Include="Migrations\201603301342364_FamilyMemberEntityModified.Designer.cs">
+      <DependentUpon>201603301342364_FamilyMemberEntityModified.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604011438237_Adding_FarmStatusId.cs" />
+    <Compile Include="Migrations\201604011438237_Adding_FarmStatusId.Designer.cs">
+      <DependentUpon>201604011438237_Adding_FarmStatusId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604011455072_Adding_FarmStatusId_Field.cs" />
+    <Compile Include="Migrations\201604011455072_Adding_FarmStatusId_Field.Designer.cs">
+      <DependentUpon>201604011455072_Adding_FarmStatusId_Field.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604151900191_DropingUnnecessaryInvoiceFields.cs" />
+    <Compile Include="Migrations\201604151900191_DropingUnnecessaryInvoiceFields.Designer.cs">
+      <DependentUpon>201604151900191_DropingUnnecessaryInvoiceFields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604151917115_DeletingInvoiceInLot.cs" />
+    <Compile Include="Migrations\201604151917115_DeletingInvoiceInLot.Designer.cs">
+      <DependentUpon>201604151917115_DeletingInvoiceInLot.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604152130512_AddingOptionsForTasqCriteria.cs" />
+    <Compile Include="Migrations\201604152130512_AddingOptionsForTasqCriteria.Designer.cs">
+      <DependentUpon>201604152130512_AddingOptionsForTasqCriteria.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604251257229_AddingAssessmentFields.cs" />
+    <Compile Include="Migrations\201604251257229_AddingAssessmentFields.Designer.cs">
+      <DependentUpon>201604251257229_AddingAssessmentFields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604281402340_AddingCriteriaTypeForTasqCriterias.cs" />
+    <Compile Include="Migrations\201604281402340_AddingCriteriaTypeForTasqCriterias.Designer.cs">
+      <DependentUpon>201604281402340_AddingCriteriaTypeForTasqCriterias.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604281439051_AddingCriteriaTypeForTasqCriterias1.cs" />
+    <Compile Include="Migrations\201604281439051_AddingCriteriaTypeForTasqCriterias1.Designer.cs">
+      <DependentUpon>201604281439051_AddingCriteriaTypeForTasqCriterias1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605111528338_AddingAverageAgeProducrivity.cs" />
+    <Compile Include="Migrations\201605111528338_AddingAverageAgeProducrivity.Designer.cs">
+      <DependentUpon>201605111528338_AddingAverageAgeProducrivity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605111636536_AddingVarietyPercentageFields.cs" />
+    <Compile Include="Migrations\201605111636536_AddingVarietyPercentageFields.Designer.cs">
+      <DependentUpon>201605111636536_AddingVarietyPercentageFields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605112102278_AddingCoffeeAreaField.cs" />
+    <Compile Include="Migrations\201605112102278_AddingCoffeeAreaField.Designer.cs">
+      <DependentUpon>201605112102278_AddingCoffeeAreaField.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605121334423_AddingGrowingAndProductionFields.cs" />
+    <Compile Include="Migrations\201605121334423_AddingGrowingAndProductionFields.Designer.cs">
+      <DependentUpon>201605121334423_AddingGrowingAndProductionFields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605121545191_AddingGrowingAndProductionAreasPercentage.cs" />
+    <Compile Include="Migrations\201605121545191_AddingGrowingAndProductionAreasPercentage.Designer.cs">
+      <DependentUpon>201605121545191_AddingGrowingAndProductionAreasPercentage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605121549257_AddingGrowingAndProductionAreas.cs" />
+    <Compile Include="Migrations\201605121549257_AddingGrowingAndProductionAreas.Designer.cs">
+      <DependentUpon>201605121549257_AddingGrowingAndProductionAreas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605161356055_DeletingFloweringQualificationPeriod.cs" />
+    <Compile Include="Migrations\201605161356055_DeletingFloweringQualificationPeriod.Designer.cs">
+      <DependentUpon>201605161356055_DeletingFloweringQualificationPeriod.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605241943508_AddingMunicipalityCode.cs" />
+    <Compile Include="Migrations\201605241943508_AddingMunicipalityCode.Designer.cs">
+      <DependentUpon>201605241943508_AddingMunicipalityCode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606131520320_ChangingInvoicesEntity.cs" />
+    <Compile Include="Migrations\201606131520320_ChangingInvoicesEntity.Designer.cs">
+      <DependentUpon>201606131520320_ChangingInvoicesEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606132038100_AddingFertilizerEntity.cs" />
+    <Compile Include="Migrations\201606132038100_AddingFertilizerEntity.Designer.cs">
+      <DependentUpon>201606132038100_AddingFertilizerEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607112141239_Converting_Decimals_In_String.cs" />
+    <Compile Include="Migrations\201607112141239_Converting_Decimals_In_String.Designer.cs">
+      <DependentUpon>201607112141239_Converting_Decimals_In_String.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607121300027_Adding_MaxLenght_For_Strings.cs" />
+    <Compile Include="Migrations\201607121300027_Adding_MaxLenght_For_Strings.Designer.cs">
+      <DependentUpon>201607121300027_Adding_MaxLenght_For_Strings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607121316192_Converting_Double_To_String_Productivity.cs" />
+    <Compile Include="Migrations\201607121316192_Converting_Double_To_String_Productivity.Designer.cs">
+      <DependentUpon>201607121316192_Converting_Double_To_String_Productivity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607122043571_Adding_PhoneNumber.cs" />
+    <Compile Include="Migrations\201607122043571_Adding_PhoneNumber.Designer.cs">
+      <DependentUpon>201607122043571_Adding_PhoneNumber.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607122134161_Changing_PhoneNumber_To_Long.cs" />
+    <Compile Include="Migrations\201607122134161_Changing_PhoneNumber_To_Long.Designer.cs">
+      <DependentUpon>201607122134161_Changing_PhoneNumber_To_Long.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704061624177_AddingFertilizersCalculatorEntities.cs" />
+    <Compile Include="Migrations\201704061624177_AddingFertilizersCalculatorEntities.Designer.cs">
+      <DependentUpon>201704061624177_AddingFertilizersCalculatorEntities.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709051549302_AddingCoffeeTypeTable.cs" />
+    <Compile Include="Migrations\201709051549302_AddingCoffeeTypeTable.Designer.cs">
+      <DependentUpon>201709051549302_AddingCoffeeTypeTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709051600121_AddingCoffeTypeInInvoices.cs" />
+    <Compile Include="Migrations\201709051600121_AddingCoffeTypeInInvoices.Designer.cs">
+      <DependentUpon>201709051600121_AddingCoffeTypeInInvoices.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709051612573_AddingCoffeTypeForeignKey.cs" />
+    <Compile Include="Migrations\201709051612573_AddingCoffeTypeForeignKey.Designer.cs">
+      <DependentUpon>201709051612573_AddingCoffeTypeForeignKey.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709052026375_ChangingBasekgType.cs" />
+    <Compile Include="Migrations\201709052026375_ChangingBasekgType.Designer.cs">
+      <DependentUpon>201709052026375_ChangingBasekgType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710041327081_AddingFloweringPeriodQualification.cs" />
+    <Compile Include="Migrations\201710041327081_AddingFloweringPeriodQualification.Designer.cs">
+      <DependentUpon>201710041327081_AddingFloweringPeriodQualification.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712011900389_Adding relationship many to many between user and project.cs" />
+    <Compile Include="Migrations\201712011900389_Adding relationship many to many between user and project.Designer.cs">
+      <DependentUpon>201712011900389_Adding relationship many to many between user and project.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902212129352_AddingCodeToVillages.cs" />
+    <Compile Include="Migrations\201902212129352_AddingCodeToVillages.Designer.cs">
+      <DependentUpon>201902212129352_AddingCodeToVillages.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903112056028_CodeAdress_SupplyChainsDepartments.cs" />
+    <Compile Include="Migrations\201903112056028_CodeAdress_SupplyChainsDepartments.Designer.cs">
+      <DependentUpon>201903112056028_CodeAdress_SupplyChainsDepartments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906082131101_change type data in family unit member.cs" />
+    <Compile Include="Migrations\201906082131101_change type data in family unit member.Designer.cs">
+      <DependentUpon>201906082131101_change type data in family unit member.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906090326552_change type data FarmerIdentification.cs" />
+    <Compile Include="Migrations\201906090326552_change type data FarmerIdentification.Designer.cs">
+      <DependentUpon>201906090326552_change type data FarmerIdentification.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102101324027_add estimetedproductionmanual field to Plantations entity.cs" />
+    <Compile Include="Migrations\202102101324027_add estimetedproductionmanual field to Plantations entity.Designer.cs">
+      <DependentUpon>202102101324027_add estimetedproductionmanual field to Plantations entity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106091228455_add field IDProductor to Family unit member.cs" />
+    <Compile Include="Migrations\202106091228455_add field IDProductor to Family unit member.Designer.cs">
+      <DependentUpon>202106091228455_add field IDProductor to Family unit member.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106091447497_pendientes 090621.cs" />
+    <Compile Include="Migrations\202106091447497_pendientes 090621.Designer.cs">
+      <DependentUpon>202106091447497_pendientes 090621.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106091455568_id productor dto.cs" />
+    <Compile Include="Migrations\202106091455568_id productor dto.Designer.cs">
+      <DependentUpon>202106091455568_id productor dto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Repository.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\Message.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Message.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Storage.cs" />
+    <Compile Include="UnitOfWork.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EFarming.Common\EFarming.Common.csproj">
+      <Project>{675c4e4d-10ff-4b18-98e3-5e2e06d6fcc0}</Project>
+      <Name>EFarming.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EFarming.Core\EFarming.Core.csproj">
+      <Project>{b96f9030-d448-402c-9f68-883887bf3a24}</Project>
+      <Name>EFarming.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201405140140382_InitialMigrate.resx">
+      <DependentUpon>201405140140382_InitialMigrate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201405140222550_BasicFarmInfo.resx">
+      <DependentUpon>201405140222550_BasicFarmInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201405141550023_RemoveSecondaryCodeUniqueness.resx">
+      <DependentUpon>201405141550023_RemoveSecondaryCodeUniqueness.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201405141553254_RemoveSecondaryCodeRequired.resx">
+      <DependentUpon>201405141553254_RemoveSecondaryCodeRequired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201405141616269_AddAuditToFarms.resx">
+      <DependentUpon>201405141616269_AddAuditToFarms.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201405141641475_NullableAuditDates.resx">
+      <DependentUpon>201405141641475_NullableAuditDates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201405190111207_RemovePK.resx">
+      <DependentUpon>201405190111207_RemovePK.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201405190113127_ChangeIntToGuidKeys.resx">
+      <DependentUpon>201405190113127_ChangeIntToGuidKeys.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201405190244265_AddDepartmentAndMunicipality.resx">
+      <DependentUpon>201405190244265_AddDepartmentAndMunicipality.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201405272206391_AddAuthorization.resx">
+      <DependentUpon>201405272206391_AddAuthorization.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201405281343570_AddSaltField.resx">
+      <DependentUpon>201405281343570_AddSaltField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201405281356228_AddSaltFieldLength.resx">
+      <DependentUpon>201405281356228_AddSaltFieldLength.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201405292135509_AddVillages.resx">
+      <DependentUpon>201405292135509_AddVillages.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201405301433089_AddFarmStatuses.resx">
+      <DependentUpon>201405301433089_AddFarmStatuses.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201405301925218_AddFarmSubstatuses.resx">
+      <DependentUpon>201405301925218_AddFarmSubstatuses.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201405302149457_AddMissingConfigurations.resx">
+      <DependentUpon>201405302149457_AddMissingConfigurations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201405312002160_AddOwnershipTypes.resx">
+      <DependentUpon>201405312002160_AddOwnershipTypes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201405312335596_AddCooperatives.resx">
+      <DependentUpon>201405312335596_AddCooperatives.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406031311090_AddSoilTypes.resx">
+      <DependentUpon>201406031311090_AddSoilTypes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406031408143_AddPlantationTypes.resx">
+      <DependentUpon>201406031408143_AddPlantationTypes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406031441227_AddPlantationVarieties.resx">
+      <DependentUpon>201406031441227_AddPlantationVarieties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406031609140_AddPlantationStatus.resx">
+      <DependentUpon>201406031609140_AddPlantationStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406031646407_AddFloweringPeriodQualifications.resx">
+      <DependentUpon>201406031646407_AddFloweringPeriodQualifications.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406031837445_AddOtherActivities.resx">
+      <DependentUpon>201406031837445_AddOtherActivities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406041400098_changeFarmInfo.resx">
+      <DependentUpon>201406041400098_changeFarmInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406052033275_AddProductivityInfoToFarms.resx">
+      <DependentUpon>201406052033275_AddProductivityInfoToFarms.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406052231049_ChangeInfrastructureName.resx">
+      <DependentUpon>201406052231049_ChangeInfrastructureName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406061445552_AddSoilAnalysisToFarms.resx">
+      <DependentUpon>201406061445552_AddSoilAnalysisToFarms.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406102208383_AddSoilTypesToFarm.resx">
+      <DependentUpon>201406102208383_AddSoilTypesToFarm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406112002272_AddPlantationsToProductivity.resx">
+      <DependentUpon>201406112002272_AddPlantationsToProductivity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406161510141_AddWorkersToFarm.resx">
+      <DependentUpon>201406161510141_AddWorkersToFarm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406161901395_AddFertilizersToFarm.resx">
+      <DependentUpon>201406161901395_AddFertilizersToFarm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406171403266_AddOtherActivitiesToFarm.resx">
+      <DependentUpon>201406171403266_AddOtherActivitiesToFarm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406181653035_AddFamilyUnitMembersToFarms.resx">
+      <DependentUpon>201406181653035_AddFamilyUnitMembersToFarms.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406261636344_AddImagesToFarms.resx">
+      <DependentUpon>201406261636344_AddImagesToFarms.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406271425412_AddThumbNameToImages.resx">
+      <DependentUpon>201406271425412_AddThumbNameToImages.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407022059046_AddImpactIndicators.resx">
+      <DependentUpon>201407022059046_AddImpactIndicators.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407031536327_RemoveRelationshipBetweenFarmsAndIndicators.resx">
+      <DependentUpon>201407031536327_RemoveRelationshipBetweenFarmsAndIndicators.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407072202547_ChangeCriteriaDescriptionLength.resx">
+      <DependentUpon>201407072202547_ChangeCriteriaDescriptionLength.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407081543580_ChangeIndicatorPropertiesLength.resx">
+      <DependentUpon>201407081543580_ChangeIndicatorPropertiesLength.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407091406289_ChangeDescriptionLengthForCriteriaOptions.resx">
+      <DependentUpon>201407091406289_ChangeDescriptionLengthForCriteriaOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407141359563_AddImpactAssessmentsToFarms.resx">
+      <DependentUpon>201407141359563_AddImpactAssessmentsToFarms.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407211935165_UpdateUserInfo.resx">
+      <DependentUpon>201407211935165_UpdateUserInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407212134044_AddOnInstallFieldToUsers.resx">
+      <DependentUpon>201407212134044_AddOnInstallFieldToUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407221335288_AddEnabledAttribute.resx">
+      <DependentUpon>201407221335288_AddEnabledAttribute.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407221350005_RemoveUnnecesaryEnabledAttribute.resx">
+      <DependentUpon>201407221350005_RemoveUnnecesaryEnabledAttribute.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407222131556_AddDeletedAtFieldToTrackDeletions.resx">
+      <DependentUpon>201407222131556_AddDeletedAtFieldToTrackDeletions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407231641080_AddAttributesForSensoryProfile.resx">
+      <DependentUpon>201407231641080_AddAttributesForSensoryProfile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407251516325_ChangeAttributesTableName.resx">
+      <DependentUpon>201407251516325_ChangeAttributesTableName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407251545099_RemoveAttributeIdField.resx">
+      <DependentUpon>201407251545099_RemoveAttributeIdField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407281543299_RemoveOpenTextEntity.resx">
+      <DependentUpon>201407281543299_RemoveOpenTextEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407281853583_RemoveValueFieldFromOptionAttribute.resx">
+      <DependentUpon>201407281853583_RemoveValueFieldFromOptionAttribute.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407282043281_AddSensoryProfileAssessments.resx">
+      <DependentUpon>201407282043281_AddSensoryProfileAssessments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407302157545_AddAssociatedPeopleToFarms.resx">
+      <DependentUpon>201407302157545_AddAssociatedPeopleToFarms.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407311823352_FarmSubstatusIsNotRequired.resx">
+      <DependentUpon>201407311823352_FarmSubstatusIsNotRequired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407311841252_FarmGeolocationIsNotRequired.resx">
+      <DependentUpon>201407311841252_FarmGeolocationIsNotRequired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407311954496_FamilyUnitMemberOptionalFields.resx">
+      <DependentUpon>201407311954496_FamilyUnitMemberOptionalFields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408041633041_AddInvoicesToFarms.resx">
+      <DependentUpon>201408041633041_AddInvoicesToFarms.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408051324253_CorretNameOfReceiptInvoice.resx">
+      <DependentUpon>201408051324253_CorretNameOfReceiptInvoice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408201618577_AnswerNotRequired.resx">
+      <DependentUpon>201408201618577_AnswerNotRequired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201409301321367_AddCategories.resx">
+      <DependentUpon>201409301321367_AddCategories.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410012124257_AddScoreToCategories.resx">
+      <DependentUpon>201410012124257_AddScoreToCategories.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410022033010_AddCountryAndSupplierToFarm.resx">
+      <DependentUpon>201410022033010_AddCountryAndSupplierToFarm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410031519111_AddMandatoryFieldToCriteria.resx">
+      <DependentUpon>201410031519111_AddMandatoryFieldToCriteria.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410061519467_FarmCooperativeIdNotRequired.resx">
+      <DependentUpon>201410061519467_FarmCooperativeIdNotRequired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410061521063_FarmOwnershipTypeIdNotRequired.resx">
+      <DependentUpon>201410061521063_FarmOwnershipTypeIdNotRequired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410151500269_AddAssessmentTemplates.resx">
+      <DependentUpon>201410151500269_AddAssessmentTemplates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410152020329_AddAssessmentTemplatesToCategoriesAndQualityAttributes.resx">
+      <DependentUpon>201410152020329_AddAssessmentTemplatesToCategoriesAndQualityAttributes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410261703013_AddProjects.resx">
+      <DependentUpon>201410261703013_AddProjects.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411111410208_AddOwnerFieldToFamilyMember.resx">
+      <DependentUpon>201411111410208_AddOwnerFieldToFamilyMember.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411121440484_AddLots.resx">
+      <DependentUpon>201411121440484_AddLots.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411121615105_RemoveCooperativeFromInvoice.resx">
+      <DependentUpon>201411121615105_RemoveCooperativeFromInvoice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411121858246_ChangeWeightType.resx">
+      <DependentUpon>201411121858246_ChangeWeightType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411122136085_AddPositionToQualityAttributes.resx">
+      <DependentUpon>201411122136085_AddPositionToQualityAttributes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412021344017_AddMicrolots.resx">
+      <DependentUpon>201412021344017_AddMicrolots.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412021418557_AddTypeToSensoryProfileAssessments.resx">
+      <DependentUpon>201412021418557_AddTypeToSensoryProfileAssessments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412111618391_AddVillageAndMunicipalityToMicrolot.resx">
+      <DependentUpon>201412111618391_AddVillageAndMunicipalityToMicrolot.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201501201435126_AddProductivePlantsToPlantations.resx">
+      <DependentUpon>201501201435126_AddProductivePlantsToPlantations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201501232055371_ChangeFertilizerMeasureToDouble.resx">
+      <DependentUpon>201501232055371_ChangeFertilizerMeasureToDouble.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201501271504564_AddQualityProfileToSupplyChains.resx">
+      <DependentUpon>201501271504564_AddQualityProfileToSupplyChains.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201501271636085_AddOpenTextAttribute.resx">
+      <DependentUpon>201501271636085_AddOpenTextAttribute.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201501272135381_RemoveQualityAttributeId.resx">
+      <DependentUpon>201501272135381_RemoveQualityAttributeId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502021530409_AddSupplyChainStatus.resx">
+      <DependentUpon>201502021530409_AddSupplyChainStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502022024027_AddSupplyChainInfo.resx">
+      <DependentUpon>201502022024027_AddSupplyChainInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502031318163_AddLogoUrlToSuppliers.resx">
+      <DependentUpon>201502031318163_AddLogoUrlToSuppliers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502092125266_AddTasterToSensoryProfileAssessments.resx">
+      <DependentUpon>201502092125266_AddTasterToSensoryProfileAssessments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502092156495_ChangeTasterToUser.resx">
+      <DependentUpon>201502092156495_ChangeTasterToUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502242027225_AddPrincipalAttributeToSetMainPicture.resx">
+      <DependentUpon>201502242027225_AddPrincipalAttributeToSetMainPicture.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502251842491_AddSustainabilityRequirements.resx">
+      <DependentUpon>201502251842491_AddSustainabilityRequirements.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503290212170_AddChecklistInformation.resx">
+      <DependentUpon>201503290212170_AddChecklistInformation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505100413500_AddObservationToChecklistEntities.resx">
+      <DependentUpon>201505100413500_AddObservationToChecklistEntities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505100521034_migracion_Juange.resx">
+      <DependentUpon>201505100521034_migracion_Juange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505210309570_AddSIgnaturesToChecklist.resx">
+      <DependentUpon>201505210309570_AddSIgnaturesToChecklist.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505211311535_tmp.resx">
+      <DependentUpon>201505211311535_tmp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505222312476_cambios_juange.resx">
+      <DependentUpon>201505222312476_cambios_juange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505261509398_26May.resx">
+      <DependentUpon>201505261509398_26May.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505262142464_tmpMay26.resx">
+      <DependentUpon>201505262142464_tmpMay26.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509021927348_ClientCreation.resx">
+      <DependentUpon>201509021927348_ClientCreation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509031429134_AddingClientFieldsAndAgentEntity.resx">
+      <DependentUpon>201509031429134_AddingClientFieldsAndAgentEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509031844016_AddingClientIdFieldToAgents.resx">
+      <DependentUpon>201509031844016_AddingClientIdFieldToAgents.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509032014130_AgreementCreation.resx">
+      <DependentUpon>201509032014130_AgreementCreation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509041244045_SellerCreation.resx">
+      <DependentUpon>201509041244045_SellerCreation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509041248227_AddingAgreementsAndSellersRelation.resx">
+      <DependentUpon>201509041248227_AddingAgreementsAndSellersRelation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509101246316_ChangeNameOfComercialTables.resx">
+      <DependentUpon>201509101246316_ChangeNameOfComercialTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509101932090_AddingFieldValidationsInComercialModels.resx">
+      <DependentUpon>201509101932090_AddingFieldValidationsInComercialModels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510132123211_Adding_AgentId_In_Agreements.resx">
+      <DependentUpon>201510132123211_Adding_AgentId_In_Agreements.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510142031327_Nullable_Price_Fields.resx">
+      <DependentUpon>201510142031327_Nullable_Price_Fields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510142046438_Add_FinalPrice_Change_PriceLots.resx">
+      <DependentUpon>201510142046438_Add_FinalPrice_Change_PriceLots.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510151607043_Add_MoreInformationTable.resx">
+      <DependentUpon>201510151607043_Add_MoreInformationTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510161537108_Change_PricesDate_Format_From_Date_To_String.resx">
+      <DependentUpon>201510161537108_Change_PricesDate_Format_From_Date_To_String.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510161943572_Short_Field_In_MoreInformation_Table.resx">
+      <DependentUpon>201510161943572_Short_Field_In_MoreInformation_Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510231247331_Adding_Fixation_Fields.resx">
+      <DependentUpon>201510231247331_Adding_Fixation_Fields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510231321477_MaxLenght_Short_Field.resx">
+      <DependentUpon>201510231321477_MaxLenght_Short_Field.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511031528043_Adding_YourRef_Field.resx">
+      <DependentUpon>201511031528043_Adding_YourRef_Field.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511181252471_Adding_FixationType_Table_And_Fixations_Table.resx">
+      <DependentUpon>201511181252471_Adding_FixationType_Table_And_Fixations_Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511181905134_FixationDate_And_FixationLevel_Can_Be_Null.resx">
+      <DependentUpon>201511181905134_FixationDate_And_FixationLevel_Can_Be_Null.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511241603445_Adding_Table_NYPositions.resx">
+      <DependentUpon>201511241603445_Adding_Table_NYPositions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512181421402_AddTablesForInvoices.resx">
+      <DependentUpon>201512181421402_AddTablesForInvoices.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512231335569_ContractIdReference_For_Lots.resx">
+      <DependentUpon>201512231335569_ContractIdReference_For_Lots.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512241421484_TablesForMerchandiseDescription.resx">
+      <DependentUpon>201512241421484_TablesForMerchandiseDescription.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512241550389_TableForShipment.resx">
+      <DependentUpon>201512241550389_TableForShipment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512241558550_LotAndShipmentRelation.resx">
+      <DependentUpon>201512241558550_LotAndShipmentRelation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512282016533_AddingFieldsForTheIcoMark.resx">
+      <DependentUpon>201512282016533_AddingFieldsForTheIcoMark.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512291623267_AddingRelationReference.resx">
+      <DependentUpon>201512291623267_AddingRelationReference.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601041534184_AddingDescriptionFieldsForTheLots.resx">
+      <DependentUpon>201601041534184_AddingDescriptionFieldsForTheLots.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601121356438_ModelForTheInvoices.resx">
+      <DependentUpon>201601121356438_ModelForTheInvoices.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601121650021_ChangingIdentityForTheInvoiceModel.resx">
+      <DependentUpon>201601121650021_ChangingIdentityForTheInvoiceModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601121859237_ChangingIdentityForTheInvoiceModel1.resx">
+      <DependentUpon>201601121859237_ChangingIdentityForTheInvoiceModel1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601121951248_ChangingIdentityForTheInvoiceModel2.resx">
+      <DependentUpon>201601121951248_ChangingIdentityForTheInvoiceModel2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601131557329_RefTypeForTheLotReferences.resx">
+      <DependentUpon>201601131557329_RefTypeForTheLotReferences.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601181540580_AddingInvoiceReferenceForMoreInformation.resx">
+      <DependentUpon>201601181540580_AddingInvoiceReferenceForMoreInformation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601201907460_SettingInvoiceDatesNotRequeired.resx">
+      <DependentUpon>201601201907460_SettingInvoiceDatesNotRequeired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601202004517_ChangingExpocafeReceiptDateName.resx">
+      <DependentUpon>201601202004517_ChangingExpocafeReceiptDateName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601221505506_AddingSomeFieldsToSeller.resx">
+      <DependentUpon>201601221505506_AddingSomeFieldsToSeller.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601221511552_AddingCountryForSeller.resx">
+      <DependentUpon>201601221511552_AddingCountryForSeller.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601261333214_AddingLotReferencesForTheShipment.resx">
+      <DependentUpon>201601261333214_AddingLotReferencesForTheShipment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601271254553_AddingSecondClientReferenceForTheContract.resx">
+      <DependentUpon>201601271254553_AddingSecondClientReferenceForTheContract.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602042047535_AddingContactEntities.resx">
+      <DependentUpon>201602042047535_AddingContactEntities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602081944319_AddingType_idFieldForContact.resx">
+      <DependentUpon>201602081944319_AddingType_idFieldForContact.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602082209554_TopicNameWithMoreCharacters.resx">
+      <DependentUpon>201602082209554_TopicNameWithMoreCharacters.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602082213081_TopicNameWithMoreCharacters1.resx">
+      <DependentUpon>201602082213081_TopicNameWithMoreCharacters1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602091609366_LocationIdAddedToTheContactTable.resx">
+      <DependentUpon>201602091609366_LocationIdAddedToTheContactTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602121420370_ChangingMaxLenghtForContactComment.resx">
+      <DependentUpon>201602121420370_ChangingMaxLenghtForContactComment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603092104116_AddingTablesForTASQAssessment.resx">
+      <DependentUpon>201603092104116_AddingTablesForTASQAssessment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603092156159_AddingTableForFlagsAndRelations.resx">
+      <DependentUpon>201603092156159_AddingTableForFlagsAndRelations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603141915305_ChangingMaxLenghtForModuleName.resx">
+      <DependentUpon>201603141915305_ChangingMaxLenghtForModuleName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603141918409_AddingModuleOrderForModule.resx">
+      <DependentUpon>201603141918409_AddingModuleOrderForModule.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603141931437_ChangingSubModuleEntity.resx">
+      <DependentUpon>201603141931437_ChangingSubModuleEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603141954312_ChangingTasqCriteria.resx">
+      <DependentUpon>201603141954312_ChangingTasqCriteria.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603142028034_ChangingTasqAssessment.resx">
+      <DependentUpon>201603142028034_ChangingTasqAssessment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603142050430_TasqAssessmentNameWithMaxLenght150.resx">
+      <DependentUpon>201603142050430_TasqAssessmentNameWithMaxLenght150.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603151510210_DeletingAssessmentIdField.resx">
+      <DependentUpon>201603151510210_DeletingAssessmentIdField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603291640540_ChangingPlantationFields.resx">
+      <DependentUpon>201603291640540_ChangingPlantationFields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603292133331_DeletingEndDateForFloweringPeriods.resx">
+      <DependentUpon>201603292133331_DeletingEndDateForFloweringPeriods.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603301342364_FamilyMemberEntityModified.resx">
+      <DependentUpon>201603301342364_FamilyMemberEntityModified.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604011438237_Adding_FarmStatusId.resx">
+      <DependentUpon>201604011438237_Adding_FarmStatusId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604011455072_Adding_FarmStatusId_Field.resx">
+      <DependentUpon>201604011455072_Adding_FarmStatusId_Field.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604151900191_DropingUnnecessaryInvoiceFields.resx">
+      <DependentUpon>201604151900191_DropingUnnecessaryInvoiceFields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604151917115_DeletingInvoiceInLot.resx">
+      <DependentUpon>201604151917115_DeletingInvoiceInLot.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604152130512_AddingOptionsForTasqCriteria.resx">
+      <DependentUpon>201604152130512_AddingOptionsForTasqCriteria.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604251257229_AddingAssessmentFields.resx">
+      <DependentUpon>201604251257229_AddingAssessmentFields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604281402340_AddingCriteriaTypeForTasqCriterias.resx">
+      <DependentUpon>201604281402340_AddingCriteriaTypeForTasqCriterias.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604281439051_AddingCriteriaTypeForTasqCriterias1.resx">
+      <DependentUpon>201604281439051_AddingCriteriaTypeForTasqCriterias1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605111528338_AddingAverageAgeProducrivity.resx">
+      <DependentUpon>201605111528338_AddingAverageAgeProducrivity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605111636536_AddingVarietyPercentageFields.resx">
+      <DependentUpon>201605111636536_AddingVarietyPercentageFields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605112102278_AddingCoffeeAreaField.resx">
+      <DependentUpon>201605112102278_AddingCoffeeAreaField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605121334423_AddingGrowingAndProductionFields.resx">
+      <DependentUpon>201605121334423_AddingGrowingAndProductionFields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605121545191_AddingGrowingAndProductionAreasPercentage.resx">
+      <DependentUpon>201605121545191_AddingGrowingAndProductionAreasPercentage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605121549257_AddingGrowingAndProductionAreas.resx">
+      <DependentUpon>201605121549257_AddingGrowingAndProductionAreas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605161356055_DeletingFloweringQualificationPeriod.resx">
+      <DependentUpon>201605161356055_DeletingFloweringQualificationPeriod.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605241943508_AddingMunicipalityCode.resx">
+      <DependentUpon>201605241943508_AddingMunicipalityCode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606131520320_ChangingInvoicesEntity.resx">
+      <DependentUpon>201606131520320_ChangingInvoicesEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606132038100_AddingFertilizerEntity.resx">
+      <DependentUpon>201606132038100_AddingFertilizerEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607112141239_Converting_Decimals_In_String.resx">
+      <DependentUpon>201607112141239_Converting_Decimals_In_String.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607121300027_Adding_MaxLenght_For_Strings.resx">
+      <DependentUpon>201607121300027_Adding_MaxLenght_For_Strings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607121316192_Converting_Double_To_String_Productivity.resx">
+      <DependentUpon>201607121316192_Converting_Double_To_String_Productivity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607122043571_Adding_PhoneNumber.resx">
+      <DependentUpon>201607122043571_Adding_PhoneNumber.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607122134161_Changing_PhoneNumber_To_Long.resx">
+      <DependentUpon>201607122134161_Changing_PhoneNumber_To_Long.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704061624177_AddingFertilizersCalculatorEntities.resx">
+      <DependentUpon>201704061624177_AddingFertilizersCalculatorEntities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709051549302_AddingCoffeeTypeTable.resx">
+      <DependentUpon>201709051549302_AddingCoffeeTypeTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709051600121_AddingCoffeTypeInInvoices.resx">
+      <DependentUpon>201709051600121_AddingCoffeTypeInInvoices.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709051612573_AddingCoffeTypeForeignKey.resx">
+      <DependentUpon>201709051612573_AddingCoffeTypeForeignKey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709052026375_ChangingBasekgType.resx">
+      <DependentUpon>201709052026375_ChangingBasekgType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710041327081_AddingFloweringPeriodQualification.resx">
+      <DependentUpon>201710041327081_AddingFloweringPeriodQualification.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712011900389_Adding relationship many to many between user and project.resx">
+      <DependentUpon>201712011900389_Adding relationship many to many between user and project.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902212129352_AddingCodeToVillages.resx">
+      <DependentUpon>201902212129352_AddingCodeToVillages.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903112056028_CodeAdress_SupplyChainsDepartments.resx">
+      <DependentUpon>201903112056028_CodeAdress_SupplyChainsDepartments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906082131101_change type data in family unit member.resx">
+      <DependentUpon>201906082131101_change type data in family unit member.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906090326552_change type data FarmerIdentification.resx">
+      <DependentUpon>201906090326552_change type data FarmerIdentification.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102101324027_add estimetedproductionmanual field to Plantations entity.resx">
+      <DependentUpon>202102101324027_add estimetedproductionmanual field to Plantations entity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106091228455_add field IDProductor to Family unit member.resx">
+      <DependentUpon>202106091228455_add field IDProductor to Family unit member.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106091447497_pendientes 090621.resx">
+      <DependentUpon>202106091447497_pendientes 090621.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106091455568_id productor dto.resx">
+      <DependentUpon>202106091455568_id productor dto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Message.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Message.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

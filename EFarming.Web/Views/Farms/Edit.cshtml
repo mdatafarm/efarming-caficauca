@@ -1,0 +1,180 @@
+﻿@model EFarming.DTO.FarmModule.FarmDTO
+@{
+    ViewBag.Title = string.Format(FarmMessages.Edit_Farm, Model.Code, Model.Name);
+    var farm = (EFarming.DTO.FarmModule.FarmDTO)ViewBag.Farm;
+    var principal = Model.Images.FirstOrDefault(i => i.Principal);
+    if (principal == null)
+    {
+        principal = Model.Images.FirstOrDefault();
+        if (principal != null)
+        {
+            string[] substrings = principal.Name.Split('.');
+
+            if (substrings[1] == "pdf")
+            {
+                principal = null;
+            }
+        }
+    }
+}
+<h5></h5>
+<hr />
+<!-- Tab panes -->
+@using (Html.BeginForm("Edit", "Farms", FormMethod.Post, new { @class = "form-horizontal to-validate-horizontal", role = "form", @data_bind = "with: farm" }))
+{
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-2">
+        @if (principal != null)
+        {
+            <br />
+            <img src="@principal.Thumb" alt="@principal.Name" class="img-rounded" style="width: 100px; height: 100px;">
+        }
+    </div>
+    @if (Model.SupplyChain != null)
+    {
+        <div class="col-lg-7">
+            <h2 class="page-name text-uppercase">@string.Format(FarmMessages.Edit_Farm, Model.Code, Model.Name)</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="@Url.Action("Country", "Overview", new { id = Model.SupplyChain.Supplier.CountryId })">
+                        @Model.SupplyChain.Supplier.Country.Name
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Supplier", "Overview", new { id = Model.SupplyChain.SupplierId })">
+                        @Model.SupplyChain.Supplier.Name
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="@Url.Action("SupplierChain", "Overview", new { id = Model.SupplyChainId })">
+                        @Model.SupplyChain.Name
+                    </a>
+                </li>
+
+                <li class="active">
+                    <strong>@Model.Name</strong>
+                </li>
+            </ol>
+        </div>
+    }
+    else
+    {
+        <div class="col-lg-7">
+            <h2 class="page-name text-uppercase">@string.Format(FarmMessages.Edit_Farm, Model.Code, Model.Name)</h2>
+            <ol class="breadcrumb">
+                <li>
+                    Sin agencia
+                </li>
+                
+            </ol>
+        </div>
+    }
+
+    <div class="col-lg-3">
+        <div class="btn-group pull-right btn-g-edit">
+            @if (!User.IsReader())
+            {
+                <button class="btn btn-success btn-lg">
+                    <i class="fa fa-check"></i>
+                    @Message.Save
+                </button>
+                <a href="@Url.Action("Index", "Farms")" class="btn btn-warning btn-lg">
+                    <i class="fa fa-times"></i>
+                    @Message.Cancel
+                </a>
+            }
+        </div>
+    </div>
+</div>
+
+    <div class="wrapper wrapper-content">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5 class="text-capitalize">@FarmMessages.Edit</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="flot-chart farm-search">
+                            @Html.Partial("~/Views/farms/_Tabs.cshtml")
+                            <div class="tab-content">
+                                <div class="tab-pane fade in active" id="farm-info">
+                                    @Html.Partial("~/Views/Farms/_BasicInformation.cshtml", Model)
+                                </div>
+                                <div class="tab-pane fade in" id="productivity">
+                                    @Html.Partial("~/Views/Farms/_Productivity.cshtml", Model)
+                                </div>
+                                @{
+                                    string url = "/Invoices/Details?id=" + Model.Id.ToString();
+                                }
+                                <div class="tab-pane fade in" id="sales">
+                                    <div id="salesin" style="text-align:center" data-url="@url">
+                                        <img src="~/Images/Loading.gif" style="text-align:center" />
+                                    </div>
+                                </div>
+                                @{
+                                    string urlFertilizers = "/Fertilizers/Index?farmId=" + Model.Id.ToString();
+                                }
+                                <div class="tab-pane fade in" id="fetilizers">
+                                    <div id="fertilizersin" style="text-align:center" data-url="@urlFertilizers">
+                                        <img src="~/Images/Loading.gif" style="text-align:center" />
+                                    </div>
+                                </div>
+                                @*<div class="tab-pane fade in" id="fetilizers">
+            @Html.Partial("~/Views/Fertilizers/Index.cshtml", Model)
+        </div>*@
+                                <div class="tab-pane fade in" id="family-unit">
+                                    <div id="family-unit-members-content">
+                                        @Html.Partial("~/Views/FamilyUnitMembers/Index.cshtml", Model)
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade in" id="projects">
+                                    <h3 class="page-header">@ProjectMessage.Projects</h3>
+                                    @if (!User.IsReader())
+                                    {
+                                        <div class="row">
+                                            @{
+                                                if (!User.IsTechnician())
+                                                {
+                                                    <div class="col-sm-10">
+                                                        <label class="sr-only" for="projects">@ProjectMessage.Projects</label>
+                                                        <select class="form-control" id="projects-select">
+                                                            <option>@string.Format(Message.SelectA, ProjectMessage.Project)</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <a href="@Url.Action("Create", "Projects", new { id = "projectId", farmId = Model.Id })" id="add-project" class="btn btn-success">@ProjectMessage.Add_Project</a>
+                                                    </div>
+                                                }
+
+                                            }
+
+                                        </div>
+                                    }
+                                    <br />
+                                    <div id="projects-content">
+                                        @Html.Partial("~/Views/Projects/Index.cshtml", Model)
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade in" id="photo-gallery">
+                                    @Html.Partial("~/Views/Farms/_PhotoGallery.cshtml")
+                                </div>
+                                @*<div class="tab-pane fade in" id="TASQ">
+                                    @Html.Action("TASQ", "Impact", new { id = Model.Id })
+                                </div>*@
+                                <div class="tab-pane fade in" id="Contacts">
+                                    @Html.Action("ByFarm", "Contacts", new { id = Model.Id, area = "SustainabilityArea" })
+                                </div>
+                                <div class="tab-pane fade in" id="DashboardFarm">
+                                    @Html.Partial("../Farms/DashboardFarm", Model)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+                                    }
+
+@Html.Partial("~/Views/farms/_Scripts.cshtml")

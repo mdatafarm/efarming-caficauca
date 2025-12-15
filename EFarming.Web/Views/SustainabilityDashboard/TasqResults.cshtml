@@ -1,0 +1,122 @@
+﻿@model IEnumerable<EFarming.Core.SustainabilityModule.DashboardAggregate.TASQResults>
+@{
+    ViewBag.Title = "TasqResults";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section breadcrumb{
+    <div class="col-md-12">
+        <div class="col-md-12">
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-12">
+                    <h2 class="page-name">TASQ Results</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="@Url.Action("Index", "Home")">
+                                Home
+                            </a>
+                        </li>
+
+                        <li>
+                            TASQ results
+                        </li>
+                    </ol>
+                </div>
+                <div class="col-lg-2">
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="col-md-12">
+    <div class="col-md-12">
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="row">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12 col-sm-12">
+                            <div class="col-lg-9">
+                                <table class="table table-fixed-header">
+                                    <thead>
+                                        <tr class="filters">
+                                            <th>Category</th>
+                                            <th>Question</th>
+                                            <th>Critic</th>
+                                            <th>YES</th>
+                                            <th>NO</th>
+                                            <th>NA</th>
+                                        </tr>
+                                    </thead>
+
+                                    @if (Model != null)
+                                    {
+                                        foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @item.Name
+                                                </td>
+                                                <td>
+                                                    @item.Description
+                                                </td>
+                                                <td>
+                                                    @if (item.FlagIndicatorID == 1)
+                                                    {
+                                                        <span class="glyphicon glyphicon-exclamation-sign"></span>
+                                                    }
+                                                </td>
+                                                <td>
+                                                    @Math.Round(item.YES, 2)
+                                                </td>
+                                                <td>
+                                                    @Math.Round(item.NO, 2)
+                                                </td>
+                                                <td>
+                                                    @Math.Round(item.NA, 2)
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </table>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="ibox float-e-margins">
+                                    <div class="ibox-content information-content">
+                                        <div class="file-manager">
+                                            <h4 class="information">Information</h4>
+                                            <div class="space-25"></div>
+                                            <ul class="folder-list m-b-md">
+                                                <li>
+                                                    <i class="fa fa-globe">&nbsp;</i>
+                                                    Location:
+                                                    <span class="pull-right"><strong>Expocafé</strong></span>
+                                                </li>
+                                                <li>
+                                                    <i class="fa fa-map-marker">&nbsp;</i>
+                                                    Cooperativas:
+                                                    <ul>
+                                                        @foreach (var cooperative in ViewBag.cooperatives)
+                                                        {
+                                                            <li>
+                                                                <a href="@Url.Action("TasqResultsByCoop", "SustainabilityDashboard", new { CoopId = cooperative.Id })">
+                                                                    @cooperative.Name
+                                                                </a>
+                                                            </li>
+                                                        }
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+

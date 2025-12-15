@@ -1,0 +1,270 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - @Message.App_Name</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/knockout")
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/themes/base/css")
+    @Scripts.Render("~/bundles/javascript")
+    @RenderSection("scripts", required: false)
+    <script src="~/Scripts/mvvm/AdminLayout.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">
+                    <i class="glyphicon glyphicon-tree-conifer"></i>
+                    E-Farming (Plataforma Admin)
+                </a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="@Url.Action("Pending", "Users")">
+                            <span class="badge alert-danger" id="pending-users">
+                            </span>
+                            @AdminMessage.Pending_Users
+                        </a>
+                    </li>
+                    <li><a href="#">@User.FirstName</a></li>
+                    @if (User.IsAdmin())
+                    {
+                        <li>
+                            <a href="@Url.Action("Index", "Home", new { area = string.Empty })">
+                                <i class="glyphicon glyphicon-level-up"></i>
+                                @Message.GoTo_EFarming
+                            </a>
+                        </li>
+                    }
+                    <li>
+                        <a href="@Url.Action("LogOut", "Accounts", new { area = string.Empty })">
+                            <i class="glyphicon glyphicon-log-out"></i>
+                            @Message.Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Panel lateral donde se muestran las funciones -->
+    <div class="container-fluid" style="margin-top: 70px;">
+        <div class="row">
+            <div class="col-xs-0 col-md-3 sidebar">
+                @if (User.IsAdmin())
+                {
+                    <div class="list-group">
+                        <a href="#" class="list-group-item active">Menu Administrativo</a>
+                        <!-- User Secction -->
+                        <div class="list-group-item">
+                            <ul class="nav nav-sidebar">
+                                <li class="nav-header">
+                                    <span>@AdminMessage.Users</span>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("Index","Users")">
+                                        @AdminMessage.Ulers_List
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("Roles","Users")">
+                                        Roles del sistema
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="list-group-item">
+                            <!-- Location Secction -->
+                            <ul class="nav nav-sidebar">
+                                <li class="nav-header"><span>@AdminMessage.Location</span></li>
+                                <li class="@EFarming.Web.Helpers.MenuHelper.IsActive(this.ViewContext.RouteData, "Departments")">
+                                    <a href="@Url.Action("Index", "Departments")">
+                                        @AdminMessage.Departments
+                                    </a>
+                                </li>
+                                <li class="@EFarming.Web.Helpers.MenuHelper.IsActive(this.ViewContext.RouteData, "Municipalities")">
+                                    <a href="@Url.Action("Index", "Municipalities")">
+                                        @AdminMessage.Municipalities
+                                    </a>
+                                </li>
+                                <li class="@EFarming.Web.Helpers.MenuHelper.IsActive(this.ViewContext.RouteData, "Villages")">
+                                    <a href="@Url.Action("Index", "Villages")">
+                                        @AdminMessage.Villages
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="list-group-item">
+                            <!-- Farms Secction -->
+                            <ul class="nav nav-sidebar">
+                                <li class="nav-header"><span>@AdminMessage.Farms</span></li>
+                                <li class="@EFarming.Web.Helpers.MenuHelper.IsActive(this.ViewContext.RouteData, "FarmStatuses")">
+                                    <a href="@Url.Action("Index", "FarmStatuses")">
+                                        @AdminMessage.Farm_Statuses
+                                    </a>
+                                </li>
+                                <li class="@EFarming.Web.Helpers.MenuHelper.IsActive(this.ViewContext.RouteData, "OwnershipTypes")">
+                                    <a href="@Url.Action("Index", "OwnershipTypes")">
+                                        @AdminMessage.Ownership_Types
+                                    </a>
+                                </li>
+                                <li class="@EFarming.Web.Helpers.MenuHelper.IsActive(this.ViewContext.RouteData, "Cooperatives")">
+                                    <a href="@Url.Action("Index", "Cooperatives")">
+                                        @AdminMessage.Cooperatives
+                                    </a>
+                                </li>
+                                <li class="@EFarming.Web.Helpers.MenuHelper.IsActive(this.ViewContext.RouteData, "SupplyChains")">
+                                    <a href="@Url.Action("Index", "SupplyChains")">
+                                        Cadenas de suministro
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="list-group-item">
+                            <!-- Productivity Secction -->
+                            <ul class="nav nav-sidebar">
+                                <li class="nav-header"><span>@AdminMessage.Productivity</span></li>
+                                <li class="@EFarming.Web.Helpers.MenuHelper.IsActive(this.ViewContext.RouteData, "PlantationTypes")">
+                                    <a href="@Url.Action("Index", "PlantationTypes")">
+                                        @AdminMessage.Plantation_Types
+                                    </a>
+                                </li>
+                                <li class="@EFarming.Web.Helpers.MenuHelper.IsActive(this.ViewContext.RouteData, "PlantationVarieties")">
+                                    <a href="@Url.Action("Index", "PlantationVarieties")">
+                                        @AdminMessage.Plantation_Varieties
+                                    </a>
+                                </li>
+                                <li class="@EFarming.Web.Helpers.MenuHelper.IsActive(this.ViewContext.RouteData, "PlantationStatuses")">
+                                    <a href="@Url.Action("Index", "PlantationStatuses")">
+                                        @AdminMessage.Plantation_Statuses
+                                    </a>
+                                </li>
+                                <li class="@EFarming.Web.Helpers.MenuHelper.IsActive(this.ViewContext.RouteData, "FloweringPeriodQualifications")">
+                                    <a href="@Url.Action("Index", "FloweringPeriodQualifications")">
+                                        @AdminMessage.Flowering_Period_Qualifications
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="list-group-item">
+                            <!-- Fertilizers calculator -->
+                            <ul class="nav nav-sidebar">
+                                <li class="nav-header"><span>@AdminMessage.Productivity</span></li>
+                                <li class="@EFarming.Web.Helpers.MenuHelper.IsActive(this.ViewContext.RouteData, "FertilizerInformation")">
+                                    <a href="@Url.Action("Index", "FertilizerInformation")">
+                                        Información de fertilizantes
+                                    </a>
+                                </li>
+                                <li class="@EFarming.Web.Helpers.MenuHelper.IsActive(this.ViewContext.RouteData, "AverageExtraction")">
+                                    <a href="@Url.Action("Index", "AverageExtraction")">
+                                        Promedio de Extracción por Ha
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="list-group-item active">
+                            <a href="mailto:info.efarming@datafarm.com.co?subject=Soporte Efarming Admin" class="btn btn-danger">Contactar con el desarrollador</a>
+                        </div>
+                    </div>
+
+                    <!--Antiguo Menu -->
+                    @*<ul class="nav nav-sidebar">
+                            <li class="nav-header"><span>@AdminMessage.Users</span></li>
+                            <li class="">
+                                <a href="@Url.Action("Index","Users")">
+                                    @AdminMessage.Ulers_List
+                                </a>
+                            </li>
+                            <li class="nav-header"><span>@AdminMessage.Location</span></li>
+                            <li class="@EFarming.Web.Helpers.MenuHelper.IsActive(this.ViewContext.RouteData, "Departments")">
+                                <a href="@Url.Action("Index", "Departments")">
+                                    @AdminMessage.Departments
+                                </a>
+                            </li>
+                            <li class="@EFarming.Web.Helpers.MenuHelper.IsActive(this.ViewContext.RouteData, "Municipalities")">
+                                <a href="@Url.Action("Index", "Municipalities")">
+                                    @AdminMessage.Municipalities
+                                </a>
+                            </li>
+                            <li class="@EFarming.Web.Helpers.MenuHelper.IsActive(this.ViewContext.RouteData, "Villages")">
+                                <a href="@Url.Action("Index", "Villages")">
+                                    @AdminMessage.Villages
+                                </a>
+                            </li>
+                            <li class="nav-header"><span>@AdminMessage.Farms</span></li>
+                            <li class="@EFarming.Web.Helpers.MenuHelper.IsActive(this.ViewContext.RouteData, "FarmStatuses")">
+                                <a href="@Url.Action("Index", "FarmStatuses")">
+                                    @AdminMessage.Farm_Statuses
+                                </a>
+                            </li>
+                            <li class="@EFarming.Web.Helpers.MenuHelper.IsActive(this.ViewContext.RouteData, "FarmSubstatuses")">
+                                <a href="@Url.Action("Index", "FarmSubstatuses")">
+                                    @AdminMessage.Farm_Substatuses
+                                </a>
+                            </li>
+                            <li class="@EFarming.Web.Helpers.MenuHelper.IsActive(this.ViewContext.RouteData, "OwnershipTypes")">
+                                <a href="@Url.Action("Index", "OwnershipTypes")">
+                                    @AdminMessage.Ownership_Types
+                                </a>
+                            </li>
+                            <li class="@EFarming.Web.Helpers.MenuHelper.IsActive(this.ViewContext.RouteData, "Cooperatives")">
+                                <a href="@Url.Action("Index", "Cooperatives")">
+                                    @AdminMessage.Cooperatives
+                                </a>
+                            </li>
+                            <li class="nav-header"><span>@AdminMessage.Productivity</span></li>
+                            <li class="@EFarming.Web.Helpers.MenuHelper.IsActive(this.ViewContext.RouteData, "SoilTypes")">
+                                <a href="@Url.Action("Index", "SoilTypes")">
+                                    @AdminMessage.Soil_Types
+                                </a>
+                            </li>
+                            <li class="@EFarming.Web.Helpers.MenuHelper.IsActive(this.ViewContext.RouteData, "PlantationTypes")">
+                                <a href="@Url.Action("Index", "PlantationTypes")">
+                                    @AdminMessage.Plantation_Types
+                                </a>
+                            </li>
+                            <li class="@EFarming.Web.Helpers.MenuHelper.IsActive(this.ViewContext.RouteData, "PlantationVarieties")">
+                                <a href="@Url.Action("Index", "PlantationVarieties")">
+                                    @AdminMessage.Plantation_Varieties
+                                </a>
+                            </li>
+                            <li class="@EFarming.Web.Helpers.MenuHelper.IsActive(this.ViewContext.RouteData, "PlantationStatuses")">
+                                <a href="@Url.Action("Index", "PlantationStatuses")">
+                                    @AdminMessage.Plantation_Statuses
+                                </a>
+                            </li>
+                            <li class="@EFarming.Web.Helpers.MenuHelper.IsActive(this.ViewContext.RouteData, "FloweringPeriodQualifications")">
+                                <a href="@Url.Action("Index", "FloweringPeriodQualifications")">
+                                    @AdminMessage.Flowering_Period_Qualifications
+                                </a>
+                            </li>
+                            <li class="@EFarming.Web.Helpers.MenuHelper.IsActive(this.ViewContext.RouteData, "OtherActivities")">
+                                <a href="@Url.Action("Index", "OtherActivities")">
+                                    @AdminMessage.Other_Activities
+                                </a>
+                            </li>
+                        </ul>*@
+                }
+            </div>
+            <!-- Footer -->
+            <div class="col-xs-offset-1 col-md-offset-0 col-xs-10 col-md-8 main" role="main" id="main-content">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

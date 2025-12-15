@@ -1,0 +1,144 @@
+﻿@{
+    ViewBag.Title = @IndicatorMessage.Farm_Impact;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var farm = (EFarming.DTO.FarmModule.FarmDTO)ViewBag.Farm;
+}
+<script type="text/javascript">
+    var FARM_ID = '@farm.Id';
+</script>
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-9">
+        <h2 class="page-name">@IndicatorMessage.Impact_Assessment</h2>
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Index", "Home", new { })">@Message.Home</a></li>
+            <li><a href="@Url.Action("Index", "Farms", new { })">@FarmMessages.Farms</a></li>
+            <li><a href="@Url.Action("Edit", "Farms", new { id = farm.Id })">@farm.Name</a></li>
+            <li class="active">@Message.Impact</li>
+
+        </ol>
+    </div>
+    <div class="col-lg-3 ">
+
+    </div>
+</div>
+
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>@IndicatorMessage.Impact_Assessment</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <form class="form-inline" role="form">
+                                <div class="form-group">
+                                    <label class="sr-only" for="impact-assessment">@IndicatorMessage.Impact_Assessment: </label>
+                                    <select name="ImpactAssessmentId" class="form-control"
+                                            data-bind="value: ImpactAssessment, options: ImpactAssessments, optionsText: 'Description', optionsCaption: '@string.Format(Message.SelectA, IndicatorMessage.Impact_Assessment)', event:{change: LoadCategories}"></select>
+                                </div>
+                                <a class="btn btn-link link-edit" data-toggle="modal" data-target="#new-impact-assessment" data-bind="click: NewAssessment">
+                                    <i class="fa fa-line-chart"></i>
+                                    @IndicatorMessage.Create_New
+                                </a>
+                            </form>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-success pull-right" data-bind="click:$root.SaveAnswers">@IndicatorMessage.Save_Answers</button>
+                        </div>
+                        <br />
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist" data-bind="foreach: Categories">
+                            <li data-bind="attr:{class: Class}">
+                                <a role="tab" data-toggle="tab" data-bind="text: Name, attr: {href: HTML_ID}"></a>
+                            </li>
+                        </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content" data-bind="foreach: Categories">
+                            <div data-bind="attr:{id: Id, class: ContentClass}">
+                                <div class="col-lg-4">
+                                    <ul class="nav nav-pills nav-stacked" data-bind="foreach:Indicators">
+                                        <li data-bind="attr:{class: Class}">
+                                            <a href="#" data-bind="click: Select">
+                                                <span class="indicator-span" data-bind="text: Name"></span>
+                                                <span class="badge pull-right" data-bind="text: criteriaHelper"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-lg-8">
+                                    <div class="col-md-12" data-bind="with: Indicator">
+                                        <div data-bind="foreach: Criteria">
+                                            <div data-bind="attr:{class:MandatoryClass}">
+                                                <h5>
+                                                    <strong data-bind="text: Description"></strong>
+                                                </h5>
+                                                <hr />
+                                                <div data-bind="foreach: Options">
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input type="radio" data-bind="checkedValue: $data, checked: $parent.SelectedOption, attr:{name: DOMName, id: Id}" />
+                                                            <small data-bind="text:Description"></small>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="new-impact-assessment" tabindex="-1" aria-labelledby="@QualityMessage.Create_New_Assessment" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">@IndicatorMessage.New_Impact_Assessment</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form" data-bind="with: NewImpactAssessment">
+                    <div class="form-group">
+                        <label for="Date"><small>@Message.Date</small></label>
+                        <input type="date" class="form-control input-sm" id="Date" data-bind="value: Date" />
+                    </div>
+                    <div class="form-group">
+                        <label for="Description"><small>@Message.Description</small></label>
+                        <input type="text" placeholder="@Message.Description" class="form-control input-sm" data-bind="value: Description" />
+                    </div>
+                    <div class="form-group">
+                        <label for="AssessmentTemplateId"><small>@QualityMessage.Assessment_Template</small></label>
+                        <select class="form-control input-sm" id="AssessmentTemplateId"
+                                data-bind="options: $root.AssessmentTemplates, optionsText:'Description', value: $root.AssessmentTemplate, optionsCaption: '@string.Format(Message.SelectA, QualityMessage.Assessment_Template)'"></select>
+                    </div>
+                    <div class="clearfix">
+                        <div class="btn-group pull-right">
+                            <button type="button" class="btn btn-success btn-sm" data-bind="click: Save">@Message.Save</button>
+                            <button type="button" class="btn btn-link link-delete btn-sm" data-dismiss="modal">@Message.Cancel</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/highcharts/highcharts.js"></script>
+    <script src="~/Scripts/highcharts/highcharts-more.js"></script>
+    <script src="~/Scripts/highcharts/exporting.js"></script>
+    <script src="~/Scripts/mvvm/impact.js"></script>
+}

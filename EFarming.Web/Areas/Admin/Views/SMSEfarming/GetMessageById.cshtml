@@ -1,0 +1,72 @@
+﻿@model Twilio.Message
+
+@{
+    ViewBag.Title = "GetMessageById";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Information of Message</h2>
+
+@if (ViewBag.temp != null)
+{
+    var tmp = (Twilio.Message)(ViewBag.temp);
+    <div class="row">
+        <div class="col-lg-12">
+            <table>
+                <tr>
+                    <td><label>Sid-ID: </label></td>
+                    <td><h3>@tmp.Sid</h3></td>
+                </tr>
+                <tr>
+                    <td><label>Status: </label></td>
+                    <td><h3>@tmp.Status</h3></td>
+                </tr>
+                <tr>
+                    <td><label class="label label-danger">DateCreated: </label></td>
+                    <td><h3>@tmp.DateCreated</h3></td>
+                </tr>
+                <tr>
+                    <td><label class="label label-default">DateSent: </label></td>
+                    <td><h3>@tmp.DateSent</h3></td>
+                </tr>
+                <tr>
+                    <td><label>Error Code: </label></td>
+                    <td><h3>@tmp.ErrorCode</h3></td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="label label-info">ErrorMessage: </label>
+                    </td>
+                    <td><h3>@tmp.ErrorMessage</h3></td>
+                </tr>
+                <tr>
+                    <td><label class="label label-primary">Price</label></td>
+                    <td>
+                        <h3>@tmp.Price</h3>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label>To: </label></td>
+                    <td><h3>@tmp.To</h3></td>
+                </tr>
+                <tr>
+                    <td><label>URL:</label></td>
+                    <td><h6>@tmp.Uri</h6></td>
+                </tr>
+                <tr>
+                    <td><label>Api Version</label></td>
+                    <td><h3>@tmp.ApiVersion</h3></td>
+                </tr>
+                <tr>
+                    <td><label>AccountSid</label></td>
+                    <td><h3>@tmp.AccountSid</h3></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <a href="@String.Format("https://api.twilio.com{0}", tmp.Uri)" class="button">JSON link</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>        
+}

@@ -1,0 +1,235 @@
+﻿@model EFarming.DTO.FarmModule.FarmDTO
+
+@{
+    string requiredClass = "";
+    if (User.IsReader())
+    {
+        requiredClass = "@required = 'required'";
+    }
+}
+<div class="row" id="basic-information" data-bind="with: farm">
+    <div class="col-lg-5">
+        <h3 class="page-header">@FarmMessages.Farm_Basic_info</h3>
+
+        <div class="form-group has-feedback">
+            <label>Código de finca</label>
+            @{
+                if (Model.Code != null)
+                {
+                    if (User.IsAdmin())
+                    {
+                        @Html.TextBoxFor(model => model.Code, new { @class = "form-control", autofocus = "autofocus", @data_bind = "value: code" })
+                        <span class="help-block"></span>
+                    }
+                    else
+                    {
+                        @Html.TextBoxFor(model => model.Code, new { @class = "form-control", @readonly = "readonly", autofocus = "autofocus", @data_bind = "value: code" })
+                        <span class="help-block"></span>
+                    }
+
+
+                }
+                else
+                {
+                    @Html.TextBoxFor(model => model.Code, new { @type = "number", @class = "form-control", placeholder = @FarmMessages.Code, required = "required", autofocus = "autofocus", @data_bind = "value: code" })
+                    <span class="help-block"></span>
+                    <label id="lblInfo"></label>
+                }
+            }
+        </div>
+        <div class="form-group has-feedback">
+
+            @{
+                if (User.IsAdmin())
+                {
+                    <label>Fecha de modificacion</label>
+                    @Html.TextBoxFor(model => model.UpdatedAt, new { @class = "form-control", @readonly = "readonly", autofocus = "autofocus" })
+                    <span class="help-block"></span>
+                }
+            }
+        </div>
+
+        <div class="form-group has-feedback">
+            @Html.LabelFor(model => model.Name, @FarmMessages.Name, new { @class = "hidden-xs" })
+
+            @Html.TextBoxFor(model => model.Name, new { @class = "form-control", placeholder = @FarmMessages.Name, required = "required", @data_bind = "value: name", requiredClass })
+            <span class="help-block"></span>
+
+        </div>
+
+        @if (ViewBag.autorizated == new Guid("72994FDC-B4A9-42D7-9237-24113DDA034D") || ViewBag.autorizated == new Guid("D87A4D23-68D0-4407-AE69-C3CEB082C396"))
+        {
+            <div class="form-group has-feedback">
+                <label class="hidden-xs" for="CountryId">@Message.Country</label>
+
+                <select class="form-control" id="CountryId" name="CountryId"
+                        data-bind="value: country, options: $root.countries, optionsText:'name', optionsValue:'id',optionsCaption: '@string.Format(Message.SelectA, Message.Country)', event:{change: $root.getSuppliers}"></select>
+                <span class="help-block"></span>
+
+            </div>
+            <div class="form-group has-feedback">
+                <label class="hidden-xs" for=" supplierId">Organizaciones</label>
+
+                <select class="form-control" id="supplierId" name="supplierId"
+                        data-bind="value: supplier, options: $root.suppliers, optionsText:'name', optionsValue:'id',optionsCaption: '@string.Format(Message.SelectA, Message.Supplier)', event:{change: $root.getSupplyChains}"></select>
+                <span class="help-block"></span>
+
+            </div>
+            <div class="form-group has-feedback">
+                <label class="hidden-xs" for=" supplyChainId">Programas</label>
+
+                <select class="form-control" id="supplyChainId" name="supplyChainId"
+                        data-bind="value: supplyChain, options: $root.supplyChains, optionsText:'name', optionsValue:'id',optionsCaption: '@string.Format(Message.SelectA, Message.SupplierChain)'"></select>
+                <span class="help-block"></span>
+
+            </div>
+        }
+
+        <div class="form-group has-feedback">
+            <label class="hidden-xs" for="DepartmentId">@Message.Department</label>
+
+            <select class="form-control" id="DepartmentId" name="DepartmentId" required
+                    data-bind="value: department, options: $root.departments, optionsText:'name', optionsValue:'id',optionsCaption: '@string.Format(Message.SelectA, Message.Department)', event:{change: $root.getMunicipalities}"></select>
+            <span class="help-block"></span>
+
+        </div>
+        <div class="form-group has-feedback">
+            <label class="hidden-xs" for=" municipalityid">@Message.Municipality</label>
+
+            <select class="form-control" id="MunicipalityId" name="MunicipalityId" required
+                    data-bind="value: municipality, options: $root.municipalities, optionsText:'name', optionsValue:'id',optionsCaption: '@string.Format(Message.SelectA, Message.Municipality)', event:{change: $root.getVillages}"></select>
+            <span class="help-block"></span>
+
+        </div>
+        <div class="form-group has-feedback">
+            <label class="hidden-xs" for=" villageid">@AdminMessage.Village</label>
+
+            <select class="form-control" id="VillageId" name="VillageId" required
+                    data-bind="value: village, options: $root.villages, optionsText:'name', optionsValue:'id',optionsCaption: '@string.Format(Message.SelectA, AdminMessage.Village)'"></select>
+            <span class="help-block"></span>
+
+        </div>
+        <div class="form-group has-feedback">
+            @Html.LabelFor(model => model.Longitude, Message.Longitude, new { @class = "hidden-xs" })
+
+            @Html.TextBoxFor(model => model.Longitude, new { @class = "form-control", placeholder = Message.Longitude, required = "required", @data_bind = "value: longitude" })
+            <span class="help-block"></span>
+
+        </div>
+        <div class="form-group has-feedback">
+            @Html.LabelFor(model => model.Latitude, Message.Latitude, new { @class = "hidden-xs" })
+
+            @Html.TextBoxFor(model => model.Latitude, new { @class = "form-control", placeholder = Message.Latitude, required = "required", @data_bind = "value: latitude" })
+            <span class="help-block"></span>
+
+        </div>
+        <div class="form-group has-feedback">
+            @Html.LabelFor(model => model.Elevation, Message.Elevation, new { @class = "hidden-xs" })
+
+            <p class="form-control-static" data-bind="text: elevation"></p>
+
+        </div>
+        <div class="form-group has-feedback">
+            <label class="hidden-xs" for="FarmStatusId">@AdminMessage.Farm_Status</label>
+
+            <select class="form-control" id="FarmStatusId" name="FarmStatusId"
+                    data-bind="value: farmStatus, options: $root.farmStatuses, optionsText:'name', optionsValue:'id',optionsCaption: '@string.Format(Message.SelectA, AdminMessage.Farm_Status)'"></select>
+            <span class="help-block"></span>
+
+        </div>
+        <div class="form-group has-feedback">
+            <label class="hidden-xs" for="CooperativeId">@AdminMessage.Cooperative</label>
+
+            <select class="form-control" id="CooperativeId" name="CooperativeId" required
+                    data-bind="value: cooperative, options: $root.cooperatives, optionsText:'name', optionsValue:'id',optionsCaption: '@string.Format(Message.SelectA, AdminMessage.Cooperative)'"></select>
+            <span class="help-block"></span>
+
+        </div>
+        <div class="form-group has-feedback">
+            <label class="hidden-xs" for="OwnershipTypeId">@AdminMessage.Ownership_Type</label>
+
+            <select class="form-control" id="OwnershipTypeId" name="OwnershipTypeId" required
+                    data-bind="value: ownershipType, options: $root.ownershipTypes, optionsText:'name', optionsValue:'id',optionsCaption: '@string.Format(Message.SelectA, AdminMessage.Ownership_Type)'"></select>
+            <span class="help-block"></span>
+
+        </div>
+        <br />
+        @if (!Model.IsNew)
+        {
+            <br />
+            <h3 class="page-header">@FarmMessages.Associated_People</h3>
+            <div class="row">
+
+                @if (!User.IsTechnician())
+                {
+                    <div class="col-lg-12">
+                        <div class="form-group has-feedback">
+                            <label class="hidden-xs" for="FarmStatusId">@FarmMessages.Technician</label>
+
+                            <select class="form-control" id="CurrentTechnician" name="CurrentTechnician"
+                                    data-bind="value: associatedPerson, options: $root.associatedPeople, optionsValue: 'Id', optionsText:'FullName', optionsCaption: '@string.Format(Message.SelectA, FarmMessages.Technician)'"></select>
+                            <span class="help-block"></span>
+
+                        </div>
+
+                    </div>
+                }
+
+
+                else
+                {
+                    <div class="col-lg-12">
+                        <div class="form-group has-feedback">
+                            <label class="hidden-xs" for="FarmStatusId">@FarmMessages.Technician</label>
+                            <br />
+                            @{
+                                if (@Model.AssociatedPeople.Count() > 0)
+                                {
+
+                                    <label class="hidden-xs" for="FarmStatusId">@Model.AssociatedPeople.FirstOrDefault().FirstName @Model.AssociatedPeople.FirstOrDefault().LastName</label>
+                                    <input type="hidden" name="CurrentTechnician" value="@Model.CurrentTechnician">
+                                }
+                            }
+
+
+                        </div>
+
+                    </div>
+                }
+
+            </div>
+        }
+        else
+        {
+            <input type="hidden" name="CurrentTechnician" value="@ViewBag.TechnicianId">
+        }
+    </div>
+
+    <div class="col-lg-7">
+        <h3 class="page-header">@FarmMessages.Farm_location</h3>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="embed-responsive embed-responsive-16by9" id="map-canvas">
+                </div>
+            </div>
+        </div>
+        <br />
+        @if (!Model.IsNew)
+        {
+            <br />
+            <h3 class="page-header">@FarmMessages.Photo_Gallery</h3>
+            <div class="row">
+                <div class="col-lg-12">
+                    @if (Model.Images != null && Model.Images.Count > 0)
+                    {
+                        @Html.Partial("~/Views/Farms/_Carousel.cshtml", Model)
+                    }
+                    else
+                    {
+                        @FarmMessages.No_Photos_Found
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>

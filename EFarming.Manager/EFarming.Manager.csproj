@@ -1,0 +1,201 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E54EC141-FEDE-4E92-B6F8-9BB29561D93D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EFarming.Manager</RootNamespace>
+    <AssemblyName>EFarming.Manager</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>bin\Debug\EFarming.Manager.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=3.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\AutoMapper.3.2.1\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper.Net4">
+      <HintPath>..\packages\AutoMapper.3.2.1\lib\net40\AutoMapper.Net4.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging, Version=3.4.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.3.4.1\lib\net40\Common.Logging.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Common.Logging.Core, Version=3.4.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.Core.3.4.1\lib\net40\Common.Logging.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Contract\AdminModule\IAdminManager.cs" />
+    <Compile Include="Contract\AdminModule\IAssessmentTemplateManager.cs" />
+    <Compile Include="Contract\AdminModule\ICooperativeManager.cs" />
+    <Compile Include="Contract\AdminModule\ICountryManager.cs" />
+    <Compile Include="Contract\AdminModule\IDepartmentManager.cs" />
+    <Compile Include="Contract\AdminModule\IFarmStatusManager.cs" />
+    <Compile Include="Contract\AdminModule\IFarmSubstatusManager.cs" />
+    <Compile Include="Contract\AdminModule\IFloweringPeriodQualificationManager.cs" />
+    <Compile Include="Contract\AdminModule\IMunicipalityManager.cs" />
+    <Compile Include="Contract\AdminModule\IOtherActivityManager.cs" />
+    <Compile Include="Contract\AdminModule\IOwnershipTypeManager.cs" />
+    <Compile Include="Contract\AdminModule\IPlantationStatusManager.cs" />
+    <Compile Include="Contract\AdminModule\IPlantationTypeManager.cs" />
+    <Compile Include="Contract\AdminModule\IPlantationVarietyManager.cs" />
+    <Compile Include="Contract\AdminModule\ISoilTypeManager.cs" />
+    <Compile Include="Contract\AdminModule\ISupplyChainManager.cs" />
+    <Compile Include="Contract\AdminModule\ISupplierManager.cs" />
+    <Compile Include="Contract\AdminModule\IUserManager.cs" />
+    <Compile Include="Contract\AdminModule\IVillageManager.cs" />
+    <Compile Include="Contract\IChecklistManager.cs" />
+    <Compile Include="Contract\IDashboardManager.cs" />
+    <Compile Include="Contract\IFarmManager.cs" />
+    <Compile Include="Contract\IImpactManager.cs" />
+    <Compile Include="Contract\IIndicatorManager.cs" />
+    <Compile Include="Contract\IInvoiceManager.cs" />
+    <Compile Include="Contract\ILotManager.cs" />
+    <Compile Include="Contract\IMicrolotManager.cs" />
+    <Compile Include="Contract\IMonitorManager.cs" />
+    <Compile Include="Contract\IProjectManager.cs" />
+    <Compile Include="Contract\IQualityAttributeManager.cs" />
+    <Compile Include="Contract\IQualityProfileManager.cs" />
+    <Compile Include="Contract\ISensoryProfileManager.cs" />
+    <Compile Include="Conversion\Mapping.cs" />
+    <Compile Include="Conversion\MappingAPI.cs" />
+    <Compile Include="Implementation\AdminModule\AdminManager.cs" />
+    <Compile Include="Implementation\AdminModule\AssessmentTemplateManager.cs" />
+    <Compile Include="Implementation\AdminModule\CooperativeManager.cs" />
+    <Compile Include="Implementation\AdminModule\CountryManager.cs" />
+    <Compile Include="Implementation\AdminModule\DepartmentManager.cs" />
+    <Compile Include="Implementation\AdminModule\FarmStatusManager.cs" />
+    <Compile Include="Implementation\AdminModule\FarmSubstatusManager.cs" />
+    <Compile Include="Implementation\AdminModule\FloweringPeriodQualificationManager.cs" />
+    <Compile Include="Implementation\AdminModule\MunicipalityManager.cs" />
+    <Compile Include="Implementation\AdminModule\OtherActivityManager.cs" />
+    <Compile Include="Implementation\AdminModule\OwnershipTypeManager.cs" />
+    <Compile Include="Implementation\AdminModule\PlantationStatusManager.cs" />
+    <Compile Include="Implementation\AdminModule\PlantationTypeManager.cs" />
+    <Compile Include="Implementation\AdminModule\PlantationVarietyManager.cs" />
+    <Compile Include="Implementation\AdminModule\SoilTypeManager.cs" />
+    <Compile Include="Implementation\AdminModule\SupplyChainManager.cs" />
+    <Compile Include="Implementation\AdminModule\SupplierManager.cs" />
+    <Compile Include="Implementation\AdminModule\UserManager.cs" />
+    <Compile Include="Implementation\AdminModule\VillageManager.cs" />
+    <Compile Include="Implementation\ChecklistManager.cs" />
+    <Compile Include="Implementation\DashboardManager.cs" />
+    <Compile Include="Implementation\FarmManager.cs" />
+    <Compile Include="Implementation\ImpactManager.cs" />
+    <Compile Include="Implementation\IndicatorManager.cs" />
+    <Compile Include="Implementation\InvoiceManager.cs" />
+    <Compile Include="Implementation\LotManager.cs" />
+    <Compile Include="Implementation\MicrolotManager.cs" />
+    <Compile Include="Implementation\MonitorManager.cs" />
+    <Compile Include="Implementation\ProjectManager.cs" />
+    <Compile Include="Implementation\QualityAttributeManager.cs" />
+    <Compile Include="Implementation\QualityProfileManager.cs" />
+    <Compile Include="Implementation\SensoryProfileManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\Messages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Messages.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EFarming.Common\EFarming.Common.csproj">
+      <Project>{675c4e4d-10ff-4b18-98e3-5e2e06d6fcc0}</Project>
+      <Name>EFarming.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EFarming.Core\EFarming.Core.csproj">
+      <Project>{b96f9030-d448-402c-9f68-883887bf3a24}</Project>
+      <Name>EFarming.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EFarming.DAL\EFarming.DAL.csproj">
+      <Project>{4458a58c-2928-402c-835b-7503b97a50d0}</Project>
+      <Name>EFarming.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EFarming.DTO\EFarming.DTO.csproj">
+      <Project>{b077cad7-6121-4fb2-a2a4-7a19333fd652}</Project>
+      <Name>EFarming.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EFarming.Repository\EFarming.Repository.csproj">
+      <Project>{1921170f-7617-4c72-9be9-5593023d2d19}</Project>
+      <Name>EFarming.Repository</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Messages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Messages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

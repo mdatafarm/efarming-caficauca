@@ -1,0 +1,99 @@
+﻿@*@model PagedList.PagedList<EFarming.DTO.QualityModule.SensoryProfileAssessmentDTO>*@
+@model IEnumerable<EFarming.DTO.QualityModule.SensoryProfileAssessmentDTO>
+@*@using PagedList.Mvc*@
+<table id="report" class="table table-striped table-condensed table-hover">
+    <thead>
+        <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            @foreach (var attr in (List<EFarming.DTO.QualityModule.QualityAttributeDTO>)ViewBag.Attributes)
+            {
+                <th>@attr.Description </th>
+            }
+            <th></th>
+        </tr>
+    </thead>
+    <!-- Se define para la adicio de la opcion de filtrar por columna esto lo hace datatable.net-->
+    <tfoot>
+        <tr>
+            <th class="col-md-1"></th>
+            <th class="col-md-1"></th>
+            <th class="col-md-1"></th>
+            <th class="col-md-1"></th>
+            <th class="col-md-1"></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            @foreach (var attr in (List<EFarming.DTO.QualityModule.QualityAttributeDTO>)ViewBag.Attributes)
+            {
+                <th>@attr.Description </th>
+            }
+            <th></th>
+        </tr>
+    <tbody>
+        @foreach (var assessment in Model)
+        {
+            <tr>
+                <td>@assessment.InputDateFormated</td>
+                @if (assessment.Farm != null)
+                {
+                    <td>@assessment.Farm.Code</td>
+                    <td>@assessment.Farm.FamilyUnitMembers.First().Identification</td>
+                    <td>@assessment.Farm.FamilyUnitMembers.First().FullName</td>
+                    <td>@assessment.Farm.Name</td>
+                    <td>@assessment.Farm.Village.Municipality.Department.Name</td>
+		<td>@assessment.Farm.Village.Municipality.Name</td>
+                    <td>@assessment.Farm.Village.Name</td>                    
+                }
+                else
+                {
+                    <td>@assessment.Description</td>
+                    <td>@assessment.Type</td>
+                    <td>@String.Empty</td>
+                    <td>@String.Empty</td>
+		<td></td>
+		<td></td>
+		<td></td>
+                }
+                @foreach (var attr in (List<EFarming.DTO.QualityModule.QualityAttributeDTO>)ViewBag.Attributes)
+                {
+                    var ans = assessment.GetAnswersByAttribute(attr).GetString();
+                    if (ans != null)
+                    {
+                        <td>@ans</td>
+                    }
+                    else
+                    {
+                        <td>N/D @String.Empty</td>
+                    }
+                }
+                <td>@assessment.User.FullName</td>
+            </tr>
+        }
+    </tbody>
+    @*<div>
+            <div class="text-center">
+                @string.Format(Message.Paging, (Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber), Model.PageCount)
+            </div>
+            <div class="pagination-container">
+                <div class="text-center">
+                    @Html.PagedListPager(Model, page => Url.Action("PuntoCero",
+                                                    new
+                                                    {
+                                                        tasterId=ViewBag.SeletedTasterId,
+                                                        start=ViewBag.SelectedStart ,
+                                                        end = ViewBag.SelectedEnd,
+                                                        page
+                                                    }))
+                </div>
+            <@div>
+        </div>*@
+</table>
+
+

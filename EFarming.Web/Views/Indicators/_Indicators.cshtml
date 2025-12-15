@@ -1,0 +1,61 @@
+﻿<ul class="list-group" data-bind="foreach: indicators">
+    <li class="list-group-item" data-bind="visible: visibleForm">
+        <form class="form-stacked to-validate indicator-form" autocomplete="off">
+            <div class=" form-group">
+                <select class="form-control input-sm" id="CategoryId" name="CategoryId" required
+                        data-bind="value: CategoryId, options: $root.Categories, optionsText:'Name', optionsValue:'Id',optionsCaption: '@string.Format(Message.SelectA, IndicatorMessage.Category)', selectedOptions: [CategoryId]"></select>
+            </div>
+            <div class="form-group">
+                <input name="Name" type="text" class="form-control input-sm nav-input" placeholder="@Message.Name" required data-bind="value: Name" />
+            </div>
+            <div class="form-group">
+                <textarea name="Description" class="form-control input-sm" rows="4" placeholder="@Message.Description" data-bind="value: Description"></textarea>
+            </div>
+            <div class="form-group">
+                <input name="Scale" type="number" class="form-control input-sm" placeholder="@Message.Scale" required data-bind="value: Scale" />
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-success btn-sm" data-bind="click: Save">@Message.Save</button>
+                <button type="reset" class="btn btn-sm" data-bind="click: Cancel">@Message.Cancel</button>
+                <button type="button" class="btn btn-warning btn-sm" data-bind="click: Delete, visible: !isNew()">@Message.Delete</button>
+            </div>
+        </form>
+    </li>
+    <li class="list-group-item" data-bind="visible: visibleInfo, attr:{id: Id}">
+
+        <div data-bind="if: isNew, click: ShowForm">
+            <small class="action-link">
+                <span class="indicator glyphicon glyphicon-plus">
+                </span>
+                @IndicatorMessage.New_Indicator
+            </small>
+        </div>
+        <div class="indicator" data-bind="ifnot: isNew">
+            <div class="ibox-tools">
+                <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                    <i class="fa fa-bars"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-user dropdown-menu-right">
+                    <li>
+                        <a href="#" data-bind="click: LoadCriteria">@IndicatorMessage.Load_Criteria</a>
+                    </li>
+                    <li>
+                        <a href="#" data-bind="click: ShowForm">@Message.Edit</a>
+                    </li>
+                </ul>
+            </div>
+            <small>
+                <strong>@IndicatorMessage.Category: </strong>
+            </small><small data-bind="text: CategoryName"></small>
+            <br />
+            <small>
+                <strong>@Message.Name: </strong>
+            </small><small data-bind="text: Name"></small>
+            <br />
+            <small><strong>@Message.Description: </strong></small><small data-bind="text: Description"></small>
+            <br />
+            <small><strong>@Message.Scale: </strong></small><small data-bind="text: Scale"></small>
+        </div>
+
+    </li>
+</ul>

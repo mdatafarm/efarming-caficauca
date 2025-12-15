@@ -1,0 +1,104 @@
+﻿@model IEnumerable<EFarming.DTO.ImpactModule.CategoryDTO>
+    @{
+        ViewBag.Title = @IndicatorMessage.Categories;
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2 class="page-name text-uppercase">@IndicatorMessage.Categories</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="@Url.Action("Index", "Home")">@Message.Home</a>
+                </li>
+
+                <li>
+                    <a href="@Url.Action("Index", "Indicators")">@IndicatorMessage.Impact_Indicators</a>
+                </li>
+
+                <li class="active">
+                    <strong>@IndicatorMessage.Categories</strong>
+                </li>
+            </ol>
+        </div>
+        <div class="col-lg-2">
+            <a class="btn btn-success pull-right btn-lg new-fm" href="@Url.Action("Create", "Categories")">
+                <span class="glyphicon glyphicon-plus-sign"></span>
+                @IndicatorMessage.New_Category
+            </a>
+        </div>
+    </div>
+
+    <div class="wrapper wrapper-content">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>@IndicatorMessage.Categories</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="flot-chart farm-search">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <form role="form" class="filter-form">
+                                        <div class="row-fluid">
+                                            <div class="col-lg-6 col-sm-6">
+
+                                                <div class="form-group">
+                                                    <label for="searchDepartment" class="hidden-xs">@QualityMessage.Assessment_Template</label>
+                                                    @Html.DropDownList("AssessmentTemplateId", (SelectList)ViewBag.AssessmentTemplateId, string.Format(Message.SelectA, IndicatorMessage.Category), new { @class = "form-control" })
+                                                </div>
+
+                                            </div>
+                                            <div class="clo-lg-6 col-sm-6">
+                                                <div class="form-group">
+                                                    <button class="btn btn-success pull-right btn-sf">
+                                                        <span class="glyphicon glyphicon-search"></span>
+                                                        @Message.Search
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped  table-hover table-condensed">
+                                            <thead>
+                                                <tr>
+                                                    <th>@Message.Name</th>
+                                                    <th>@Message.Score</th>
+                                                    <th>@Message.Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var category in Model)
+                                                {
+                                                    <tr>
+                                                        <td>@Html.DisplayFor(modelItem => category.Name)</td>
+                                                        <td>@Html.DisplayFor(modelItem => category.Score)</td>
+                                                        <td>
+                                                            <a href="@Url.Action("Edit", "Categories", new { id = category.Id })" class="btn btn-link link-edit">
+                                                                <span class="glyphicon glyphicon-edit"></span>
+                                                                @Message.Edit
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

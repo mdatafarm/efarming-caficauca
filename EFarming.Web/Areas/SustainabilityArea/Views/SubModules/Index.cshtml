@@ -1,0 +1,80 @@
+﻿@model IEnumerable<EFarming.Core.TasqModule.SubModule>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div>
+    <p class="pull-left"><b>Sub Categoría</b></p>
+</div>
+
+<table class="table" style="font-size:12px !important;">
+    <tr>
+        <th></th>
+        <th>
+            Categoría
+        </th>
+        <th>
+            Sub Categoría
+        </th>
+        <th>
+            Orden
+        </th>
+        <th>
+            <span class="pull-right">
+                @if (!User.IsInRole("Reader"))
+                {
+                    if (ViewBag.mod != null)
+                    {
+                        <a href="@Url.Action("Create", "SubModules", new { assesmentId = ViewBag.mod.AssessmentTemplateId })" data-toggle="modal" data-target="#modal" class="btn btn-success btn-sm">
+                            <span class="glyphicon glyphicon-plus">
+                            </span>
+Agregar                        </a>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("Create", "SubModules")" data-toggle="modal" data-target="#modal" class="btn btn-success btn-sm">
+                            <span class="glyphicon glyphicon-plus">
+                            </span>
+                            Agregar
+                        </a>
+                    }
+                }
+            </span>
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td style="width:10%;">
+                <a href="@Url.Action("Index", "TASQCriterias", new { SubModuleId = item.Id })" style="display:block;" data-target="tasq-criterias-content" class="config">
+                    <span class="glyphicon glyphicon-cog"></span><span class="glyphicon glyphicon-chevron-right"></span>
+                </a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Module.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubModuleOrder)
+            </td>
+            <td>
+                <div class="pull-right">
+                    @if (!User.IsInRole("Reader"))
+                    {
+                        <a href="@Url.Action("Edit", "SubModules", new { id = item.Id, assesmentId = ViewBag.mod.AssessmentTemplateId})" data-toggle="modal" data-target="#modal">
+                            <span class="glyphicon glyphicon-edit"></span>
+                        </a>
+                        <a href="@Url.Action("Delete", "SubModules", new { id = item.Id, assesmentId = ViewBag.mod.AssessmentTemplateId })" data-toggle="modal" data-target="#modal">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </a>
+                    }
+                </div>
+            </td>
+        </tr>
+    }
+
+</table>

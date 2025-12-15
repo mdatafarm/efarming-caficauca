@@ -1,0 +1,111 @@
+﻿@model EFarming.DTO.FarmModule.FarmDTO
+
+<br />
+<h3 class="page-header text-capitalize">@FarmMessages.Productivity_Information</h3>
+<br />
+
+@Html.HiddenFor(model => model.Productivity.Id)
+
+<div class="col-md-12">
+    <table class="table table-responsive table-hover">
+        <tbody>
+            <tr>
+                <td><b>Average age</b></td>
+                <td>@Model.Productivity.averageAge.ToString("0.##")</td>
+            </tr>
+            <tr>
+                <td><b>Average density</b></td>
+                <td>@Convert.ToDouble(Model.Productivity.averageDensity.Replace(".", ",")).ToString("0.##")</td>
+            </tr>
+            <tr>
+                <td><b>Coffee area</b></td>
+                <td>@Model.Productivity.coffeeArea</td>
+            </tr>
+            <tr>
+                <td><b>Estimated production</b></td>
+                <td>@Model.Productivity.estimatedProduction</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="col-md-12">
+    <br />
+    <h4 class="page-header text-capitalize">Árboles productivos</h4>
+    <table class="table table-responsive table-hover">
+        <tbody>
+            <tr>
+                <td><b>Productive trees</b></td>
+                <td>@Model.Productivity.productionPlants</td>
+            </tr>
+            <tr>
+                <td><b>Productive trees (%)</b></td>
+                <td>% @Model.Productivity.productionPercentage.ToString("0.##")</td>
+            </tr>
+            <tr>
+                <td><b>Productive area</b></td>
+                <td>@Model.Productivity.productionArea</td>
+            </tr>
+            <tr>
+                <td><b>Productive area (%)</b></td>
+                <td>% @Model.Productivity.productionAreaPercentage.ToString("0.##")</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="col-md-12">
+    <br />
+    <h4 class="page-header text-capitalize">Growing trees</h4>
+    <table class="table table-responsive table-hover">
+        <tbody>
+            <tr>
+                <td><b>Growing trees</b></td>
+                <td>@Model.Productivity.growingPlants</td>
+            </tr>
+            <tr>
+                <td><b>Growing trees (%)</b></td>
+                <td>% @Model.Productivity.growingPercentage.ToString("0.##")</td>
+            </tr>
+            <tr>
+                <td><b>Growing area</b></td>
+                <td>@Model.Productivity.growingArea</td>
+            </tr>
+            <tr>
+                <td><b>Growing area (%)</b></td>
+                <td>% @Model.Productivity.growingAreaPercentage.ToString("0.##")</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="col-md-12">
+    <br />
+    <h4 class="page-header text-capitalize">
+        Información de variedades
+    </h4>
+    <table class="table table-responsive table-hover">
+        <tbody>
+            <tr>
+                <td><b>Colombia (%)</b></td>
+                <td class="align-right" id="percentageColombia">% @ViewBag.opeColombia.ToString("0.##")</td>
+            </tr>
+            <tr>
+                <td><b>Caturra (%)</b></td>
+                <td class="align-right" id="percentageCaturra">% @ViewBag.opeCaturra.ToString("0.##")</td>
+            </tr>
+            <tr>
+                <td><b>Castillo (%)</b></td>
+                <td class="align-right" id="percentageCastillo">% @ViewBag.opeCastillo.ToString("0.##")</td>
+            </tr>
+            <tr>
+                <td><b>Otro (%)</b></td>
+                <td class="align-right" id="percentageotra">% @ViewBag.opeOtro.ToString("0.##")</td>
+            </tr>
+            <tr style="background:rgba(149, 193, 31, 0.38);">
+                <td><b>TOTAL (%)</b></td>
+                <td class="align-right" id="total">% @ViewBag.total.ToString("0.##")</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

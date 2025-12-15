@@ -1,0 +1,123 @@
+﻿@model IEnumerable<EFarming.Core.ComercialModule.ContractInvoice>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    <script src="~/Scripts/jquery-ui-1.10.4.min.js"></script>
+    <script src="~/Scripts/commercial/FixationFunctions.js"></script>
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 col-lg-12 col-sm-12">
+            <div class="panel panel-primary filterable">
+                <div class="panel-heading" style="background-color :aliceblue">
+                    <h3 class="panel-title">Invoices list</h3>
+                    <div class="pull-right">
+                        <label class="btn btn-success btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Filter</label>
+                    </div>
+                </div>
+
+                <table class="table table-fixed-header">
+                    <thead>
+                        <tr class="filters">
+                            <th><input type="text" class="form-control" placeholder="Contract" disabled></th>
+                            <th><input type="text" class="form-control" placeholder="B/L" disabled></th>
+                            <th><input type="text" class="form-control" placeholder="Invoice Number" disabled></th>
+                            <th><input type="text" class="form-control" placeholder="Expocafe Receipt Date" disabled></th>
+                            <th><input type="text" class="form-control" placeholder="Cafexport Payment Deadline" disabled></th>
+                            <th><input type="text" class="form-control" placeholder="Client Payment Deadline" disabled></th>
+                            <th><input type="text" class="form-control" placeholder="Cafexport Payment Date" disabled></th>
+                            <th><input type="text" class="form-control" placeholder="Client Payment Date" disabled></th>
+                            <th><span class="glyphicon glyphicon-cog"></span></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Shipment.ContractLots.First().Agreement.OurRef)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Shipment.DocumentBL)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Number)
+                            </td>
+                            <td>
+                                @string.Format("{0:dd/MM/yyyy}", item.CafexportReceiptDate)
+                            </td>
+                            <td>
+                                @string.Format("{0:dd/MM/yyyy}", item.CafexportPaymentDeadline)
+                            </td>
+                            <td>
+                                @string.Format("{0:dd/MM/yyyy}", item.ClientPaymentDeadLine)
+                            </td>
+                            <td>
+                                @string.Format("{0:dd/MM/yyyy}", item.CafexportPaymentDate)
+                            </td>
+                            <td>
+                                @string.Format("{0:dd/MM/yyyy}", item.ClientPaymentDate)
+                            </td>
+                            <td>
+                                <a target="_blank" href="@Url.Action("Details", new { id = item.Id })"><img src="~/Images/Adobe_icon_32x32.png" alt="Details" /></a>
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .filterable {
+        margin-top: 15px;
+    }
+
+        .filterable .panel-heading .pull-right {
+            margin-top: -20px;
+        }
+
+        .filterable .filters input[disabled] {
+            background-color: transparent;
+            border: none;
+            cursor: auto;
+            box-shadow: none;
+            padding: 0;
+            height: auto;
+        }
+
+            .filterable .filters input[disabled]::-webkit-input-placeholder {
+                color: #333;
+            }
+
+            .filterable .filters input[disabled]::-moz-placeholder {
+                color: #333;
+            }
+
+            .filterable .filters input[disabled]:-ms-input-placeholder {
+                color: #333;
+            }
+
+    table .header-fixed {
+        position: fixed;
+        top: 40px;
+        z-index: 1020; /* 10 less than .navbar-fixed to prevent any overlap */
+        border-bottom: 1px solid #d5d5d5;
+        -webkit-border-radius: 0;
+        -moz-border-radius: 0;
+        border-radius: 0;
+        -webkit-box-shadow: inset 0 1px 0 #fff, 0 1px 5px rgba(0,0,0,.1);
+        -moz-box-shadow: inset 0 1px 0 #fff, 0 1px 5px rgba(0,0,0,.1);
+        box-shadow: inset 0 1px 0 #fff, 0 1px 5px rgba(0,0,0,.1);
+        filter: progid:DXImageTransform.Microsoft.gradient(enabled=false); /* IE6-9 */
+    }
+</style>
+

@@ -1,0 +1,184 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,300);
+@import url(http://fonts.googleapis.com/css?family=PT+Sans);
+
+html {
+    height: 100%;
+}
+
+body {
+    background-color: #4A4A49;
+    background-image: radial-gradient(circle farthest-side at center top, #848484 0%, #4A4A49 100%);
+    background-size: cover;
+    height: 100%;
+    color: #95a5a6;
+    font-family: 'Roboto','PT Sans',sans-serif;
+    font-weight: 300;
+}
+
+a:hover {
+    color: #449D44;
+    text-decoration: none;
+}
+
+.section-title h3 {
+    color: #8FBE44;
+    text-align: center;
+    font-weight: 300;
+    text-transform: uppercase;
+}
+
+.form-signin {
+    margin: 0 auto;
+    max-width: 420px;
+    padding: 15px;
+    background-color: white;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+    margin-top: 15px;
+}
+
+.logo {
+    margin: 0 auto;
+    max-width: 420px;
+    padding: 0;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.form-signin .form-signin-heading, .form-signin .checkbox {
+    margin-bottom: 10px;
+}
+
+.form-signin .checkbox {
+    font-weight: normal;
+}
+
+.form-signin .form-control {
+    box-sizing: border-box;
+    font-size: 16px;
+    height: auto;
+    padding: 10px;
+    position: relative;
+}
+
+    .form-signin .form-control:focus {
+        z-index: 2;
+    }
+
+.form-signin input[type="email"] {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    margin-bottom: -1px;
+}
+
+.form-signin input[type="password"] {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    /*  margin-bottom: 10px; */
+}
+
+.textbox-wrap {
+    padding: 15px 5px;
+    transition: border-left-color 0.5s ease 0s, box-shadow 0.5s ease 0s, background-color 0.5s ease 0s;
+}
+    /*
+.textbox-wrap .input-group {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+}
+*/
+    /*
+.textbox-wrap .input-group .input-group-addon, .eternity-form .textbox-wrap .input-group input, .eternity-form .textbox-wrap .input-group .form-control {
+    background-color: transparent;
+    border: medium none;
+}
+*/
+    .textbox-wrap .input-group input, .eternity-form .textbox-wrap .input-group .form-control, .eternity-form .textbox-wrap .input-group input:focus, .eternity-form .textbox-wrap .input-group .form-control:focus {
+        box-shadow: none;
+        outline: medium none;
+    }
+
+    .textbox-wrap .input-group [class^="icon-"], .eternity-form .textbox-wrap .input-group [class*=" icon-"], .eternity-form .textbox-wrap .input-group i {
+        color: #cccccc;
+    }
+
+    .textbox-wrap.focused {
+        background-color: #f0f0f0;
+        border-left-color: #3498db;
+        box-shadow: 0 0 3px rgba(0, 0, 0, 0.1) inset;
+    }
+
+.login-form-action {
+    padding: 10px;
+}
+
+.checkbox {
+    display: inline-block;
+    margin-bottom: 0;
+    margin-top: 7px;
+    padding-left: 1px;
+}
+
+.pull-left {
+    float: left;
+}
+
+.custom-checkbox {
+    float: left;
+}
+
+input[type=checkbox].css-checkbox {
+    display: none;
+}
+
+    input[type=checkbox].css-checkbox + label.css-label {
+        padding-left: 30px;
+        height: 26px;
+        display: inline-block;
+        line-height: 26px;
+        background-repeat: no-repeat;
+        background-position: 0 0;
+        font-size: 16px;
+        vertical-align: middle;
+        cursor: pointer;
+    }
+
+    input[type=checkbox].css-checkbox:checked + label.css-label {
+        background-position: 0 -26px;
+    }
+
+label.css-label {
+    background-image: url(http://csscheckbox.com/checkboxes/u/csscheckbox_8143cc495124eda65b8be96de753faba.png);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.login-form-links {
+    background-color: white;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 420px;
+    margin-top: 5px;
+}
+
+.animated.fadeInRightBig {
+    animation-name: fadeInRightBig;
+}
+
+.animated {
+    animation-duration: 1s;
+    animation-fill-mode: both;
+}
+
+.green {
+    color: #8FBE44;
+}
+
+.flogin {
+    padding-top: 10px;
+    color: #fff;
+}

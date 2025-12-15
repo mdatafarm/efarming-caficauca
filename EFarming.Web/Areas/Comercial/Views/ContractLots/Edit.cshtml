@@ -1,0 +1,174 @@
+﻿@model EFarming.Core.ComercialModule.ContractLot
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    <script src="~/Scripts/jquery-ui-1.10.4.min.js"></script>
+    <script src="~/Scripts/commercial/es-CO.js"></script>
+    <script src="~/Scripts/commercial/EditLot.js"></script>
+}
+
+<div class="row">
+    <div class="col-md-12 col-lg-12 col-sm-12">
+        <div class="wrapper wrapper-content">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Editing the lot  @Model.LotReference</h5>
+                        </div>
+
+                        <div class="ibox-content">
+
+                            @using (Html.BeginForm(null, null, FormMethod.Post, new { @id = "UpdateLotForm" }))
+                            {
+                                @Html.AntiForgeryToken()
+
+                                foreach (var item in ViewBag.ContractsForLots)
+                                {
+                                    <input type="hidden" value="@item" name="ContractsForLots" />
+                                }
+
+                                <div class="form-horizontal">
+                                    <h4>ContractLot</h4>
+                                    <hr />
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    @Html.HiddenFor(model => model.Id)
+
+                                    <div class="form-group col-md-12">
+                                        <div class="control-label col-md-2">Internal reference</div>
+                                        @*@Html.LabelFor(model => model.LotReference, "Internal reference", htmlAttributes: new { @class = "control-label col-md-2" })*@
+                                        <div class="col-md-2">
+                                            @Html.EditorFor(model => model.LotReference, new { htmlAttributes = new { @readonly = "readonly", @class = "form-control" } })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group hidden">
+                                        @Html.LabelFor(model => model.AgreementId, "Contract", htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.AgreementId, new { htmlAttributes = new { @readonly = "readonly", @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.AgreementId, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group hidden">
+                                        @Html.LabelFor(model => model.ShipmentId, "Shipment", htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.ShipmentId, new { htmlAttributes = new { @readonly = "readonly", @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.ShipmentId, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    @{
+                                        string VaildatedIcoMark = Model.IcoMark != null ? Model.IcoMark : "null-null-null-null";
+                                    }
+                                    <div class="form-group">
+                                        <div class="control-label col-md-2">Ico Mark</div>
+                                        <div class="col-md-10" style="padding-left: 5px;">
+                                            <div class="col-md-3">
+                                                <input type="number" id="year" name="year" required class="form-control" value="@VaildatedIcoMark.Split('-')[0]" />
+                                            </div>
+                                            <div class="col-md-3">
+                                                @Html.DropDownList("Country", ViewBag.Countries as System.Web.Mvc.SelectList, "Select a Country", new { @class = "form-control", @Required = "Required" })
+                                            </div>
+                                            <div class="col-md-3">
+                                                @Html.DropDownList("SellerCode", ViewBag.Sellers as System.Web.Mvc.SelectList, "Select a Seller", new { @class = "form-control", @Required = "Required" })
+                                            </div>
+                                            <div class="col-md-3">
+                                                <input type="number" id="lot" name="lot" required class="form-control" value="@VaildatedIcoMark.Split('-')[3]" />
+                                            </div>
+                                            @Html.EditorFor(model => model.IcoMark, new { htmlAttributes = new { @style = "display:none" } })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="control-label col-md-2">Merchandise description</div>
+                                        <div class="col-md-10" style="padding-left: 5px;">
+                                            <div class="col-md-3">
+                                                @Html.DropDownList("MerchandiseType", new SelectList(ViewBag.MDTypes as System.Web.Mvc.SelectList, "Value", "Text", ViewBag.MDType.Id), "Select a type", new { @readonly = "readonly", @class = "form-control", @Required = "Required", @disabled = "disabled" })
+                                            </div>
+                                            <div class="col-md-3">
+                                                @Html.DropDownList("MerchandiseOrigin", new SelectList(ViewBag.MDOrigins as System.Web.Mvc.SelectList, "Value", "Text", Model.MerchandiseDescription != null ? Model.MerchandiseDescription.Split('|')[1] : null), "Select an origin", new { @class = "form-control" })
+                                            </div>
+                                            @Html.EditorFor(model => model.MerchandiseDescription, new { htmlAttributes = new { @style = "display:none" } })
+                                        </div>
+                                    </div>
+
+                                    <div class="row col-md-12">
+
+                                        @foreach (var reference in ViewBag.References)
+                                        {
+                                            bool created = false;
+
+                                            <div class="form-group form2 col-md-6">
+                                                <div class="control-label col-md-4">@reference.Text</div>
+                                                <div class="col-md-8">
+                                                    @foreach (var referenceValue in ViewBag.SavedReferences)
+                    {
+                        if (referenceValue.DocumentReferenceId == Int32.Parse(reference.Value))
+                        {
+                                                            <input class="form-control col-md-10" style="width: 80%" type="text" id="dynamic @reference.Value" name="dynamic @reference.Value" value="@referenceValue.Value" />
+                                                            created = true;
+                                                        }
+                                                    }
+                                                    @if (created == false)
+                                                    {
+                                                        if (reference.Text == "Lot Starbucks")
+                                                        {
+                                                            <input class="form-control col-md-10" style="width: 80%" type="text" id="dynamic @reference.Value" name="dynamic @reference.Value" value="@Model.Agreement.YourRef" />
+                                                        }
+                                                        else
+                                                        {
+                                                            <input class="form-control col-md-10" style="width: 80%" type="text" id="dynamic @reference.Value" name="dynamic @reference.Value" />
+                                                        }
+                                                    }
+                                                    @{
+                                                        string unit = "";
+                                                        string casereference = reference.Text;
+                                                        switch (casereference)
+                                                        {
+                                                            case "Net shipped weight":
+                                                                unit = "kg";
+                                                                break;
+                                                            case "Volume":
+                                                                unit = "bags";
+                                                                break;
+                                                            default:
+                                                                unit = "";
+                                                                break;
+                                                        }
+                                                        <div class="control-label col-md-2">@unit</div>
+                                                    }
+                                                    
+                                                    @*@Html.EditorFor(model => model.Agreement.OurRef, new { htmlAttributes = new { @readonly = "readonly", @class = "form-control" } })*@
+                                                </div>
+                                            </div>
+                                                        }
+                                    </div>
+
+
+
+                                    <div class="form-group">
+                                        <div class="col-md-offset-2 col-md-10">
+                                            <input type="submit" value="Save" class="btn btn-default" id="UpdateLot" />
+                                        </div>
+                                    </div>
+                                </div>
+                                        }
+
+                            @*<div>
+        @Html.ActionLink("Atrás", "Create", new { id = Model.AgreementId })
+    </div>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

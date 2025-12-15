@@ -1,0 +1,227 @@
+﻿@model EFarming.Core.ComercialModule.Agreement
+@using System.Threading
+@using System.Globalization;
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Comercial/Views/Shared/_PdfLayout.cshtml";
+    var imagePath = Server.MapPath("~/Images");
+}
+<title>Contract: @Model.OurRef</title>
+
+<div>
+    <div style="height:100%">
+        @{ 
+            string path = imagePath + @"\" + Model.Seller.Header + ".png";
+            string imageWidth = "";
+            string imageHeight = "";
+            if (Model.Seller.Header == "expocafe"){
+                imageWidth = "366";
+                imageHeight = "81";
+            }
+            else
+            {
+                imageWidth = "134";
+                imageHeight = "81";
+            }
+        }
+        <img src="@path" alt="@Model.Seller.Header" height="@imageHeight" width="@imageWidth" />
+        <div class="documentHeader">
+            <table style="border-bottom-width:medium">
+                <tr>
+                    <td colspan="2">
+                        @Html.DisplayFor(model => model.Client.Name)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.DisplayFor(model => model.Client.Address)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        @Html.DisplayFor(model => model.Client.ZipCode)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.Client.Country)
+                    </td>
+                    <td style="text-align:right">
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="bottom" colspan="2" class="title" style="font-size: 16px; text-align:right; border-bottom-width:3px">
+                        Attn. @Html.DisplayFor(model => model.Agent.Name)
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="documentBody">
+            <table>
+                <tr>
+                    <td valign="top">
+                        <table>
+                            <tr>
+                                <td colspan="2" class="title">
+                                    <b>CONFIRMATION OF BUSINESS <span style="color:blue">@Html.DisplayFor(model => model.OurRef)</span></b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <span style="color:white">-</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">We confirm having sold to you today as follows subject terms and conditions of the Starbucks Coffee Trading Company Green Coffee Supplier Guidelines - latest edition:</td>
+                            </tr>
+                            <tr>
+                                <td style="color:white">_</td>
+                            </tr>
+                            <tr>
+                                <td valign="top" class="tdleft">Your ref: </td>
+                                <td class="tdright"></td>
+                            </tr>
+                            <tr>
+                                <td valign="top" class="tdleft">Our ref: </td>
+                                <td class="tdright"><span style="color:blue">@Html.DisplayFor(model => model.OurRef)</span></td>
+                            </tr>
+                            <tr>
+                                <td valign="top" class="tdleft">Date: </td>
+                                <td>@Model.Date.ToString("MMMM dd yyyy", CultureInfo.CreateSpecificCulture("en-US"))</td>
+                            </tr>
+                            <tr>
+                                <td valign="top" class="tdleft">Buyer: </td>
+                                <td class="tdright">@Html.DisplayFor(model => model.Client.Name)</td>
+                            </tr>
+                            <tr>
+                                <td valign="top">Seller: </td>
+                                <td>@Html.DisplayFor(model => model.Seller.Name)</td>
+                            </tr>
+                            <tr>
+                                <td valign="top" class="tdleft">Volume: </td>
+                                <td class="tdright"><span style="color:orange">@Html.DisplayFor(model => model.Volume)</span></td>
+                            </tr>
+                            <tr>
+                                <td valign="top" class="tdleft">Shipment:</td>
+                                <td><span style="color:orange"> @Model.ShipmentDate.ToString("MMMM dd yyyy", CultureInfo.CreateSpecificCulture("en-US"))</span></td>
+                            </tr>
+                            <tr>
+                                <td valign="top" class="tdleft">Quality: </td>
+                                <td class="tdright">@Html.DisplayFor(model => model.Quality)</td>
+                            </tr>
+                            <tr>
+                                <td valign="top" class="tdleft">Price: </td>
+                                <td class="tdright">
+                                    @{
+                                        if (Model.PriceType == "Outright")
+                                        {
+                                            @Html.Raw("<span style=\"color: orange\">") 
+                                            @Html.Label((Model.Fixation + Model.PriceDifferential).ToString());
+                                            @Html.Raw("</span> USD cts-lb Outright")
+                                        }
+                                        else
+                                        {
+                                            @Html.Label((Model.Fixation + Model.PriceType).ToString() + " against ");
+                                            @Html.Raw("<span style=\"color: orange\">");
+                                            @Html.Label((Model.LotsNumber).ToString());
+                                            @Html.Raw("</span>");
+                                            @Html.Label(" lots of NYC ");
+                                            @Html.Raw("<span style=\"color: orange\">");
+                                            @Html.Label((Model.PriceDate).ToString());
+                                            @Html.Raw("</span>");
+                                            @Html.Label(", plus ");
+                                            @Html.Raw("<span style=\"color: orange\">");
+                                            @Html.Label((Model.PriceDifferential).ToString());
+                                            @Html.Raw("</span>");
+                                            @Html.Raw(" USD cts  - lb. Fixation prior to shipment or first notice day, whichever first. ");
+                                        };
+                                            }
+                                </td>
+                            </tr>
+                            <tr>
+                                <td valign="top" class="tdleft">Terms: </td>
+                                <td class="tdright">@Html.DisplayFor(model => model.Terms)</td>
+                            </tr>
+                            <tr>
+                                <td valign="top" class="tdleft">Weights: </td>
+                                <td>@Html.DisplayFor(model => model.Weights)</td>
+                            </tr>
+                            <tr>
+                                <td valign="top" class="tdleft">Payment: </td>
+                                <td class="tdright">@Html.DisplayFor(model => model.Payment)</td>
+                            </tr>
+                            <tr>
+                                <td valign="top" class="tdleft">Samples: </td>
+                                <td class="tdright">@Html.DisplayFor(model => model.Samples)</td>
+                            </tr>
+                            <tr>
+                                <td valign="top" class="tdleft">Arbitration: </td>
+                                <td class="tdright">@Html.DisplayFor(model => model.Arbitration)</td>
+                            </tr>
+                            <tr>
+                                <td valign="top" class="tdleft">Other: </td>
+                                <td class="tdright">@Html.DisplayFor(model => model.Others)</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="bottom">
+                        <div style="position:fixed; bottom:0px">
+                            <br/>
+                            We certainly value your business.
+                        </div>
+                        <div style="color:white">_</div>
+                        <div>
+                            Kind regards,
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="signature">
+            <table>
+                <tr>
+                    <td class="halfCellLeftSignature">
+                        <img src="@imagePath\signature.png" alt="signature" width="163" height="54" />
+                    </td>
+                    <td class="halfCell"></td>
+                </tr>
+                <tr>
+                    <td class="halfCellLeftSignature">
+                        __________________________
+                    </td>
+                    <td class="halfCell">
+                        __________________________
+                    </td>
+                </tr>
+                <tr>
+                    <td class="halfCellLeftSignature">
+                        @Html.DisplayFor(model => model.Seller.Name)
+                    </td>
+                    <td class="halfCell">
+                        @Html.DisplayFor(model => model.Client.Name)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="halfCellLeftSignature">
+                        Authorized signature
+                    </td>
+                    <td class="halfCell">
+                        Authorized signature
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="documentFooter">
+            <table>
+                <tr>
+                    <td colspan="2" class="documentFooter">
+                        @Html.DisplayFor(model => model.Seller.Footer)
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

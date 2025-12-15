@@ -1,0 +1,50 @@
+﻿@model EFarming.DTO.AdminModule.UserDTO
+
+@Html.AntiForgeryToken()
+@Html.ValidationSummary(true)
+<!-- Email -->
+<div class="form-group has-feedback">
+    @Html.LabelFor(model => model.FirstName, Message.First_Name, new { @class = "col-lg-3 control-label hidden-xs" })
+    <div class="col-lg-9">
+        @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", placeholder = Message.First_Name, required = "required" })
+        <span class="glyphicon form-control-feedback"></span>
+        <span class="help-block"></span>
+    </div>
+</div>
+<div class="form-group has-feedback">
+    @Html.LabelFor(model => model.LastName, Message.Last_Name, new { @class = "col-lg-3 control-label hidden-xs" })
+    <div class="col-lg-9">
+        @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", placeholder = Message.Last_Name, required = "required" })
+        <span class="glyphicon form-control-feedback"></span>
+        <span class="help-block"></span>
+    </div>
+</div>
+<div class="form-group has-feedback">
+    @Html.LabelFor(model => model.Role, Message.Role, new { @class = "col-lg-3 control-label hidden-xs" })
+    <div class="col-lg-9">
+        @Html.DropDownListFor(model => model.Role, (System.Web.Mvc.SelectList)ViewBag.Roles, new { @class = "form-control", placeholder = Message.Role, required = "required", type = "email" })
+        <span class="glyphicon form-control-feedback hidden"></span>
+        <span class="help-block"></span>
+    </div>
+</div>
+<div class="form-group has-feedback">
+    @Html.LabelFor(model => model.Email, Message.Email, new { @class = "col-lg-3 control-label hidden-xs" })
+    <div class="col-lg-9">
+        @Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = Message.Email, required = "required", type = "email" })
+        <span class="glyphicon form-control-feedback"></span>
+        <span class="help-block"></span>
+    </div>
+</div>
+<div class="form-group has-feedback">
+    @Html.LabelFor(model => model.Password, Message.Password, new { @class = "col-lg-3 control-label hidden-xs" })
+    <div class="col-lg-9">
+        @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = Message.Password, required = "required" })
+        <span class="glyphicon form-control-feedback"></span>
+        <span class="help-block"></span>
+    </div>
+</div>
+<div class="col-lg-9 col-lg-offset-3">
+    <button type="submit" class="btn btn-primary btn-sm">@Message.Save</button> |
+    <a href="@Url.Action("Index")" class="btn btn-link">@Message.Login</a>
+</div>
+<br>

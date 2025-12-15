@@ -1,0 +1,47 @@
+﻿@model Twilio.AddressResult
+
+@{
+    ViewBag.Title = "Addresses";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<h2>Addresses List</h2>
+
+<div class="row">
+    <div class="eight columns">
+        @if (Model != null)
+        {
+            <table class="table table-responsive table-bordered">
+                <thead >
+                    <tr>
+                        <td>Edit</td>
+                        <td>CustomerName</td>
+                        <td>Street</td>
+                        <td>City</td>
+                        <td>Region</td>
+                        <td>PostalCode</td>
+                        <td>Iso_Country</td>
+                        <td>FriendlyName</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Addresses)
+                    {
+                        <tr>
+                            <td>@Html.ActionLink(" Edit ", "Edit", "SMSEfarming", new { idCustomer = item.Sid }, new { @class = "button" })</td>
+                            <td>@item.CustomerName</td>
+                            <td>@item.Street</td>
+                            <td>@item.City</td>
+                            <td>@item.Region</td>
+                            <td>@item.PostalCode</td>
+                            <td>@item.IsoCountry</td>
+                            <td>@item.FriendlyName</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+	  <a class="btn btn-primary" href="@Url.Action("Addresses","SMSEfarming")">Create new Address</a>
+        }
+    </div>
+</div>

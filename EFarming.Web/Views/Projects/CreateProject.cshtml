@@ -1,0 +1,133 @@
+﻿@model EFarming.Core.ProjectModule.ProjectAggregate.Project
+@{
+    ViewBag.Title = "CreateProject";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/themes/base/all.css" rel="stylesheet" />
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
+<style>
+    #listFarms {
+        list-style-type: none;
+        background: #eee;
+        padding: 5px;
+        margin-right: 10px;
+        height: 400px;
+        overflow: auto;
+        margin: 0;
+        float: left;
+    }
+
+    #selectedFarms {
+        list-style-type: none;
+        background: #eee;
+        padding: 5px;
+        margin-right: 10px;
+        margin: 0 50px;
+        float: left;
+    }
+
+        #listFarms li, #selectedFarms li {
+            margin: 5px;
+            padding: 5px;
+        }
+</style>
+
+@using (Html.BeginForm())
+{
+    <div class="wrapper wrapper-content">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">Crear un proyecto</h4>
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="form-horizontal">
+
+
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                            <div class="form-group col-md-4">
+                                @*@Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                                <label class = "control-label col-md-2">Nombre</label>
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-8">
+                                @*@Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                                <label class="control-label col-md-2">Descripción</label>
+                                <div class="col-md-10">
+                                    @Html.TextAreaFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-10", @style = "text-align:left" })
+                                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            @Html.Partial("~/Areas/SustainabilityArea/Views/Contacts/_SearchFarms.cshtml")
+
+                            <div class="col-md-12 col-md-offset-1">
+                                <ul id="listFarms" class="droptrue col-md-offset-2 col-md-4"></ul>
+
+                                <ul id="selectedFarms" class="dropfalse droptrue col-md-4"></ul>
+
+                                <input id="selectedFarmsString" type="hidden" name="selectedFarmsString" />
+                            </div>
+
+                            <div class="form-group col-md-12" style="margin-top:10px">
+                                <div class="col-md-offset-4 col-md-2">
+                                    <input id="saveContact2" type="submit" value="Crear" class="btn btn-success btn-lg" />
+                                </div>
+                                <div>
+                                    <div class="col-md-2">@Html.ActionLink(Message.Back, "ProjectsList", null, new { @class = "btn btn-default btn-block btn-lg" })</div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script src="~/Scripts/jquery-ui-1.10.4.min.js"></script>
+<script type="text/javascript">
+
+    $("#Date").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: "yy-mm-dd",
+        beforeShow: function (input, inst) {
+            var rect = input.getBoundingClientRect();
+            setTimeout(function () {
+                inst.dpDiv.css({ top: rect.top + 40, left: rect.left + 0 });
+            }, 0);
+        }
+    });
+
+    $("#saveContact2").mouseover(function () {
+        var farmsToSave = "";
+        $("#selectedFarms").find("li").each(function () {
+            var current = $(this);
+            console.log(current);
+            farmsToSave = farmsToSave + current.find("input").val() + "|";
+            console.log(farmsToSave);
+        })
+        $("#selectedFarmsString").val(farmsToSave);
+    });
+
+</script>
+
+@section Scripts{
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery-ui-1.11.1.js"></script>
+    <script src="~/Scripts/mvvm/Common.js"></script>
+    <script type="text/javascript" src="~/Scripts/Sustainability/filterfarm.js"></script>
+}
+

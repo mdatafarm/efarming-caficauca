@@ -1,0 +1,362 @@
+﻿@using EFarming.Core.FarmModule.FarmAggregate;
+@using EFarming.Core.TasqModule;
+@using EFarming.DAL;
+
+
+@{
+    ViewBag.Title = "Encuesta";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    UnitOfWork db = new UnitOfWork();
+
+}
+<link href="~/Content/bootstrap-select.min.css" rel="stylesheet" />
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2 class="page-name">Diligenciar Encuestas</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="@Url.Action("Index", "Contacts")">
+                    Sostenibilidad
+                </a>
+            </li>
+
+            <li class="active">
+                <strong>Diligenciar Encuestas</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>Tipo de encuesta: </label>
+                            <span>@ViewBag.Template.Name</span>
+                            <input type="hidden" id="hdn_templateID" value="@ViewBag.Template.Id" />
+                            <input type="hidden" id="hdn_assesmentID" value="@ViewBag.Assesment.Id" />
+                            <br />
+                            <label>Finca: </label>
+                            <span>@ViewBag.Assesment.Farm.Name</span>
+                            <br />
+                            <label>Fecha: </label>
+                            <span>@ViewBag.Assesment.Date.ToShortDateString()</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">&nbsp;</div>
+                    </div>
+                    <div class="row">
+                        <div id="form_answers" class="col-md-12">
+                            @if (ViewBag.Modules != null)
+                            {
+                                foreach (Module mod in ViewBag.Modules)
+                                {
+                                    <h3 style="font-size:16px !important; font-weight:bold; background-color:#f2f2f2;">@mod.Name</h3>
+                                    foreach (SubModule sub in ViewBag.SubModules)
+                                    {
+                                        if (mod.Id == sub.ModuleId)
+                                        {
+                                            <h4>@sub.Name</h4>
+                                            <table class="table">
+                                                @foreach (TASQCriteria criteria in ViewBag.Criterias)
+                                                {
+                                                    if (sub.Id == criteria.SubModuleId)
+                                                    {
+                                                        TASQAssessment assesment = ViewBag.Assesment;
+
+                                                        TASQAssessmentAnswer respuesta = db.TASQAssessmentAnswer.Where(a => a.TASQAssessmentId == assesment.Id && a.CriteriaId == criteria.Id).FirstOrDefault();
+
+                                                        if (respuesta == null)
+                                                        {
+                                                            respuesta = new TASQAssessmentAnswer();
+                                                        }
+
+                                                        List<string> ListOptionsMultiple = new List<string>();
+                                                        string options = db.TASQCriteria.Where(x => x.Id == criteria.Id).Select(x => x.Options).FirstOrDefault();
+
+                                                        if (options !="" && options != null)
+                                                        {
+                                                            string[] words = options.Split(',');
+
+                                                            foreach (var word in words)
+                                                            {
+                                                                ListOptionsMultiple.Add(word);
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            ListOptionsMultiple = null;
+                                                        }
+
+
+
+                                                        List<string> ListOptionsSelected = new List<string>();
+                                                        string opt = "";
+                                                        try
+                                                        {
+                                                            opt = db.TASQAssessmentAnswer.Where(x => x.CriteriaId == criteria.Id && x.Id == respuesta.Id).Select(m => m.Value).FirstOrDefault();
+                                                        }
+                                                        catch { }
+
+                                                        if (opt != "" && opt != null)
+                                                        {
+                                                            string[] words = opt.Split(',');
+
+                                                            foreach (var word in words)
+                                                            {
+                                                                ListOptionsSelected.Add(word);
+                                                            }
+                                                        }
+                                                        else {
+                                                            ListOptionsSelected = null;
+                                                        }
+
+
+                                                        List<EFarming.Web.Controllers.AssessmentsReportController.ListOptionAnswer> ListResultOption= new List<EFarming.Web.Controllers.AssessmentsReportController.ListOptionAnswer>();
+
+                                                        if (ListOptionsMultiple != null)
+                                                        {
+                                                            foreach (var itemMultiple in ListOptionsMultiple)
+                                                            {
+                                                                EFarming.Web.Controllers.AssessmentsReportController.ListOptionAnswer ResultOption = new EFarming.Web.Controllers.AssessmentsReportController.ListOptionAnswer();
+
+                                                                if (ListOptionsSelected != null)
+                                                                {
+                                                                    foreach (var itemSelected in ListOptionsSelected)
+                                                                    {
+                                                                        if (itemMultiple.Trim() == itemSelected.Trim())
+                                                                        {
+                                                                            ResultOption.OptionAnswer = itemMultiple;
+                                                                            ResultOption.SelectOption = true;
+                                                                            break;
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            ResultOption.OptionAnswer = itemMultiple;
+                                                                            ResultOption.SelectOption = false;
+                                                                            // break;
+
+                                                                        }
+                                                                    }
+                                                                    ListResultOption.Add(ResultOption);
+                                                                }
+                                                                else
+                                                                {
+                                                                    foreach (var itemSelected in ListOptionsMultiple)
+                                                                    {
+                                                                        ResultOption.OptionAnswer = itemMultiple;
+                                                                        ResultOption.SelectOption = false;
+                                                                        // break;
+                                                                    }
+                                                                    ListResultOption.Add(ResultOption);
+                                                                }
+                                                            }
+                                                        }
+                                                        else{
+
+                                                        }
+
+                                                        <tr>
+                                                            <td style="width:80%">@criteria.Description</td>
+                                                            <td style="width:20%">
+                                                                @if (criteria.CriteriaTypeId == 1)
+                                                                {
+                                                                    
+
+                                                                    if (ListOptionsMultiple != null)
+                                                                    {
+                                                                        <select class="form-control"  id="@criteria.Id" name="@criteria.Id" required>
+                                                                            <option value="">Select Item...</option>
+
+                                                                            @foreach (var item in ListOptionsMultiple)
+                                                                            {
+                                                                                var Sitem = item.Trim();
+                                                                                var A_Value = "";
+                                                                                if (respuesta.Value != null)
+                                                                                {
+                                                                                    A_Value = respuesta.Value.Trim();
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    A_Value = null;
+                                                                                }
+
+                                                                                if (A_Value == Sitem)
+                                                                                {
+                                                                                    <option value="@item" selected>@item</option>
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <option value="@item">@item</option>
+                                                                                }
+
+                                                                            }
+                                                                        </select>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <input class="form-control" type="text"  id="@criteria.Id" name="@criteria.Id" value="@respuesta.Value" required />
+                                                                    }
+
+                                                                }
+                                                                else if (criteria.CriteriaTypeId == 2)
+                                                                {
+
+                                                                    if (ListResultOption != null)
+                                                                    {
+                                                                        
+                                                                        <select  id="@criteria.Id" name="@criteria.Id" class="form-control selectpicker" data-live-search="true" multiple>
+                                                                            @foreach (var item in ListResultOption)
+                                                                            {
+                                                                                <option value="@item.OptionAnswer" selected=@item.SelectOption>@item.OptionAnswer</option>
+                                                                            }
+                                                                        </select>
+                                                                        <input class="form-control hidden" type="text"  id="@criteria.Id" name="@criteria.Id" />
+                                                                    }
+
+                                                                }
+                                                                else if (criteria.CriteriaTypeId == 3)
+                                                                {
+                                                                    if (ListOptionsMultiple != null)
+                                                                    {
+                                                                        <select class="form-control"  id="@criteria.Id" name="@criteria.Id" required >
+                                                                            <option value="">Select Item...</option>
+
+                                                                            @foreach (var item in ListOptionsMultiple)
+                                                                            {
+                                                                                var Sitem = item.Trim();
+                                                                                if (respuesta.Value == Sitem)
+                                                                                {
+                                                                                    <option value="@item" selected>@item</option>
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <option value="@item">@item</option>
+                                                                                }
+
+                                                                            }
+                                                                        </select>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <input class="form-control" type="text"  id="@criteria.Id" name="@criteria.Id" value="@respuesta.Value" required />
+                                                                    }
+                                                                }
+                                                                else if (criteria.CriteriaTypeId == 4)
+                                                                {
+                                                                    <input class="form-control" type="text" id="@criteria.Id" name="@criteria.Id" value="@respuesta.Value" required />
+                                                                }
+                                                                else if (criteria.CriteriaTypeId == 5)
+                                                                {
+                                                                    <textarea class="form-control"  id="@criteria.Id" name="@criteria.Id" rows="5" style="width: 500px;" required>@respuesta.Value</textarea>
+                                                                }
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                }
+
+                                            </table>
+                                        }
+
+                                    }
+                                }
+
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">&nbsp;</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <a href="/SustainabilityArea/AssessmentFill/Index/?TemplateID=@ViewBag.Template.Id" class="btn btn-default pull-right ml" style="width:100%;">Back</a>
+                            
+                        </div>
+                        <div class="col-md-6">
+                            <button id="SaveAssesment" class="btn btn-success pull-right"  style="width:100%;">Save Answers</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+
+    });
+
+    $('#SaveAssesment').on('click', function () {
+
+        var answers = "";
+
+
+        $("#form_answers input").each(function () {
+
+            answers = answers + $(this).attr('id') + "|" + $(this).val() + "~";
+        });
+
+        $("#form_answers select").each(function () {
+
+            answers = answers + $(this).attr('id') + "|" + $(this).val() + "~";
+        });
+        
+
+        $("#form_answers textarea").each(function () {
+            answers = answers + $(this).attr('id') + "|" + $(this).val() + "~";
+        });
+
+        
+
+        $.ajax({
+            url: '/SustainabilityArea/AssessmentFill/SaveAnswers/',
+            type: 'POST',
+            datatype: 'JSON',
+            data: { AssessmentID: $('#hdn_assesmentID').val(), Answers: answers },
+            success: function (data) {
+                if (data.result == "1") {
+                    alert("Answers saved!");
+                }
+                else {
+                    alert("Try again!");
+                }
+            },
+            error: function (result) {
+                alert('Error, try again');
+            }
+        });
+
+
+        @*if ($('#FarmID').val() != "-1" && $('#txt_date').val() != "") {
+            window.location.href = '@Url.Content("~/SustainabilityArea/AssessmentFill/SaveAssessment/")' + '?TemplateID=' + $('#hdn_templateID').val() + '&FarmID=' + $('#FarmID').val() + '&Desc=' + $('#txt_description').val() + '&Date=' + $('#txt_date').val();
+
+            
+
+
+        }
+        else {
+            alert("You must select a farm and a date");
+        }*@
+    });
+
+</script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.selectpicker').selectpicker();
+        $('#Value').val($('#framework').val());
+
+        $('#framework').change(function () {
+            $('#Value').val($('#framework').val());
+        });
+    });
+</script>

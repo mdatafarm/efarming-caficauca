@@ -1,0 +1,62 @@
+﻿@model EFarming.Core.AdminModule.AssessmentAggregate.AssessmentTemplate
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Scripts/jquery-ui-1.11.1.js"></script>
+<script src="~/Scripts/remote-validation.js"></script>
+
+<div class="modal fade" id="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>
+
+<div class="row wrapper border-bottom white-bg page-heading col-md-12">
+    <div class="col-lg-10">
+        <h2 class="page-name">Configurar evaluación</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="@Url.Action("Index", "Contacts")">
+                    Sostenibilidad
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("Index", "AssessmentTemplates")">
+                    Evaluaciones
+                </a>
+            </li>
+
+            <li class="active">
+                <strong>Configurar evaluación</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+
+<div class="row col-md-12">
+    <br />
+</div>
+
+<div>
+    <div class="row col-md-12 ibox-content">
+        <div class="col-lg-6 " id="modules-content">
+            @Html.Partial("~/Areas/SustainabilityArea/Views/Modules/Index.cshtml", Model.Modules)
+        </div>
+        <div class="col-lg-6" id="submodules-content">
+            @Html.Partial("~/Areas/SustainabilityArea/Views/SubModules/Index.cshtml", (ICollection<EFarming.Core.TasqModule.SubModule>)ViewBag.SubModules)
+        </div>
+    </div>
+
+    <div class="row col-md-12">
+        <br/>
+    </div>
+
+    <div class="row col-md-12 ibox-content" id="tasq-criterias-content">
+        @Html.Partial("~/Areas/SustainabilityArea/Views/TASQCriterias/Index.cshtml", (ICollection<EFarming.Core.TasqModule.TASQCriteria>)ViewBag.TasqCriterias)
+    </div>
+
+</div>

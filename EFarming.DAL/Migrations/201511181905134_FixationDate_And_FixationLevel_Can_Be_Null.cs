@@ -1,0 +1,20 @@
+namespace EFarming.DAL.Migrations
+{
+    using System;
+    using System.Data.Entity.Migrations;
+    
+    public partial class FixationDate_And_FixationLevel_Can_Be_Null : DbMigration
+    {
+        public override void Up()
+        {
+            AlterColumn("dbo.ComercialFixations", "FixationDate", c => c.DateTime());
+            AlterColumn("dbo.ComercialFixations", "FixationLevel", c => c.Decimal(precision: 18, scale: 2));
+        }
+        
+        public override void Down()
+        {
+            AlterColumn("dbo.ComercialFixations", "FixationLevel", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("dbo.ComercialFixations", "FixationDate", c => c.DateTime(nullable: false));
+        }
+    }
+}

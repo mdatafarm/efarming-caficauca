@@ -1,0 +1,80 @@
+﻿@model IEnumerable<EFarming.Core.AdminModule.AssessmentAggregate.AssessmentTemplate>
+
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2 class="page-name">Dashboard home por evaluaciones</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="@Url.Action("Index", "AssessmentTemplates")">
+                    Sostenibilidad
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("Index", "AssessmentTemplates")">
+                    Evaluaciones
+                </a>
+            </li>
+            <li class="active">
+                <strong>Dashboard home por evaluaciones</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <table class="table">
+                        <tr>
+                            <th>
+                                Nombre
+                            </th>
+                            <th>
+                                Tipo
+                            </th>
+                            <th>Opciones</th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Type)
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Dashboard", "AssessmentTemplates", new {  start = DateTime.Now.AddDays(-90), end = DateTime.Now, id = item.Id, area = "SustainabilityArea" })" class="btn btn-success btn-sm">
+                                        <span class="glyphicon glyphicon-cog">
+                                        </span>
+                                        Dashboard
+                                    </a>
+                                    <a href="@Url.Action("Summary", "AssessmentTemplates", new {  start = DateTime.Now.AddDays(-90), end = DateTime.Now, id = item.Id, area = "SustainabilityArea" })" class="btn btn-success btn-sm">
+                                        <span class="glyphicon glyphicon-cog">
+                                        </span>
+                                        Resumen
+                                    </a>
+                                    <a href="@Url.Action("GAP", "AssessmentTemplates", new {  start = DateTime.Now.AddDays(-90), end = DateTime.Now,id = item.Id, area = "SustainabilityArea" })" class="btn btn-success btn-sm">
+                                        <span class="glyphicon glyphicon-cog">
+                                        </span>
+                                        Gap
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,125 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+@model EFarming.DTO.FarmModule.FarmDTO
+
+@{
+    int count = 0;
+    double totalQuantity = 0d;
+    double totalPrice = 0d;
+}
+<div id="fertilizers-content">
+
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>Fertilizantes por año</h5>
+        </div>
+        <div class="ibox-content">
+            <table class="table table-hover table-condensed table-striped">
+                <thead>
+                    <tr>
+                        <th>Año</th>
+                        <th>Cantidad</th>
+                        <th>Valor total</th>
+                        <th>Precio promedio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (EFarming.Web.Controllers.FertilizersController.GroupedFertilizer Fertilizer in ViewBag.groupedFertilizers)
+                    {
+                        <tr>
+                            <td>@Fertilizer.Year</td>
+                            <td>@String.Format("{0:#,##0}", Fertilizer.Quantity)</td>
+                            <td>@String.Format("{0:#,##0}", Fertilizer.TotalValue)</td>
+                            <td>@String.Format("{0:#,##0}", Fertilizer.Average)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>Detalle de fertilizantes</h5>
+        </div>
+        <div class="ibox-content">
+            <table class="table table-hover table-condensed table-striped">
+                <thead>
+                    <tr>
+                        <th>@Message.Date</th>
+                        <th>Factura</th>
+                        <th>Identificación del productor</th>
+                        <th>Fertilizante</th>
+                        <th>Precio unitario</th>
+                        <th>Cantidad</th>
+                        <th>Total</th>
+                        @*<th>
+                                <span class="pull-right">
+                                    <a class="btn btn-success btn-xs" href="@Url.Action("Create", "Fertilizers", new { farmId = Model.Id, page = ((IPagedList<EFarming.DTO.FarmModule.FertilizerDTO>)ViewBag.PagedFertilizers).PageNumber })" data-toggle="modal" data-target="#modal">
+                                        <span class="glyphicon glyphicon-plus">
+                                        </span>
+                                        @Message.Add
+                                    </a>
+                                </span>
+                            </th>*@
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var fertilizer in (IPagedList<EFarming.DTO.FarmModule.FertilizerDTO>)ViewBag.PagedFertilizers)
+                    {
+                        count++;
+                        <tr>
+                            <td>@string.Format("{0:dd/MM/yyyy}", Convert.ToDateTime(fertilizer.Date))</td>
+                            <td>@fertilizer.InvoiceNumber</td>
+                            <td>@fertilizer.FarmerIdentification</td>
+                            <td>@fertilizer.Name</td>
+                            <td>@string.Format("{0:#,##0}", fertilizer.UnitPrice)</td>
+                            <td>@string.Format("{0:#,##0}", fertilizer.Quantity)</td>
+                            <td>@string.Format("{0:#,##0}", fertilizer.Value)</td>
+                            @*<td>
+                                    <span class="pull-right">
+                                        <a href="@Url.Action("Edit", "Fertilizers", new { id = fertilizer.Id, farmId = fertilizer.FarmId, page = ((IPagedList<EFarming.DTO.FarmModule.FertilizerDTO>)ViewBag.PagedFertilizers).PageNumber })" data-toggle="modal" data-target="#modal" class="btn btn-link link-edit">
+                                            <span class="glyphicon glyphicon-edit"></span>
+                                            @Message.Edit
+                                        </a>
+                                        <a href="@Url.Action("Delete", "Fertilizers", new { id = fertilizer.Id, farmId = fertilizer.FarmId, page = ((IPagedList<EFarming.DTO.FarmModule.FertilizerDTO>)ViewBag.PagedFertilizers).PageNumber })" data-toggle="modal" data-target="#modal" class="btn btn-link link-delete">
+                                            <span class="glyphicon glyphicon-remove-sign"></span>
+                                            @Message.Delete
+                                        </a>
+                                    </span>
+                                </td>*@
+                        </tr>
+                        totalQuantity += fertilizer.Quantity;
+                        totalPrice += fertilizer.Value;
+
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th>@string.Format("{0:#,##0}", totalQuantity)</th>
+                        <th>@string.Format("{0:#,##0}", totalPrice)</th>
+                    </tr>
+                </tfoot>
+
+            </table>
+        </div>
+        @Html.PagedListPager((IPagedList<EFarming.DTO.FarmModule.FertilizerDTO>)ViewBag.PagedFertilizers,
+                page => Url.Action("Index", "Fertilizers", new { page, farmId = Model.Id }),
+                        PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new System.Web.Mvc.Ajax.AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "fertilizers-content" }))
+    </div>
+
+</div>    
+<style>
+    table th {
+        text-align: center;
+    }
+
+    table td tfoot {
+        text-align: right;
+    }
+</style>

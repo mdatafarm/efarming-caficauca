@@ -1,0 +1,256 @@
+﻿
+@using PagedList.Mvc;
+@model PagedList.IPagedList<EFarming.Core.ProjectModule.ProjectAggregate.Project>
+@{
+    ViewBag.Title = "ProjectsList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    <script src="~/Scripts/jquery-ui-1.10.4.min.js"></script>
+    <!--<script src="~/Scripts/Sustainability/ContactFilter.js"></script>-->
+}
+
+<script src="~/Scripts/jquery-ui-1.11.1.js"></script>
+<script src="~/Scripts/remote-validation.js"></script>
+
+
+<div class="modal" id="modalspa">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>
+@section breadcrumb{
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2 class="page-name">Lista de proyectos</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="@Url.Action("Index", "Home")">
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <strong>Proyectos</strong>
+                </li>
+                <li class="active">
+                    <strong>Lista de proyectos</strong>
+                </li>
+            </ol>
+        </div>
+        <div class="col-lg-2">
+        </div>
+    </div>
+}
+<br />
+
+<div id="spa-table">
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="ibox-content">
+            <div class="flot-chart farm-search">
+                <div div class="col-md-12 text-center" style="margin-top:15px">
+                    <div>
+                        @if (!User.IsReader())
+                        {
+                            <a class="btn btn-success" style="margin: 10px 15px;" href="@Url.Action("CreateProject","Projects")">
+                                <em class="glyphicon glyphicon-plus"></em> Crear Proyecto
+                            </a>
+                        }
+                        @*<a class="btn btn-success btn-md" href="@Url.Action("ToExcel","Projects")">
+                                Exportar a excel
+                            </a>*@
+
+                    </div>
+                </div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <form role="form" class="filter-form" data-bind="with: ProjectsList">
+                            <div class="col-lg-6 col-sm-6">
+                                <div style="text-align:center;">
+                                    <div style="text-align:center;">
+                                        <label for="searchProject" class="hidden-xs">Nombre del proyecto</label>
+                                        @Html.DropDownList("searchProject", ViewBag.NameProjects as SelectList, "Please select name project", new { @class = "form-control", @id = "searchProject", @name = "searchProject", style = "width:60%; text-align-last:center;display: block; margin-left: auto; margin-right: auto;" })
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="col-lg-6 col-sm-6">
+                                <div style="text-align:center;">
+                                    <div style="text-align:center;">
+                                        <label for="year">Código finca</label>
+                                        <input type="text" id="searchFarm" name="searchFarm" class="form-control" onchange="Change()" style="width:60%; text-align-last:center;display: block; margin-left: auto; margin-right: auto;" />
+                                    </div>
+                                </div>
+                            </div>
+                            <center>
+                                <button class="btn btn-success btn-sf" id="Busqueda">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                    @Message.Search
+                                </button>
+                                <h3 id="Informativo" style="color:red" hidden></h3>
+                            </center>
+                            @*<div style="text-align:center;">
+                                    <div class="form-group" style="width:20%; text-align-last:center;display: block; margin-left: auto; margin-right: auto; text-align-last:center;">
+                                        <button class="btn btn-success pull-right btn-sf">
+                                            <span class="glyphicon glyphicon-search"></span>
+                                            @Message.Search
+                                        </button>
+                                    </div>
+                                </div>*@
+                        </form>
+                        <div class="col-md-12 col-lg-12 col-sm-12">
+                            <div>
+                                <div style="width:20%; text-align-last:center;display: block; margin-left: auto; margin-right: auto; text-align-last:center;">
+                                    <br />
+
+                                    <label for="InputSearchProjectList" class="hidden-xs">Búsqueda rápida</label>
+                                    <input class="form-control" id="InputSearchProjectList" type="text" placeholder="Buscar..">
+
+                                    <br />
+                                </div>
+                            </div>
+                            <table class="table table-responsive table-condensed table-hover" align="center">
+                                <thead>
+                                    <tr class="filters">
+                                        <th>Nombre</th>
+                                        <th>Descripción</th>
+                                        <th>Cantidad fincas asociadas</th>
+                                        <th>Fincas asociadas</th>
+                                        <th><span class="glyphicon glyphicon-cog"></span></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="TablePL">
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @item.Name
+                                            </td>
+                                            <td>
+                                                @item.Description
+                                            </td>
+                                            @if (ViewBag.type == 1)
+                                            {
+                                                <td>
+                                                    <a href="@Url.Action("ViewFarmsByProject", new { id = item.Id, Dato = ViewBag.dato })" data-toggle="modal" data-target="#modalspa">
+                                                        <span class="glyphicon glyphicon-list-alt"></span>
+                                                        @item.Farms.Where(x => x.Code == ViewBag.dato).Count()
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <a href="@Url.Action("ViewFarmsByProject", new { id = item.Id, Dato = ViewBag.dato})" data-toggle="modal" data-target="#modalspa">
+                                                        <span class="glyphicon glyphicon-list-alt"></span>
+                                                        @Message.View farms
+                                                    </a>
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td>
+                                                    <a href="@Url.Action("ViewFarmsByProject", new { id = item.Id })" data-toggle="modal" data-target="#modalspa">
+                                                        <span class="glyphicon glyphicon-list-alt"></span>
+                                                        @item.Farms.Count()
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <a href="@Url.Action("ViewFarmsByProject", new { id = item.Id })" data-toggle="modal" data-target="#modalspa">
+                                                        <span class="glyphicon glyphicon-list-alt"></span>
+                                                        @Message.View farms
+                                                    </a>
+                                                </td>
+                                            }
+
+                                            @*<td>
+                                                    <ul style="list-style-type: none; padding:0">
+                                                        @foreach (var farm in item.Farms)
+                                                        {
+                                                            <li>@farm.Name</li>
+                                                        }
+                                                    </ul>
+
+                                                </td>
+                                            *@
+                                            <td>
+                                                @if (!User.IsReader())
+                                                {
+                                                    <a href="@Url.Action("EditProject", new { id = item.Id })"><span class="glyphicon glyphicon-edit"></span></a>
+                                                    <a href="@Url.Action("DetailsProject", new { id = item.Id })"><span class="glyphicon glyphicon-file"></span></a>
+                                                    <a href="@Url.Action("DeleteProject", new { id = item.Id })"><span class="glyphicon glyphicon-remove"></span></a>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!--Paginación-->
+            <div class="text-center">
+                @string.Format(Message.Paging, (Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber), Model.PageCount)
+            </div>
+            <div class="pagination-container">
+                <div class="text-center">
+                    @Html.PagedListPager(Model, page => Url.Action("ProjectsList",
+                                                    new
+                                                    {
+                                                        page,
+                                                        sortOrder = ViewBag.CurrentSort,
+                                                        currentName = ViewBag.CurrentName,
+                                                        currentDepartment = ViewBag.CurrentDepartment,
+                                                        currentMunicipality = ViewBag.CurrentMunicipality,
+                                                        currentVillage = ViewBag.CurrentVillage,
+                                                        currentCode = ViewBag.CurrentCode
+                                                    }))
+                </div>
+            </div>
+            <!--Paginación end-->
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#InputSearchProjectList").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#TablePL tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+
+    function Change() {
+        var valor1 = document.getElementById("searchFarm").value;
+        var valor2 = document.getElementById("searchIDP").value;
+
+        console.log(valor1);
+        console.log(valor2);
+
+        var boton = document.getElementById("Busqueda");
+        var Informativo = document.getElementById("Informativo");
+
+        if (valor1 != "" && valor2.length != "") {
+           // alert("No se puede hacer filtros por finca y por cedula del productor, filtre por solo por uno.");
+            document.getElementById('Informativo').innerHTML = 'No se puede hacer filtros por finca y por cedula del productor, filtre solo por uno.';
+            Informativo.hidden = false;
+            boton.disabled = true;
+        }
+        else if (valor1 != "" && valor2 == "") {
+            Informativo.hidden = true;
+            boton.disabled = false;
+        }
+        else if (valor1 == "" && valor2 != "") {
+            Informativo.hidden = true;
+            boton.disabled = false;
+        }
+        
+
+    }
+
+   
+
+</script>
+<!--</div>-->

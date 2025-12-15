@@ -1,0 +1,107 @@
+﻿@model EFarming.DTO.AdminModule.SupplyChainDTO
+@{
+    ViewBag.Title = "Create Supply chain";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Supply Chain</h2>
+
+@using (Html.BeginForm("Create", "SupplyChains", FormMethod.Post, new { @class = "form-horizontal to-validate", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>Create</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="form-group has-feedback">
+        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    @*<div class="form-group has-feedback">
+            <label class="control-label col-md-2">Supplier</label>
+            <div class="col-md-10">
+                @Html.DropDownList("SupplierId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SupplierId, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+    
+    <div class="form-group has-feedback">
+        <label for="SupplierId" class="control-label col-md-2">
+            @AdminMessage.Department
+        </label>
+        <div class="col-md-10">
+            <select class="form-control" id="departmentId" name="DepartmentId" required
+                    data-bind="value: $root.department, options: $root.departments, optionsText:'name', optionsValue:'id',optionsCaption: '@string.Format(Message.SelectA, Message.Department)'"></select>
+            <span class="hide glyphicon form-control-feedback"></span>
+            <span class="help-block"></span>
+        </div>
+    </div>
+    <div class="form-group has-feedback">
+        <label class="control-label col-md-2">Supplier</label>
+        <div class="col-md-10">
+            @Html.DropDownListFor(
+        m => m.SupplierId, // Specifies where to store selected country Id
+                           // It needs to be null for the default selection to work!
+
+        new SelectList(@ViewBag.Suppli, // IEnumerable<Country>, contains all countries loaded from a database
+                       "Id",   // Use Country.Id as a data source for the values of dropdown items
+                       "Name"
+                       ),
+
+        // Text of option that prompts user to select
+        "Select a Supplier", htmlAttributes: new { @class = "form-control" }
+    )
+            @Html.ValidationMessageFor(model => model.SupplierId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group has-feedback" style="display:none;">
+        <div class="col-md-10">
+            <input class="form-control" value="0" id="Potencial" name="Potencial" type="number">
+        </div>
+    </div>
+    <div class="form-group" style="display:none;">
+        <div class="col-md-10">
+            <input class="form-control" value="0" id="Bags" name="Bags" type="number">
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group" style="display:none;">
+        <div class="col-md-10">
+            <input class="form-control" value="1990-01-01" id="StartDate" name="StartDate">
+        </div>
+    </div>
+    <div class="form-group" style="display:none;">
+        <div class="col-md-10">
+            <input class="form-control" value="1990-01-01" id="EndDate" name="EndDate">
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="submit" class="btn btn-primary">@Message.Save</button>
+            @Html.ActionLink(Message.Back, "Index")
+        </div>
+    </div>
+</div>
+}
+<script src="~/Scripts/mvvm/Common.js"></script>
+<script src="~/Scripts/mvvm/Admin/municipality.js"></script>

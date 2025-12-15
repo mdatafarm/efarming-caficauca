@@ -1,0 +1,17 @@
+﻿@model  ICollection<EFarming.DTO.QualityModule.SensoryProfileAssessmentDTO>
+    
+    @{
+        ViewBag.Title = "View attributes";
+    }
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
+    <div class="row remote" id="module-form">
+        <div class="col-md-10 col-md-offset-1">
+            
+            <form action="@Url.Action("ViewAttributes", "AttributesReport")" method="post" class="form-horizontal to-validate remote-form" role="form" data-target="SensoryProfileAssessment-content">
+                @Html.Partial("~/Views/AttributesReport/_Qualities.cshtml", Model)
+            </form>
+        </div>
+    </div>
+    <script src="~/Scripts/remote-validation.js"></script>

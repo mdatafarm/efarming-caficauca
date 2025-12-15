@@ -1,0 +1,124 @@
+﻿@model EFarming.DTO.FarmModule.FamilyUnitMemberDTO
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+@Html.HiddenFor(model => model.FarmId)
+<input type="hidden" value="@ViewBag.PageNumber" name="page" />
+@if (Model.IsOwner)
+{
+
+<div class="form-group has-feedback">
+    @Html.Label("ID Productor", new { @class = "col-sm-3 control-label hidden-xs" })
+    <div class="col-sm-8">
+        <span>@Model.IDProductor</span>
+    </div>
+    
+</div>
+}
+<div class="form-group has-feedback">
+    @Html.LabelFor(model => model.Identification, @Message.Identification, new { @class = "col-sm-3 control-label hidden-xs" })
+    <div class="col-sm-8">
+        @Html.TextBoxFor(model => model.Identification, new { @type = "number", @class = "form-control", placeholder = @Message.Identification, required = "required" })
+        <span class="glyphicon form-control-feedback"></span>
+        <span class="help-block"></span>
+    </div>
+</div>
+<div class="form-group has-feedback">
+    @Html.LabelFor(model => model.FirstName, @Message.First_Name, new { @class = "col-sm-3 control-label hidden-xs" })
+    <div class="col-sm-8">
+        @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", placeholder = @Message.First_Name, required = "required" })
+        <span class="glyphicon form-control-feedback"></span>
+        <span class="help-block"></span>
+    </div>
+</div>
+<div class="form-group has-feedback">
+    @Html.LabelFor(model => model.LastName, @Message.Last_Name, new { @class = "col-sm-3 control-label hidden-xs" })
+    <div class="col-sm-8">
+        @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", placeholder = @Message.Last_Name, required = "required" })
+        <span class="glyphicon form-control-feedback"></span>
+        <span class="help-block"></span>
+    </div>
+</div>
+<div class="form-group has-feedback">
+    <label class="control-label hidden-xs col-sm-3" for="Age">Fecha de nacimiento</label>
+    <div class="col-sm-8">
+        @Html.TextBoxFor(model => model.Age, "{0:dd/MM/yyyy}", new { @class = "form-control dateField", placeholder = @Message.Age, required = "required" })
+        <span class="glyphicon form-control-feedback hidden"></span>
+        <span class="help-block"></span>
+    </div>
+</div>
+<div class="form-group has-feedback">
+    <label class="control-label hidden-xs col-sm-3" for="Education"> Educación</label>
+    <div class="col-sm-8">
+        <select class="form-control" id="Education" name="Education" required
+                data-bind="value: education, options: educationList, optionsCaption: '@string.Format(Message.SelectA, "Education")'"></select>
+        <span class="hide glyphicon form-control-feedback"></span>
+        <span class="help-block"></span>
+    </div>
+</div>
+@*<div class="form-group has-feedback">
+        <label class="control-label hidden-xs col-sm-3" for="Education">@Message.Education</label>
+        <div class="col-sm-8">
+            @Html.TextBoxFor(model => model.Education, new { type = "number", @class = "form-control", placeholder = @Message.Education, required = "required" })
+            <span class="glyphicon form-control-feedback hidden"></span>
+            <span class="help-block"></span>
+        </div>
+    </div>*@
+<div class="form-group has-feedback">
+    <label class="control-label hidden-xs col-sm-3" for="PhoneNumber">Teléfono</label>
+    <div class="col-sm-8">
+        @Html.TextBoxFor(model => model.PhoneNumber, new { type = "number", @class = "form-control", placeholder = "Phone Number" })
+        <span class="glyphicon form-control-feedback hidden"></span>
+        <span class="help-block"></span>
+    </div>
+</div>
+<div class="form-group has-feedback">
+    <label class="control-label hidden-xs col-sm-3" for="Education">@Message.Relationship</label>
+    <div class="col-sm-8">
+        <select class="form-control" id="Relationship" name="Relationship" required
+                data-bind="value: relationship, options: relationshipList, optionsCaption: '@string.Format(Message.SelectA, Message.Relationship)'"></select>
+        <span class="hide glyphicon form-control-feedback"></span>
+        <span class="help-block"></span>
+    </div>
+</div>
+<div class="form-group has-feedback">
+    <label class="control-label hidden-xs col-sm-3" for="MaritalStatus">@Message.Marital_Status</label>
+    <div class="col-sm-8">
+        <select class="form-control" id="MaritalStatus" name="MaritalStatus" required
+                data-bind="value: maritalStatus, options: maritalStatusList, optionsCaption: '@string.Format(Message.SelectA, Message.Marital_Status)'"></select>
+        <span class="hide glyphicon form-control-feedback"></span>
+        <span class="help-block"></span>
+    </div>
+</div>
+@*<div class="checkbox col-sm-offset-3">
+        <label>
+            @Html.CheckBoxFor(model => model.IsOwner)
+            @Message.Owner
+        </label>
+    </div>*@
+<br />
+<div class="form-group">
+    <center>
+        <label id="information"></label>
+    </center>
+    <br />
+    <div class="col-sm-offset-3 col-sm-9">
+        <button class="btn btn-success" id="btnSubmit">@Message.Save</button>
+        <a class="btn btn-link link-delete modal-close" id="btnClosePopup" data-dismiss="modal">@Message.Close</a>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#Age").attr("readonly", true);
+        var split = $("#Age").val().split('/');
+        //console.log(split[2]);
+
+        if (split[2] == "0001" || split[2] < "1920") {
+            console.log("Deshabilitar boton");
+            $("#btnSubmit").attr("disabled", true);
+        }
+        else {
+            //alert("entro");
+            $("#btnSubmit").attr("disabled", false);
+        }
+    });
+</script>
+

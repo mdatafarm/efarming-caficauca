@@ -1,0 +1,55 @@
+﻿@model EFarming.DTO.AdminModule.MunicipalityDTO
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Title = AdminMessage.Municipalities;
+}
+@using (Html.BeginForm("Create", "Municipalities", FormMethod.Post, new { @class = "form-horizontal to-validate", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+
+    <h2>
+        @AdminMessage.Municipalities
+    </h2>
+    <hr />
+    @Html.ValidationSummary(true)
+    <div class="form-group has-feedback">
+        <label for="DepartmentId" class="control-label col-md-2">
+            @AdminMessage.Department
+        </label>
+        <div class="col-md-10">
+            <select class="form-control" id="departmentId" name="DepartmentId" required
+                    data-bind="value: $root.department, options: $root.departments, optionsText:'name', optionsValue:'id',optionsCaption: '@string.Format(Message.SelectA, Message.Department)', selectedOptions: ['@ViewBag.CurrentDepartment']"></select>
+            <span class="hide glyphicon form-control-feedback"></span>
+            <span class="help-block"></span>
+        </div>
+    </div>
+    <div class="form-group has-feedback">
+        <label for="Name" class="control-label col-md-2">
+            @Message.Name
+        </label>
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.Name, new { @class = "form-control", placeholder = @Message.Name, required = "required" })
+            <span class="glyphicon form-control-feedback"></span>
+            <span class="help-block">@Html.ValidationMessageFor(model => model.Name)</span>
+        </div>
+    </div>
+    <div class="form-group has-feedback">
+        <label for="Name" class="control-label col-md-2">
+            @FarmMessages.Code
+        </label>
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.Code, new { @class = "form-control", placeholder = @FarmMessages.Code, required = "required" })
+            <span class="glyphicon form-control-feedback"></span>
+            <span class="help-block">@Html.ValidationMessageFor(model => model.Code)</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="submit" class="btn btn-primary">@Message.Save</button>
+            @Html.ActionLink(Message.Back, "Index")
+        </div>
+    </div>
+}
+<script src="~/Scripts/mvvm/Common.js"></script>
+<script src="~/Scripts/mvvm/Admin/municipality.js"></script>

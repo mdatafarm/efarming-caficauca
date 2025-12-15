@@ -1,0 +1,10 @@
+﻿@model EFarming.DTO.FarmModule.FertilizerDTO
+<div class="row remote" id="plantation-form">
+    <div class="col-md-10 col-md-offset-1">
+        <h4>@FarmMessages.Fertilizers</h4>
+        <form action="@Url.Action("Create", "Fertilizers")" class="form-horizontal to-validate remote-form" role="form" data-target="fertilizers-content">
+            @Html.Partial("~/Views/Fertilizers/_Form.cshtml", Model)
+        </form>
+    </div>
+</div>
+<script src="~/Scripts/remote-validation.js"></script>

@@ -1,0 +1,116 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+@model EFarming.DTO.FarmModule.FarmDTO
+@{
+    int countPlantations = 0;
+}
+<h3 class="page-header">@FarmMessages.Productivity</h3>
+<table class="table table-hover table-condensed table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Tipo de<br />Plantación</th>
+            <th>@AdminMessage.Plantation_Variety</th>
+            <th>@FarmMessages.Hectares</th>
+            <th>Prod. Estimada<br />Calculada</th>
+            <th>Prod. Estimada<br />Sugerida</th>
+            <th>Edad</th>
+            <th>Número de<br />Plantas</th>
+            <th>Período de floración</th>
+            <th>
+                @if (!User.IsReader())
+                {
+                    <span class="pull-right">
+                        <a href="@Url.Action("Create", "Plantations", new { farmId = Model.Id, productivityId = Model.Productivity.Id, page = ((IPagedList<EFarming.DTO.FarmModule.PlantationDTO>)ViewBag.PagedPlantations).PageNumber })" data-toggle="modal" data-target="#modalLarge" class="btn btn-success btn-sm">
+                            <span class="glyphicon glyphicon-plus">
+                            </span>
+                            Agregar Lote
+                        </a>
+                    </span>
+                }
+            </th>
+        </tr>
+    </thead>
+    <tbody id="accordion">
+        @foreach (var plantation in (IPagedList<EFarming.DTO.FarmModule.PlantationDTO>)ViewBag.PagedPlantations)
+            {
+                countPlantations = countPlantations + 1;
+
+            <tr>
+                <th>@countPlantations</th>
+                <td>@plantation.PlantationType.Name</td>
+
+                @{
+                    if (plantation.PlantationVariety != null)
+                    {
+                        <td>
+                            @plantation.PlantationVariety.Name
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            @string.Empty
+                        </td>
+                    }
+                }
+
+                <td>@plantation.Hectares</td>
+                <td>@plantation.EstimatedProduction</td>
+                <td>@plantation.EstimatedProductionManual</td>
+                @{
+                    int years = 0;
+                    
+                    try
+                    {
+                        DateTime a = plantation.Age;
+                        DateTime b = DateTime.Today;
+
+                        TimeSpan span = b - a;
+                
+                        years = Convert.ToInt32(Math.Round(span.TotalDays / 365,0));
+                    }
+                    catch { }
+                }
+                @*<td>@Age.ToString("0.##")</td>*@
+                <td>@years</td>
+                <td>@plantation.NumberOfPlants</td>
+                <td>
+                    @if (!User.IsReader())
+                    {
+                        <div id="flowering-periods-content-@plantation.Id">
+                            @Html.Partial("~/Views/FloweringPeriods/Index.cshtml", plantation)
+                        </div>
+                    }
+                </td>
+                <td>
+                    @if (!User.IsReader())
+                    {
+                        <span class="pull-right">
+                            <a href="@Url.Action("Edit", "Plantations", new { id = plantation.Id, farmId = plantation.ProductivityId, page = ((IPagedList<EFarming.DTO.FarmModule.PlantationDTO>)ViewBag.PagedPlantations).PageNumber })" data-toggle="modal" data-target="#modalLarge" class="btn btn-link link-edit">
+                                <span class="glyphicon glyphicon-edit"></span>
+                                @Message.Edit
+                            </a>
+                            <a href="@Url.Action("Delete", "Plantations", new { id = plantation.Id, farmId = plantation.ProductivityId, page = ((IPagedList<EFarming.DTO.FarmModule.PlantationDTO>)ViewBag.PagedPlantations).PageNumber })" data-toggle="modal" data-target="#modal" class="btn btn-link link-delete">
+                                <span class="glyphicon glyphicon-remove-sign"></span>
+                                @Message.Delete
+                            </a>
+                        </span>
+                    }
+                </td>
+            </tr>
+                @*ORIGINAL FUNCTION*@
+                    @*<tr>
+                            <th></th>
+                            <td colspan="8">
+                                <div id="flowering-periods-content-@plantation.Id">
+                                    @Html.Partial("~/Views/FloweringPeriods/Index.cshtml", plantation)
+                                </div>
+                            </td>
+                        </tr>*@
+                    }
+    </tbody>
+</table>
+@Html.PagedListPager((IPagedList<EFarming.DTO.FarmModule.PlantationDTO>)ViewBag.PagedPlantations,
+    page => Url.Action("Index", "Plantations", new { page, farmId = Model.Id }),
+            PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new System.Web.Mvc.Ajax.AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "plantations-content" }))

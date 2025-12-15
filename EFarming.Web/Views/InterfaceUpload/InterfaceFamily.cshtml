@@ -1,0 +1,228 @@
+﻿
+@{
+    ViewBag.Title = "InterfaceFamily";
+    DateTime today = DateTime.Now.Date;
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="container-fluid">
+                <h1>Interfaz cargue de familiares</h1>
+                <h2>Descargar plantilla de familiares</h2>
+                <a href="~/Content/UploadFiles/Plantilla Familiares.csv" download="@today.ToString("yyMMdd")-Plantilla Familiares.csv" class="btn btn-lg btn-success">Descargar</a>
+                <br />
+            </div>
+        </div>
+        @*<div class="col-md-1 col-lg-1 col-sm-1"></div>*@
+        <div class="col-md-6 col-lg-6 col-sm-6 text-justify">
+            <h2>Cargar Archivo</h2>
+            <h4>
+                El tipo de archivo debe ser un archivo con extension .CSV delimitado por punto y coma (;)
+            </h4>
+            <form action="/InterfaceUpload/UploadData" enctype="multipart/form-data" method="post">
+                <input type="file" id="excelfile" name="excelfile" />
+                <br />
+                <input type="number" name="type" value="2" hidden />
+                <input class="btn btn-lg btn-success" type="submit" value="Subir Archivo" />
+            </form>
+            <h3 style="color:red" id="Message">@ViewBag.message</h3>
+        </div>
+    </div>
+    <hr />
+</div>
+
+@if (ViewBag.F_Good != null)
+{
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-md-12 ">
+            <div class="col-lg-12  showback text-justify">
+                <br /><br />
+                <center>
+                    <h2>@ViewBag.F_Good FILAS BUENAS </h2>
+                    <h2>@ViewBag.F_Bad FILAS MALAS </h2>
+                </center>
+            </div>
+        </div>
+    </div>
+}
+
+@*@if (ViewBag.DataTableE != null)*@
+@if (ViewBag.Description != null && ViewBag.F_Bad != null )
+{
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-md-12 ">
+            <div class="col-lg-12  showback text-justify">
+                <br /><br />
+                <center>
+                    <h2>RESULTADOS GENERALES</h2>
+                </center>
+                <table class="table table-xs table-hover table-bordered table-condensed">
+                    <thead style="BACKGROUND-COLOR: #ececec;">
+                        <tr>
+                            <th class="col-xs-5">Descripcion</th>
+                            @if (ViewBag.Procedure != null)
+                            {
+                                <th class="col-xs-5">Procedimiento</th>
+                            }
+
+
+                            @if (ViewBag.LineNumber != null)
+                            {
+                                <th class="col-xs-2">Numero de linea</th>
+                            }
+                            <th class="col-xs-2">Registros subidos</th>
+                            <th class="col-xs-2">Registros no subidos</th>
+
+                            @if (ViewBag.DataTableE != null)
+                            {
+                                <th class="col-xs-2">Excel con errores</th>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                @ViewBag.Description
+                            </td>
+                            @if (ViewBag.Procedure != null)
+                            {
+                                <td>
+                                    @ViewBag.Procedure
+                                </td>
+                            }
+
+
+                            @if (ViewBag.LineNumber != null)
+                            {
+                                <td>
+                                    @ViewBag.LineNumber
+                                </td>
+                            }
+                            <td>
+                                @ViewBag.F_Goods
+                            </td>
+                            <td>
+                                @ViewBag.F_Bad
+                            </td>
+
+                            @if (ViewBag.DataTableE != null)
+                            {
+                                <td>
+                                    <a href="/InterfaceUpload/ToExcelFamily">Descargar Excel</a>
+                                </td>
+                            }
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}
+
+@if (ViewBag.ListaE != null && Enumerable.Count(ViewBag.ListaE) > 0)
+{
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-md-12 ">
+            <div class="col-lg-12  showback text-justify">
+                <br /><br />
+                <center>
+                    <h2>LISTA DE ERRORES - FORMATO Y COLUMNAS</h2>
+                </center>
+                <table class="table table-xs table-hover table-bordered table-condensed">
+                    <thead>
+                        <tr>
+                            <th class="col-xs-1">Tipo error</th>
+                            <th class="col-xs-7">Descripcion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in ViewBag.ListaE)
+                        {
+                            <tr>
+                                <td>
+                                    @item.type
+                                </td>
+                                <td>
+                                    @item.Description
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-md-12 ">
+        <div class="col-lg-12  showback text-justify">
+            <div class="col-lg-12  text-justify">
+                <center><h1>RECOMENDACIONES</h1></center>
+                <h4 class="text-justify">
+                    <p>1. De click en el botón descargar, para obtener la plantilla en la cual debe ingresar la información de familiares que se va a cargar.</p>
+                    <p>2. Conservar el orden, nombre de los encabezados y formato de celdas establecidos para cada columna.</p>
+                    <p>3. No se puede adicionar nuevas columnas al archivo.</p>
+                    <p>4. Las columnas cuyos titulos se encuentran de color rojo son obligatorios, por tal motivo si falta un dato en una fila, esta no subira.</p>
+                </h4>
+            </div>
+            <div class="row wrapper wrapper-content">
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="wrapper1 scroll" style="overflow-y:scroll;">
+                            @*<div class="div1" style="min-width: 4000px; height: 20px;"></div>*@
+                        </div>
+                        <div class="col-md-12 horizontal-scroll" style="overflow:auto; overflow: auto;">
+                            <div style="min-width: 1000px;">
+                                <table style="min-width: 1000px;" class="table table-xs table-hover table-bordered table-condensed">
+                                    <thead style="BACKGROUND-COLOR: #ececec;">
+                                        <tr>
+                                            <th style="color:#ee0c05;">CODIGO FINCA</th>
+                                            <th style="color:#ee0c05;">NOMBRES</th>
+                                            <th style="color:#ee0c05;">APELLIDOS</th>
+                                            <th style="color:#ee0c05;">F. NACIMIENTO (YYYY-MM-DD)</th>
+                                            <th style="color:#ee0c05;">CEDULA</th>
+                                            <th style="color:#ee0c05;">EDUCACION</th>
+                                            <th style="color:#ee0c05;">RELACION</th>
+                                            <th style="color:#ee0c05;">E.CIVIL</th>
+                                            <th style="color:#ee0c05;">PROPIETARIO (SI - NO)</th>
+                                            <th>TELEFONO</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1234</td>
+                                            <td>SANTIAGO</td>
+                                            <td>SILVA CORDOBA</td>
+                                            <td>1953-07-01</td>
+                                            <td>1053859653</td>
+                                            <td>Primaria</td>
+                                            <td>Ninguno</td>
+                                            <td>Divorciado(a)</td>
+                                            <td>SI</td>
+                                            <td>3154482345</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+<script type="text/javascript">
+    $('#excelfile').on('click', function (e) {
+        console.log('a');
+        document.getElementById("Message").style.display = 'none';
+    });
+</script>
+
+
+
+

@@ -1,0 +1,52 @@
+﻿@model EFarming.DTO.AdminModule.UserDTO
+
+@{
+    string controllerName = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
+    string actionName = HttpContext.Current.Request.RequestContext.RouteData.Values["action"].ToString();
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@Message.Register - @Message.App_Name</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/knockout")
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/themes/base/css")
+    @Scripts.Render("~/bundles/javascript")
+</head>
+<body>
+    <div class="admin-form">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Widget starts -->
+                    <div class="widget worange">
+                        <!-- Widget head -->
+                        <div class="widget-head">
+                            <i class="glyphicon glyphicon-lock"></i> @Message.Register
+                        </div>
+
+                        <div class="widget-content">
+                            <div class="padd">
+                                <!-- Login form -->
+                                @using (Html.BeginForm(actionName, controllerName, FormMethod.Post, new { @class = "form-horizontal to-validate", role = "form" }))
+                                {
+                                    @Html.Partial("~/Views/Accounts/_Form.cshtml", Model)
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

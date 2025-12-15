@@ -1,0 +1,19 @@
+﻿@model EFarming.DTO.QualityModule.QualityAttributeDTO
+<select name="@Model.Id" class="col-sm-12 form-control multiple-list" multiple>
+    @foreach (var item in Model.OptionAttributes)
+    {
+        if (!Model.Answer.Contains(item.Description))
+        {
+            <option value="@item.Description">
+                @item.Description
+            </option>
+        }
+        else
+        {
+            <option value="@item.Description" selected="selected">
+                @item.Description
+            </option>
+        }
+    }
+
+</select>

@@ -1,0 +1,16 @@
+﻿@model EFarming.DTO.QualityModule.QualityAttributeDTO
+<div class=" input-group">
+    <span class="input-group-addon">@Model.RangeAttribute.MinVal</span>
+    <input id="@Model.Id" type="range" max="@Model.RangeAttribute.HtmlMaxVal" class="form-control input-sm" name="@Model.Id"
+           min="@Model.RangeAttribute.HtmlMinVal" step="@Model.RangeAttribute.HtmlStep" value="@Model.Answer" />
+    <span class="input-group-addon">@Model.RangeAttribute.MaxVal</span>
+</div>
+<output id="output-@Model.Id" class="text-center" for="@Model.Id"></output>
+
+<script type="text/javascript">
+
+    $("#@Model.Id").on("change", function () {
+        $("#output-@Model.Id").val(this.valueAsNumber);
+    });
+
+</script>

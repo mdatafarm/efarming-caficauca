@@ -1,0 +1,310 @@
+﻿@model EFarming.Core.ComercialModule.Agreement
+
+@{
+    ViewBag.Title = "Create Agreement";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/themes/base/all.css" rel="stylesheet" />
+
+@Html.Partial("~/Areas/Comercial/Views/Shared/_Navegation_Comercial.cshtml")
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-md-12">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+                            <form role="form">
+                                <h2>Contract <small>Create Contract @ViewBag.NewRef</small></h2>
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                        <div class="form-group">
+                                            @*@Html.LabelFor(model => model.OurRef, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                                            @Html.EditorFor(model => model.OurRef, new { htmlAttributes = new { @readonly = "readonly", @class = "form-control", @placeholder = "OurRef", Value = @ViewBag.NewRef } })
+                                            @Html.ValidationMessageFor(model => model.OurRef, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                        <div class="form-group">
+                                            @*@Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                                            @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @readonly = "readonly", @class = "form-control", @placeholder = "Date", Value = @String.Format("{0:yyyy-MM-dd}", DateTime.Now) } })
+                                            @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-xs-2 col-sm-2 col-md-2">
+                                            @Html.LabelFor(model => model.ClientId, "Client", htmlAttributes: new { @class = "control-label col-md-2" })
+                                        </div>
+                                        <div class="col-xs-10 col-sm-10 col-md-10">
+                                            @Html.DropDownList("ClientId", null, htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.ClientId, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-xs-2 col-sm-2 col-md-2">
+                                            @Html.LabelFor(model => model.AgentId, "Client contact", htmlAttributes: new { @class = "control-label col-md-2" })
+                                        </div>
+                                        <div class="col-xs-10 col-sm-10 col-md-10">
+                                            @Html.DropDownList("AgentId", null, htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.AgentId, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-xs-2 col-sm-2 col-md-2">
+                                            @Html.LabelFor(model => model.SellerId, "Seller", htmlAttributes: new { @class = "control-label col-md-2" })
+                                        </div>
+                                        <div class="col-xs-10 col-sm-10 col-md-10">
+                                            @Html.DropDownList("SellerId", null, htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.SellerId, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-2 col-md-2 col-sm-2">
+                                        @Html.LabelFor(model => model.Volume, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    </div>
+                                    <div class="col-xs-4 col-sm-4 col-md-4">
+                                        <div class="form-group">
+                                            @*@Html.LabelFor(model => model.Volume, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                                            @Html.EditorFor(model => model.Volume, new { htmlAttributes = new { @class = "form-control", @placeholder = "Volume" } })
+                                            @Html.ValidationMessageFor(model => model.Volume, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-2 col-md-2 col-sm-2">
+                                        @Html.Label("Shipment Date", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    </div>
+                                    <div class="col-xs-4 col-sm-4 col-md-4">
+                                        <div class="form-group">
+                                            @*@Html.LabelFor(model => model.ShipmentDate, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                                            @Html.EditorFor(model => model.ShipmentDate, new { htmlAttributes = new { @class = "form-control", @placeholder = "Shipment Date" } })
+                                            @Html.ValidationMessageFor(model => model.ShipmentDate, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-2 col-md-2 col-lg-2">
+                                        @Html.LabelFor(model => model.Quality, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    </div>
+                                    <div class="col-xs-10 col-md-10 col-lg-10">
+                                        <div class="form-group">
+                                            @*@Html.LabelFor(model => model.Quality, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                                            @Html.DropDownListFor(t => t.Quality, new[] { new SelectListItem() }, htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.Quality, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-2 col-sm-2 col-md-2">
+                                        @Html.Label("Price type", new { @class = "control-label col-md-2" })
+                                    </div>
+                                    <div class="col-xs-10 col-sm-10 col-md-10">
+                                        @Html.DropDownListFor(t => t.PriceType, new[] {
+                                            new SelectListItem { Value = "Outright", Text = "Outright" },
+                                            new SelectListItem { Value = "PTBF on buyer's Call", Text = "PTBF on buyer's Call" },
+                                            new SelectListItem { Value = "PTBF on seller's Call", Text = "PTBF on seller's Call" }},
+         htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.PriceType, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-3 col-md-3 col-lg-3 text-center">
+                                        @Html.LabelFor(model => model.LotsNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    </div>
+                                    <div class="col-xs-3 col-md-3 col-lg-3 text-center">
+                                        @Html.LabelFor(model => model.PriceDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    </div>
+                                    <div class="col-xs-3 col-md-3 col-lg-3 text-center">
+                                        @Html.LabelFor(model => model.PriceDifferential, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    </div>
+                                    <div class="col-xs-3 col-md-3 col-lg-3 text-center">
+                                        @Html.LabelFor(model => model.Fixation, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-3 col-sm-3 col-md-3">
+                                        <div class="form-group">
+                                            @Html.EditorFor(model => model.LotsNumber, new { htmlAttributes = new { @readonly = "readonly", @class = "form-control", @placeholder = "Lots Number" } })
+                                            @Html.ValidationMessageFor(model => model.LotsNumber, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-3 col-sm-3 col-md-3">
+                                        <div class="form-group">
+                                            @Html.EditorFor(model => model.PriceDate, new { htmlAttributes = new { @readonly = "readonly", @class = "form-control", @placeholder = "Price Date" } })
+                                            @Html.ValidationMessageFor(model => model.PriceDate, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-3 col-sm-3 col-md-3">
+                                        <div class="form-group">
+                                            @Html.EditorFor(model => model.PriceDifferential, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.PriceDifferential, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-3 col-sm-3 col-md-3">
+                                        <div class="form-group">
+                                            @Html.EditorFor(model => model.Fixation, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Fixation, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="TermsNespresso" class="row TermsNespresso">
+                                    <div class="col-xs-4 col-md-4 col-lg-4 text-center">
+                                        <label class="control-label col-md-2">Term</label>
+                                    </div>
+                                    <div class="col-xs-4 col-md-4 col-lg-4 text-center">
+                                        <label class="control-label col-md-2">Port</label>
+                                    </div>
+                                    <div class="col-xs-4 col-md-4 col-lg-4 text-center">
+
+                                    </div>
+                                </div>
+                                <div id="TermsNespresso1" class="row">
+                                    <div class="col-xs-4 col-sm-4 col-md-4">
+                                        <div class="form-group">
+                                            <select class="form-control" id="Terms1" name="SelectedPrice"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 col-sm-4 col-md-4">
+                                        <div class="form-group">
+                                            @*@Html.LabelFor(model => model.PriceDate, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                                            <select class="form-control" id="Port" name="SelectedPrice"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 col-sm-4 col-md-4">
+                                        <div class="form-group">
+                                            @*@Html.LabelFor(model => model.PriceUSD, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                                            @*@Html.EditorFor(model => model.Terms, new { htmlAttributes = new { @readonly = "readonly", @class = "form-control", @placeholder = "Terms" } })
+                                                @Html.ValidationMessageFor(model => model.Terms, "", new { @class = "text-danger" })*@
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-2 col-md-2 col-lg-2">
+                                        @Html.LabelFor(model => model.Terms, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    </div>
+                                    <div class="col-xs-10 col-md-10 col-lg-10">
+                                        <div class="form-group">
+                                            @Html.DropDownListFor(t => t.Terms, new[] {
+                                            new SelectListItem() }, htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.Terms, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-2 col-md-2 col-lg-2">
+                                        @Html.LabelFor(model => model.Weights, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    </div>
+                                    <div class="col-xs-10 col-md-10 col-lg-10">
+                                        <div class="form-group">
+                                            @Html.DropDownListFor(t => t.Weights, new[] {
+                                            new SelectListItem() }, htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.Weights, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-2 col-md-2 col-lg-2">
+                                        @Html.LabelFor(model => model.Payment, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    </div>
+                                    <div class="col-xs-10 col-md-10 col-lg-10">
+                                        <div class="form-group">
+                                            @Html.DropDownListFor(t => t.Payment, new[] { new SelectListItem() }, htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.Payment, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-2 col-md-2 col-lg-2">
+                                        @Html.LabelFor(model => model.Samples, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    </div>
+                                    <div class="col-xs-10 col-md-10 col-lg-10">
+                                        <div class="form-group">
+                                            @Html.DropDownListFor(t => t.Samples, new[] {
+                                            new SelectListItem() }, htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.Samples, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-2 col-md-2 col-lg-2">
+                                        @Html.LabelFor(model => model.Arbitration, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    </div>
+                                    <div class="col-xs-10 col-md-10 col-lg-10">
+                                        <div class="form-group">
+                                            @Html.DropDownListFor(t => t.Arbitration, new[] {
+                                            new SelectListItem() }, htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.Arbitration, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-2 col-md-2 col-lg-2">
+                                        @Html.LabelFor(model => model.Others, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    </div>
+                                    <div class="col-xs-10 col-md-10 col-lg-10">
+                                        <div class="form-group">
+                                            @Html.DropDownList("OthersS", new[] {
+                                            new SelectListItem { Value = "Other", Text = "Other" }},
+                                            htmlAttributes: new { multiple = "multiple", @class = "form-control" })
+                                            @Html.EditorFor(model => model.Others, new { htmlAttributes = new { Style = "display:none", @class = "form-control", @placeholder = "Arbitration" } })
+                                            @*@Html.ListBoxFor(t => t.Others,   htmlAttributes: new { multiple = "multiple", @class = "form-control" })*@
+                                            @Html.ValidationMessageFor(model => model.Others, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-6 col-md-6">@Html.ActionLink("Atrás", "Index", null, new { @class = "btn btn-default btn-block btn-lg" })</div>
+                                    <div class="col-xs-6 col-md-6"><input type="submit" class="btn btn-success btn-block btn-lg" value="Create Contract" tabindex="7" /></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <center>
+                                            <br />
+                                            By clicking Create Contract, you agree to the <a href="#" data-toggle="modal" data-target="#t_and_c_m">Conditions</a> set out by this site.
+                                        </center>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="t_and_c_m" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    <h4 class="modal-title" id="myModalLabel">Conditions</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p>One time yor generete the contract do you can replace</p>
+                                    <p>The date of the Agreement its the same day when generate the contract.</p>
+                                    <p>Yo dont can modifi in the future the information about one contract</p>
+                                    <p>The information about the Customer and seller its the current information generated the same day</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-success" data-dismiss="modal">I Agree</button>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/jquery-ui-1.10.4.min.js"></script>
+    <script src="~/Scripts/commercial/es-CO.js"></script>
+    <script src="~/Scripts/commercial/nested_options.js"></script>
+    @Scripts.Render("~/bundles/jqueryval")
+}

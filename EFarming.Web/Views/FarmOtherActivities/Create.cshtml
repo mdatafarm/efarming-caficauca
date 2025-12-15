@@ -1,0 +1,14 @@
+﻿@model EFarming.DTO.FarmModule.FarmOtherActivityDTO
+<div class="row remote" id="other-activity-form">
+    <div class="col-md-10 col-md-offset-1">
+        <h4>@FarmMessages.Other_Activities</h4>
+        <form action="@Url.Action("Create", "FarmOtherActivities")" class="form-horizontal to-validate remote-form" role="form" data-target="other-activities-content">
+            @Html.Partial("~/Views/FarmOtherActivities/_Form.cshtml", Model)
+        </form>
+    </div>
+</div>
+<script>
+    var selectedOtherActivity = "";
+</script>
+<script src="~/Scripts/mvvm/otherActivity.js"></script>
+<script src="~/Scripts/remote-validation.js"></script>

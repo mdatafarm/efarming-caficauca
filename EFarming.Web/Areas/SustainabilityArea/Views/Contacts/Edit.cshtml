@@ -1,0 +1,219 @@
+﻿@model EFarming.Core.SustainabilityModule.ContactAggregate.Contact
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/themes/base/all.css" rel="stylesheet" />
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
+<style>
+    #listFarms {
+        list-style-type: none;
+        background: #eee;
+        padding: 5px;
+        margin-right: 10px;
+        height: 400px;
+        overflow: auto;
+        margin: 0;
+        float: left;
+    }
+
+    #selectedFarms {
+        list-style-type: none;
+        background: #eee;
+        padding: 5px;
+        margin-right: 10px;
+        margin: 0 50px;
+        float: left;
+    }
+
+        #listFarms li, #selectedFarms li {
+            margin: 5px;
+            padding: 5px;
+        }
+</style>
+
+@using (Html.BeginForm())
+{
+    <div class="wrapper wrapper-content">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+
+                        <h4 class="panel-title">Editar contacto</h4>
+                    </div>
+                    <div class="panel-body">
+
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-horizontal">
+
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.HiddenFor(model => model.Id)
+
+                            <div class="form-group col-md-4">
+                                @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.DropDownListFor(model => model.TypeId, ViewBag.Types as System.Web.Mvc.SelectList, "Select a Type", htmlAttributes: new { @class = "form-control col-md-10" })
+                                    @Html.ValidationMessageFor(model => model.TypeId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            @{
+                                var listNames = new List<SelectListItem>();
+                                listNames = ViewBag.listNames;
+                            }
+                            <div class="form-group col-md-4">
+                                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.DropDownListFor(model => model.Name, listNames, "Select a Name", htmlAttributes: new { @class = "form-control col-md-10" })
+                                    @*@Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })*@
+                                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                <div class="form-group col-md-4">
+                                    @Html.LabelFor(model => model.Location, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.DropDownListFor(model => model.LocationId, ViewBag.Locations as System.Web.Mvc.SelectList, "Select a Location", htmlAttributes: new { @class = "form-control col-md-10" })
+                                        @Html.ValidationMessageFor(model => model.LocationId, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="col-md-4">
+                                    <p><b>Temas</b></p>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-12" style="overflow: auto;">
+                                @foreach (var item in ViewBag.Topics)
+                                {
+                                    <div class="col-md-4">
+                                        <div class="col-md-2 text-right">
+                                            @{
+                                                bool selected = false;
+                                                foreach (var selectedtopic in ViewBag.SelectedTopics)
+                                                {
+                                                    if (item.Value == selectedtopic.ToString())
+                                                    {
+                                                        selected = true;
+                                                    }
+                                                }
+                                                if (selected == true)
+                                                {
+                                                    <input type="checkbox" name="topics" value="@item.Value" checked />
+                                                }
+                                                else
+                                                {
+                                                    <input type="checkbox" name="topics" value="@item.Value" />
+                                                }
+
+                                            }
+
+
+                                        </div>
+                                        <div class="col-md-10">
+                                            @item.Text
+                                        </div>
+                                    </div>
+                                                }
+                            </div>
+
+                            <div class="form-group col-md-8">
+                                @Html.LabelFor(model => model.Comment, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.TextAreaFor(model => model.Comment, htmlAttributes: new { @class = "control-label col-md-10", @style = "text-align:left" })
+                                    @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            @Html.Partial("~/Areas/SustainabilityArea/Views/Contacts/_SearchFarms.cshtml")
+
+                            <div class="col-md-12 col-md-offset-1">
+                                <ul id="listFarms" class="droptrue col-md-4"></ul>
+
+                                <ul id="selectedFarms" class="dropfalse droptrue col-md-4">
+                                    @foreach (var farm in Model.Farms)
+                                    {
+                                        <li class='ui-state-default ui-sortable-handle'><input type='hidden' value=@farm.Id name='selectedfarms' /> @farm.Code  - @farm.Name </li>
+                                    }
+                                </ul>
+
+                                <input id="selectedFarmsString" type="hidden" name="selectedFarmsString" />
+                            </div>
+
+                            <div class="form-group col-md-12" style="margin-top:10px">
+                                <div class="col-md-offset-4 col-md-2">
+                                    <input id="saveContact2" type="submit" value="Guardar" class="btn btn-success btn-lg" />
+                                </div>
+                                <div>
+                                    <div class="col-md-2">@Html.ActionLink("Atrás", "Index", null, new { @class = "btn btn-default btn-block btn-lg" })</div>
+                                    @*@Html.ActionLink("Atrás", "Index")*@
+                                </div>
+                            </div>
+
+                            @*<div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    
+                                </div>
+                            </div>*@
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>              
+                        
+}
+
+<script src="~/Scripts/jquery-ui-1.10.4.min.js"></script>
+<script type="text/javascript">
+
+    $("#Date").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: "dd/mm/yy",
+        beforeShow: function (input, inst) {
+            var rect = input.getBoundingClientRect();
+            setTimeout(function () {
+                inst.dpDiv.css({ top: rect.top + 40, left: rect.left + 0 });
+            }, 0);
+        }
+    });
+
+
+    $("#saveContact2").mouseover(function () {
+        var farmsToSave = "";
+        $("#selectedFarms").find("li").each(function () {
+            var current = $(this);
+            console.log(current);
+            farmsToSave = farmsToSave + current.find("input").val() + "|";
+            console.log(farmsToSave);
+        })
+        $("#selectedFarmsString").val(farmsToSave);
+    });
+
+</script>
+
+@section Scripts{
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery-ui-1.11.1.js"></script>
+    @*<script src="//code.jquery.com/jquery-1.10.2.js"></script>*@
+    @*<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>*@
+    <script src="~/Scripts/mvvm/Common.js"></script>
+    <script type="text/javascript" src="~/Scripts/Sustainability/filterfarm.js"></script>
+}

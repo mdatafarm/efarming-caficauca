@@ -1,0 +1,156 @@
+﻿@model IEnumerable<EFarming.Web.Controllers.TechnicianReportsController.GroupedInformation>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/themes/base/all.css" rel="stylesheet" />
+
+@section scripts{
+    <script src="~/Scripts/jquery-ui-1.10.4.min.js"></script>
+    <script src="~/Scripts/Sustainability/TechnicianReports.js"></script>
+}
+
+@{
+    double? totalEstimatedProduction = 0d;
+    double? totalCoffeeArea = 0d;
+    double? TotalSaleskg = 0d;
+    double? totalCoffeeAreaSalesKg = 0d;
+    double? by125kg = 0d;
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2 class="page-name">Área en café</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="@Url.Action("Index", "TechnicianReports")">
+                    Reportes
+                </a>
+            </li>
+
+            <li class="active">
+                <strong>Área en café</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+
+<div class="row wrapper border-bottom white-bg page-heading" style="margin-top:15px">
+    <div class="col-lg-10" style="margin-top:15px">
+        <form class="form-inline col-md-12" role="form" method="get" action="~/TechnicianReports/EstimatedProduction">
+            <input type="hidden" name="ProjectId" value="@ViewBag.ProjectId" />
+            <div class="form-group">
+                <label> Filtrar fecha: Desde: </label>
+                @*<label for="year">From:</label>*@
+                <input type="date" id="start" name="start" class="form-control dateField" value="@string.Format("{0:dd/MM/yyyy}", ViewBag.SelectedStart)" />
+            </div>
+            <div class="form-group">
+                <label for="year">Hasta:</label>
+                <input type="date" id="end" name="end" class="form-control dateField" value="@string.Format("{0:dd/MM/yyyy}", ViewBag.SelectedEnd)" />
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-default">Buscar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content row">
+                <div class="col-lg-9">
+                    <table class="table table-striped  table-hover table-condensed">
+                        <thead>
+                            <tr>
+                                <th>promotor</th>
+                                <th>Producción estimada (kg)</th>
+                                <th>Ventas (kg)</th>
+                                <th>Porcentaje</th>
+                                <th>Área en café (Ha)</th>
+                                <th>Ventas/Ha</th>
+                                <th>Por 125 kg</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.TechnicianName</td>
+                                    <td class="textAling">@string.Format("{0:#,##0}", item.EstimatedProduction)</td>
+                                    <td class="textAling">@string.Format("{0:#,##0}", item.Saleskg)</td>
+                                    <td class="textAling">@item.Percentage.Value.ToString("0.##") %</td>
+                                    <td class="textAling">@string.Format("{0:#,##0}", item.CoffeeArea)</td>
+                                    <td class="textAling">@item.CoffeeAreaSalesKg.Value.ToString("0.##")</td>
+                                    <td class="textAling">@item.by125kg.Value.ToString("0.##")</td>
+                                </tr>
+                                totalEstimatedProduction = totalEstimatedProduction + item.EstimatedProduction;
+                                totalCoffeeArea = totalCoffeeArea + item.CoffeeArea;
+                                TotalSaleskg = TotalSaleskg + item.Saleskg;
+                                by125kg = (TotalSaleskg / totalCoffeeArea) / 125;
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                @{
+                                    double? TotalPercentage = (TotalSaleskg / totalEstimatedProduction) * 100.0;
+                                    totalCoffeeAreaSalesKg = (TotalSaleskg / totalCoffeeArea);
+
+                                }
+                                <th></th>
+                                <th class="textAling">@string.Format("{0:#,##0}", totalEstimatedProduction)</th>
+                                <th class="textAling">@string.Format("{0:#,##0}", TotalSaleskg)</th>
+                                <th class="textAling">@TotalPercentage.Value.ToString("0.##") %</th>
+                                <th class="textAling">@string.Format("{0:#,##0}", totalCoffeeArea)</th>
+                                <th class="textAling">@totalCoffeeAreaSalesKg.Value.ToString("0.##")</th>
+                                <th class="textAling">@by125kg.Value.ToString("0.##")</th>
+                            </tr>
+                        </tfoot>
+
+                    </table>
+                </div>
+                <div class="col-lg-3">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-content information-content">
+                            <div class="file-manager">
+                                <h4 class="information">Información</h4>
+                                <div class="space-25"></div>
+                                <ul class="folder-list m-b-md">
+                                    <li>
+                                        <i class="fa fa-angle-right">&nbsp;</i>
+                                        proyecto:
+
+                                    </li>
+                                    <li>
+                                        <span style="margin-left:50px"><strong>@ViewBag.Project</strong></span>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-list">&nbsp;</i>
+                                        Proyectos:
+                                        <ul>
+                                            @foreach (var project in ViewBag.Projects)
+                                            {
+                                                <li>
+                                                    <a href="@Url.Action("EstimatedProduction", "TechnicianReports", new { ProjectId = project.Id, start = ViewBag.SelectedStart, end = ViewBag.SelectedEnd })">
+                                                        @project.Name
+                                                    </a>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var startDate = "@string.Format("{0:dd/MM/yyyy}", ViewBag.SelectedStart)";
+    var endDate = "@string.Format("{0:dd/MM/yyyy}", ViewBag.SelectedEnd)";
+</script>

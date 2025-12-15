@@ -1,0 +1,254 @@
+﻿@model EFarming.DTO.AdminModule.SupplyChainDTO
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section scripts{
+    <script src="~/Scripts/highcharts/highcharts.js"></script>
+    <script src="~/Scripts/highcharts/highcharts-more.js"></script>
+    <script src="~/Scripts/highcharts/solid-gauge.src.js"></script>
+    <script src="~/Scripts/highcharts/exporting.js"></script>
+    <script src="~/Scripts/dashboard/common.js"></script>
+    <script src="~/Scripts/dashboard/overview-supplierChain.js"></script>
+}
+
+<link href="~/Content/themes/base/all.css" rel="stylesheet" />
+
+@section breadcrumb{
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2 class="page-name">@DashboardMessage.Overview_By_Supplier_Chain</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="@Url.Action("Index", "Dashboard")">
+                        @Message.Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "Overview")">
+                        @DashboardMessage.Overview_Performance
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Country", "Overview", new { id = Model.Supplier.CountryId })">
+                        @Model.Supplier.Country.Name
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Supplier", "Overview", new { id = Model.SupplierId })">
+                        @Model.Supplier.Name
+                    </a>
+                </li>
+                <li class="active">
+                    <strong>@Model.Name</strong>
+                </li>
+            </ol>
+        </div>
+        <div class="col-lg-2">
+        </div>
+    </div>
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="row">
+        <div class="col-md-12">
+            <form class="form-inline" role="form" method="get" action="/Overview/SupplierChain">
+                <div class="form-group">
+                    <label for="year">@Message.Start_Date</label>
+                    <input type="date" id="start" name="start" class="form-control" value="@ViewBag.SelectedStart" />
+                </div>
+                <div class="form-group">
+                    <label for="year">@Message.End_Date</label>
+                    <input type="date" id="end" name="end" class="form-control" value="@ViewBag.SelectedEnd" />
+                </div>
+                <button type="submit" class="btn btn-default">@Message.Search</button>
+                <input type="text" id="id" style="visibility:hidden" name="id" class="form-control" value="@ViewBag.SupplierChainId" />
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-lg-9">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-content" style="display: block;">
+                            <div class="flot-chart">
+                                <div class="charts" id="farms-per-location">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-content" style="display: block;">
+                            <div class="flot-chart">
+                                <div class="charts" id="volume">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-content" style="display: block;">
+                            <div class="flot-chart">
+                                <div class="charts" id="size">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-content" style="display: block;">
+                            <div class="flot-chart">
+                                <div class="charts" id="varieties">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-content" style="display: block;">
+                            <div class="flot-chart">
+                                <div class="charts" id="workers">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-content" style="display: block;">
+                            <div class="flot-chart">
+                                <div class="charts" id="ownershipTypes">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content information-content">
+                    <div class="file-manager">
+                        <h4 class="information">@DashboardMessage.Plantation_Information</h4>
+                        <div class="space-25"></div>
+                        <ul class="folder-list m-b-md">
+                            <li>
+                                <i class="fa fa-globe">&nbsp;</i>
+                                @AdminMessage.Location:
+                                <span class="pull-right">
+                                    <strong>
+                                        <a href="@Url.Action("Supplier", "Overview", new { id = @ViewBag.Supplier })">
+                                            @ViewBag.Location
+                                        </a>
+                                    </strong>
+                                </span>
+                            </li>
+                            <li>
+                                <i class="fa fa-map-marker">&nbsp;</i>
+                                @AdminMessage.Department:
+                                <span class="pull-right">
+                                    @Model.Department.Name
+                                </span>
+                            </li>
+                            <li>
+                                <i class="fa fa-home"></i>
+                                @DashboardMessage.Number_Of_Farms:
+                                <span class="badge pull-right">@String.Format("{0:0,0.##}", ViewBag.CountFarms)</span>
+                            </li>
+                            <li>
+                                <i class="fa fa-th-large"></i>
+                                @DashboardMessage.Total_Area:
+                                <span class="badge pull-right">@String.Format("{0:0,0.##}", ViewBag.TotalArea)</span>
+                            </li>
+                            <li>
+                                <i class="fa fa-map-marker">&nbsp;</i>
+                                Cooperatives:
+                                <ul>
+                                    @foreach (var cooperative in ViewBag.cooperatives)
+                                    {
+                                        <li>
+                                            <a href="@Url.Action("Cooperative", "Overview", new { id = cooperative.Id })">
+                                                @cooperative.Name
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                            </li>
+
+                            @*<li>
+                                <i class="fa fa-info"></i>
+                                @Message.Information
+                                <ul>
+                                    <li>
+                                        @Message.Start_Date:
+                                        <span class="pull-right">@Model.StartDate.ToShortDateString()</span>
+                                    </li>
+                                    <li>
+                                        @Message.End_Date:
+                                        <span class="pull-right">@Model.EndDate.ToShortDateString()</span>
+                                    </li>
+                                    <li>
+                                        @DashboardMessage.Potencial:
+                                        <span class="pull-right">@String.Format("{0:0,0.##}", Model.Potencial)</span>
+                                    </li>
+                                    <li>
+                                        @DashboardMessage.Bags:
+                                        <span class="pull-right">@String.Format("{0:0,0.##}", Model.Bags)</span>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <i class="fa fa-check-square"></i>
+                                @QualityMessage.Quality_Profile:
+                                <span class="pull-right">@ViewBag.QualityProfile</span>
+                            </li>*@
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-ui-1.10.4.min.js"></script>
+
+<script type="text/javascript">
+    var supplierChainId = "@ViewBag.SupplierChainId";
+
+    var startDate = "@ViewBag.SelectedStart.ToString("yyyy-MM-dd")";
+    var endDate = "@ViewBag.SelectedEnd.ToString("yyyy-MM-dd")";
+
+    $("#start").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: "yy-mm-dd",
+        beforeShow: function (input, inst) {
+            var rect = input.getBoundingClientRect();
+            setTimeout(function () {
+                inst.dpDiv.css({ top: rect.top + 40, left: rect.left + 0 });
+            }, 0);
+        }
+    });
+
+    $("#end").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: "yy-mm-dd",
+        beforeShow: function (input, inst) {
+            var rect = input.getBoundingClientRect();
+            setTimeout(function () {
+                inst.dpDiv.css({ top: rect.top + 40, left: rect.left + 0 });
+            }, 0);
+        }
+    });
+</script>

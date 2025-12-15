@@ -1,0 +1,133 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Interface Oracle Cooperativa de Caficultores de Santander</title>
+    <meta charset="utf-8" />
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+    <!-- JQuery CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+
+</head>
+<body>
+    <div class="container">
+        <div class="page-header">
+            <div class="row">
+                <div class="col-md-8">
+                    <h1>Interface Oracle Efarming</h1>
+                    <p class="lead">Interface de comunicacion entre Efarming y cooperativa de caficultores de santander.</p>
+                </div>
+                <div class="col-md-2">
+                    <img class="img-responsive" src="Content/img/oracle-site.png" />
+                </div>
+                <div class="col-md-2">
+                    <img class="img-responsive" src="Content/img/logoEfarmingSmall.png" />
+                </div>
+            </div>
+        </div>
+
+        <h1>Plan de trabajo</h1>
+        <hr />
+
+        <h2>Conexion directa con VPN</h2>
+        <p>Conexión directa por VPN a la base de datos y creación de las consultas SQL (Etapa en la que estamos)</p>
+
+        <h2>Implementacion API</h2>
+        <p>Nuestro equipo realizara un proyecto WEB API para conectar esas consultas con el OASIS (En esta etapa la conexión la seguimos realizando por VPN y nosotros nos encargamos del deploymet)</p>
+
+        <h2>Instalacion proyecto en servidor</h2>
+        <p>Entregamos un proyecto web para que ustedes lo instalen en un servidor de su compañía y sirva como puente entre el OASIS y nuestro aplicativo. (Este proyecto web es solo un puente para llamar procedimientos almacenados autorizados por ustedes, el correspondiente proyecto no tendrá acceso a ningún otro recurso de la cooperativa Cadefihuil, Las ventajas de esta implementación es la seguridad segmentada, en la próxima reunión podemos revisar más a fondo este aspecto y entrar en detalle con la explicación técnica e implementación.)</p>
+
+        <hr />
+
+        <div class="row">
+            <div class="col-md-4">
+                <h2>Modelo CONCEPTUAL</h2>
+                <p>
+                    A countinuacion se muestra el modelo descrito en la implementacion
+                    Como modelo de adopcion para desarrollar en la implementacion.
+                </p>
+
+                <ul>
+                    <li>Modelo</li>
+                    <li>Controlador</li>
+                    <li>Transformado</li>
+                    <li>Repositorio SQL</li>
+                    <li>Mapeador</li>
+                </ul>
+            </div>
+            <div class="col-md-8">
+                <div>
+                    <img class="img-responsive" src="Content/img/EfarmingOracle.jpg" />
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+        <div class="row">
+            <h2>Modelo</h2>
+            <p>El modelo estara compuesto de entidades definidas en este proyecto y que brinden comunicacion transparente con los demas entornos de comunicacion del EFarming</p>
+            <p>Las entidades seran creadas en la carpeta de modelo del proyecto</p>
+            <p>Estas entidades seran mapeadas con las colecciones de respuesta necesarias para la integracion</p>
+            <p>Para mayor informacion y entender el modelo de entidades puede referirce al siguiente <a href="https://www.asp.net/mvc/overview/getting-started/getting-started-with-ef-using-mvc/creating-an-entity-framework-data-model-for-an-asp-net-mvc-application">TUTORIAL</a></p>
+        </div>
+        <div class="row">
+            <h2>Controlador API</h2>
+            <p>En el controlador API ira toda la logica y los servicios de respuesta expuestos como servicios REST</p>
+            <p>Esta capa estara orientada a conectara las campas de BLL encargadas de hacer la traduccion de las peticiones</p>
+            <p>Para concer el proceso y entender a fondo el funcionamiento de web api se recomienda el siguiente <a href="http://www.asp.net/web-api" target="_blank">TUTORIAL</a></p>
+        </div>
+        <div class="row">
+            <h2>Transformador</h2>
+            <p>Titulado asi por simple gusto, no se le atribulle a ningun paradigma de arquitectura solamente un concepto para la implementacion</p>
+            <p>El transformador tendra como objetivo implementar las consultas SQL por medio de los componentes necesarios para ejecutar sentencias sql con Oracle</p>
+            <p>Este repositorio esta compuesto de las librerias y paquetes de Oracle necesarios para realizar el cast y llamado de la informacion provista por el tercero</p>
+            <p>Para conocer mas sobre esta implementacion y las buenas practicas de implementacion puede visitar el siguiente link</p>
+            <p><a href="https://apexapps.oracle.com/pls/apex/f?p=44785:24:0::NO:24:P24_CONTENT_ID:13260" target="_blank">Tutorial de Oracle con .Net</a></p>
+        </div>
+        <div class="row">
+            <h2>Repositorio SQL</h2>
+            <p>En este repositorio se almacenan las consultas SQL a ser utilizadas en la implementacion</p>
+            <p>Su finalidad es la de tener centralizadas las consultas y que puedan ser monitorizadas por la compañia a la que le prestamos el servicio</p>
+            <p>Esto proporciona un factor determinante en la seguridad del sistema al ser transparente en la ejecucion de consulta con nuestros clientes</p>
+            <p>Para concer un poco mas sobre como administrar un repositorio de consultas puede consultar el siguiente tutorial <a href="https://msdn.microsoft.com/en-us/library/system.data.sqlclient.sqlcommand.executenonquery%28v=vs.110%29.aspx" target="_blank"> TUTORIAL</a></p>
+        </div>
+        <div class="row">
+            <h2>Mapeador</h2>
+            <p>Realiza el proceso de mapear las respuestas con las colecciones de entidades</p>
+            <p>Tener presente el patron <a href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel" target="_blank">TUTORIAL</a></p>
+            <p>Su implementacion no es obligatoria pero es bueno tenerla en cuenta.</p>
+        </div>
+        <div class="row">
+            <h1>Implementacion</h1>
+            <div class="col-md-4">
+                <p>Hacer pruebas locales con el servidor de pruebas</p>                
+            </div>
+            <div class="col-md-4">
+                <p>Montar el proyecto en maquina con conexion a la VPN</p>
+            </div>
+            <div class="col-md-4">
+                <p>Despues de hacer tests se procede a instalar en servidores de cooperativa de caficultores de santander</p>
+            </div>
+        </div>
+        <div class="row">
+            <p>Dudas sugerencias y demas observaciones pueden ser sugeridas y validadas para la implementacion en el proyecto</p>
+        </div>
+        <div class="footer">
+            <br /><br /><br /><br />
+            <center>
+                Propuesta por <a href="mailto:mario.botero@cafexport.com" target="_blank">mario.botero@cafexport.com</a> para Efarming Cooperativa de caficultores de santander / Datafarm
+            </center>
+            <br /><br />
+        </div>
+    </div> 
+    <!-- /container -->
+</body>
+</html>

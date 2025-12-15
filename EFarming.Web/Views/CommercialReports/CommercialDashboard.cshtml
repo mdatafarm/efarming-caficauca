@@ -1,0 +1,83 @@
+﻿@model IEnumerable<EFarming.DTO.TraceabilityModule.LotDTO>
+
+@{
+    ViewBag.Title = "Dashboard Comertial";
+}
+
+@section scripts{
+    <script src="~/Scripts/highcharts/highcharts.js"></script>
+    <script src="~/Scripts/highcharts/highcharts-more.js"></script>
+    <script src="~/Scripts/highcharts/solid-gauge.src.js"></script>
+    <script src="~/Scripts/highcharts/exporting.js"></script>
+    <script src="~/Scripts/dashboard/common.js"></script>
+    <script src="~/Scripts/dashboard/ComertialDashboard.js"></script>
+}
+
+@section breadcrumb{
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2 class="page-name"> Commercial Dashboard</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="@Url.Action("Index", "Home")">
+                        @Message.Home
+                    </a>
+                </li>
+                <li class="active">
+                    <strong>Commercial Dashboard</strong>
+                </li>
+            </ol>
+        </div>
+        <div class="col-lg-2">
+        </div>
+    </div>
+}
+
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-lg-9">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-content" style="display: block;">
+                            <div class="flot-chart">
+                                <div class="charts" id="farms-per-location">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-content" style="display: block;">
+                            <div class="flot-chart">
+                                <div class="charts" id="clasification">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-content" style="display: block;">
+                            <div class="flot-chart">
+                                <div class="charts" id="Sale3">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*<div class="col-lg-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content information-content">
+                    <div class="file-manager">
+                        <h4 class="information">Information</h4>
+                        <div class="space-25"></div>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+    </div>
+</div>

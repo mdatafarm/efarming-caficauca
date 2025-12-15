@@ -1,0 +1,320 @@
+﻿@model EFarming.Core.ComercialModule.ContractInvoice
+@using System.Globalization;
+
+@{
+    ViewBag.Title = "INVOICE " + Model.Number.ToString() + " " + ViewBag.Agreement.OurRef;
+    Layout = "~/Areas/Comercial/Views/Shared/_PdfLayout.cshtml";
+    var imagePath = Server.MapPath("~/Images");
+}
+
+<div>
+    <div style="height:100%">
+        @{
+            string path = imagePath + @"\" + ViewBag.Agreement.Seller.Header + ".png";
+            string imageWidth = "";
+            string imageHeight = "";
+            if (ViewBag.Agreement.Seller.Header == "expocafe")
+            {
+                imageWidth = "366";
+                imageHeight = "81";
+            }
+            else
+            {
+                imageWidth = "134";
+                imageHeight = "81";
+            }
+        }
+
+        @*Table for the Header of the invoice*@
+
+        <table style="font-size:11pt">
+            <tr>
+                <td>
+                    <img src="@path" alt="@ViewBag.Agreement.Seller.Header" height="@imageHeight" width="@imageWidth" />
+                </td>
+                <td rowspan="5">
+                    @ViewBag.Agreement.Seller.Name
+                    <br />
+                    @ViewBag.Agreement.Seller.Address
+                    <br />
+                    @ViewBag.Agreement.Seller.ZipCode @ViewBag.Agreement.Seller.City @ViewBag.Agreement.Seller.Country
+                    <br />
+                    @ViewBag.Agreement.Seller.Telephone
+                    <br />
+                    @ViewBag.Agreement.Seller.email
+                    <br />
+                    FLO ID.29527
+                </td>
+                <td valign="top">
+                    <br /><br />
+                    INVOICE
+                </td>
+                <td valign="top">
+                    <br /><br />
+                    @Model.Number
+                    <br /><br /><br />
+                    Page
+                    <br />
+                    DATE
+                </td>
+                <td valign="top">
+                    <br /><br /><br /><br /><br />
+                    1/1
+                    <br />
+                    @DateTime.Now.ToString("dd/MM/yyyy")
+                </td>
+            </tr>
+        </table>
+        <br />
+
+        @*Table for the Client information*@
+        <table style="border-collapse: collapse; border: 1px solid black; font-size:10pt">
+            <tr>
+                <td valign="top">
+                    TO:
+                    <br />
+                    Attn:
+                </td>
+                <td valign="top">
+                    @ViewBag.Agreement.Client.Name
+                    <br />
+                    @ViewBag.Agreement.Agent.Name
+                    <br />
+                    @ViewBag.Agreement.Client.Address
+                    <br />
+                    @ViewBag.Agreement.Client.Country
+                </td>
+                <td>
+                    CFX REF
+                    <br />
+                    NN REF
+                    <br />
+                    NN SAP
+                </td>
+                <td>
+                    @ViewBag.Agreement.OurRef
+                    <br />
+                    @ViewBag.Agreement.SecondClientRef
+                </td>
+            </tr>
+            <tr style="font-size:10pt">
+            </tr>
+        </table>
+
+        @*<br style="font-size:10pt" />*@
+
+        @*Table for the body of the invoice*@
+        @{
+            int rows1 = 0;
+            if (ViewBag.Agreement.ClientId == new Guid("{7C2D7537-4F29-4F0A-BD61-2AD3F979F00A}"))
+            {
+                rows1 = 6;
+            }
+            else
+            {
+                rows1 = 5;
+            }
+        }
+        <table font size="1" style="border-collapse: collapse; border:1px solid black; font-size:10pt">
+            <tr>
+                <td style="width:75px; border:1px solid black; border-right-color:white; border-top-color:white; border-left-color:white">
+                    VESSEL
+                </td>
+                <td style="width:150px; border:1px solid black; border-left-color:white; border-top-color:white">
+                    @Model.Shipment.Vessel  @Model.Shipment.ShippingLine
+                </td>
+                <td style="width:75px; border:1px solid black; border-right-color:white; border-left-color:white; border-top-color:white">
+                    SHIPPING DATE
+                </td>
+                <td colspan="@rows1" style="width:250px; border:1px solid black; border-left-color:white; border-top-color:white">
+                    @Model.Shipment.ShippingDate.ToString("dd/MM/yyyy")
+                </td>
+            </tr>
+            <tr>
+                <td style="border:1px solid black; border-right-color:white; border-top-color:white; border-left-color:white">
+                    SHIPMENT PORT
+                </td>
+                <td style="border:1px solid black; border-left-color:white; border-top-color:white">
+                    @Model.Shipment.PortOfLanding
+                </td>
+                <td style="border:1px solid black; border-right-color:white; border-top-color:white; border-left-color:white">
+                    DESTINATION
+                </td>
+                <td colspan="@rows1" style="border:1px solid black; border-left-color:white; border-top-color:white">
+                    @Model.Shipment.PortOfDestination
+                </td>
+            </tr>
+            <tr>
+                <td style="border:1px solid black; border-left-color:white; border-top-color:white">
+                    MARKS
+                </td>
+                <td style="border:1px solid black; border-left-color:white; border-top-color:white">
+                    MERCHANDISE DESCRIPTION
+                </td>
+                @foreach (var item in ViewBag.References)
+                {
+                    <td style="border:1px solid black; border-left-color:white; border-top-color:white">
+                        @item.Name
+                    </td>
+                }
+                <td style="width:70px; border:1px solid black; border-left-color:white; border-top-color:white">
+                    DOCUMENTS
+                </td>
+                <td style="border:1px solid black; border-left-color:white; border-top-color:white">
+                    BAGS
+                </td>
+                <td style="border:1px solid black; border-left-color:white; border-top-color:white">
+                    NET/KGS
+                </td>
+                <td style="border:1px solid black; border-left-color:white; border-top-color:white">
+                    PRI/BAG
+                </td>
+                <td style="border:1px solid black; border-left-color:white; border-top-color:white">
+                    AMOUNT
+                </td>
+            </tr>
+            @{ 
+                decimal? TotalBags = 0;
+                decimal? TotalNetKgs = 0;
+                decimal? TotalAmount = 0;
+            }
+            @foreach (var item in ViewBag.LotsList)
+            {
+                decimal? NetShippedWeight = 0;
+                <tr>
+                    
+                        @if (item.IcoMark != null)
+                        {
+                            <td style="border:1px solid black; border-left-color:white; border-top-color:white; border-bottom-color:white">
+                                @item.IcoMark.ToString().Substring(item.IcoMark.IndexOf('-') + 1)
+                            </td>
+                        }
+                                @*@item.IcoMark.ToString().Substring(item.IcoMark.IndexOf("-"), item.IcoMark.lenght)*@
+                    <td style="border:1px solid black; border-left-color:white; border-top-color:white; border-bottom-color:white">
+                        @{
+                            string MDT = null;
+                            string MDO = null;
+                            foreach (var MDitem in ViewBag.MDTypes)
+                            {
+                                if(item.MerchandiseDescription != null)
+                                {
+                                    if (MDitem.Id == new Guid(item.MerchandiseDescription.Split('|')[0]))
+                                    {
+                                        MDT = MDitem.InvoiceReference;
+                                    }
+                                }
+                            }
+                            foreach (var MDitem in ViewBag.MDOrigins)
+                            {
+                                if (item.MerchandiseDescription != null)
+                                {
+                                    if (item.MerchandiseDescription.Split('|')[1] != "")
+                                    {
+                                        if (MDitem.Id == Int32.Parse(item.MerchandiseDescription.Split('|')[1]))
+                                        {
+                                            MDO = MDitem.Name;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        @MDT @MDO
+                    </td>
+                    @foreach (var reference in ViewBag.References)
+                    {
+                        foreach (var refrenceRelationship in ViewBag.lotRefererencesRelationship)
+                        {
+                            if (reference.Id == refrenceRelationship.DocumentReferenceId && refrenceRelationship.DocumentId == item.Id)
+                            {
+                                <td style="border:1px solid black; border-left-color:white; border-top-color:white; border-bottom-color:white">
+                                    @refrenceRelationship.Value
+                                </td>
+                            }
+                        }
+                    }
+                    <td style="border:1px solid black; border-left-color:white; border-top-color:white; border-bottom-color:white">
+                        @Model.Shipment.DocumentBL
+                    </td>
+                    @foreach (var refrenceRelationship in ViewBag.lotRefererencesRelationshipAll)
+                    {
+                        if (refrenceRelationship.DocumentReference.Name == "Volume" && refrenceRelationship.DocumentId == item.Id)
+                        {
+                            TotalBags = TotalBags + Convert.ToDecimal(refrenceRelationship.Value);
+                            <td style="border:1px solid black; border-left-color:white; border-top-color:white; border-bottom-color:white">
+                                @refrenceRelationship.Value
+                            </td>
+                        }
+                    }
+                    @foreach (var refrenceRelationship in ViewBag.lotRefererencesRelationshipAll)
+                    {
+                        if (refrenceRelationship.DocumentReference.Name == "Net shipped weight" && refrenceRelationship.DocumentId == item.Id)
+                        {
+                            TotalNetKgs = TotalNetKgs + Convert.ToDecimal(refrenceRelationship.Value);
+                            NetShippedWeight = Convert.ToDecimal(refrenceRelationship.Value);
+                            <td style="border:1px solid black; border-left-color:white; border-top-color:white; border-bottom-color:white">
+                                @string.Format(CultureInfo.InvariantCulture, "{0:0,0}", Convert.ToDecimal(refrenceRelationship.Value))
+                            </td>
+                        }
+                    }
+                    <td style="border:1px solid black; border-left-color:white; border-top-color:white; border-bottom-color:white">
+                        @{
+                            decimal? PriBag = (item.Agreement.PriceDifferential + @item.Agreement.Fixation) * Convert.ToDecimal(1.54322);
+                        }
+                        @string.Format(CultureInfo.InvariantCulture, "{0:0,0.00}", PriBag)
+                    </td>
+                    <td style="border:1px solid black; border-left-color:white; border-top-color:white; border-bottom-color:white">
+                        @{
+                            decimal? Amount = (NetShippedWeight / 70) * PriBag;
+                            TotalAmount = TotalAmount + Amount;
+                        }
+                        @string.Format(CultureInfo.InvariantCulture, "{0:0,0.00}", Amount)
+                    </td>
+                </tr>
+            }
+            @{ 
+                int rows = 0;
+                if (ViewBag.Agreement.ClientId == new Guid("{7C2D7537-4F29-4F0A-BD61-2AD3F979F00A}"))
+                {
+                    rows = 5;
+                }
+                else
+                {
+                    rows = 4;
+                }
+            }
+
+            <tr>
+                <td colspan="@rows" style="border:1px solid black; border-left-color:white; border-bottom-color:white">
+                    TOTAL
+                </td>
+                <td style="border:1px solid black; border-left-color:white; border-bottom-color:white">@string.Format(CultureInfo.InvariantCulture, "{0:0,0.00}", TotalBags)</td>
+                <td style="border:1px solid black; border-left-color:white; border-bottom-color:white">@string.Format(CultureInfo.InvariantCulture, "{0:0,0.00}", TotalNetKgs)</td>
+                <td style="border:1px solid black; border-left-color:white; border-bottom-color:white">USD</td>
+                <td style="width:45px; border:1px solid black; border-left-color:white; border-bottom-color:white">@string.Format(CultureInfo.InvariantCulture, "{0:0,0.00}", TotalAmount)</td>
+            </tr>
+        </table>
+        <br/>
+        @*Table for the invoice footer*@
+
+        <table style="border-collapse: collapse; border: 1px solid black; font-size:10pt">
+            <tr>
+                <td colspan="2">
+                    COMMENTS:
+                </td>
+                <td style="width:250px; border:1px solid black; border-top-color:white; border-bottom-color:white">
+                    AUTORISED SIGNATURE
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    DELIVERY TERM: @ViewBag.Agreement.Terms
+                    <br/>
+                    @ViewBag.Agreement.Payment
+                </td>
+                <td style="border:1px solid black; border-top-color:white; border-bottom-color:white"><img src="@imagePath\signature.png" alt="signature" width="163" height="54" /></td>
+            </tr>
+        </table>
+
+    </div>
+</div>

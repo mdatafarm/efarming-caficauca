@@ -1,0 +1,42 @@
+﻿@model EFarming.Core.AdminModule.AssessmentAggregate.AssessmentTemplate
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2 class="page-name">Editar Evaluación</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="@Url.Action("Index", "Contacts")">
+                    Sostenibilidad
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("Index", "AssessmentTemplates")">
+                    Evaluaciones
+                </a>
+            </li>
+
+            <li class="active">
+                <strong>Editar</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <form action="@Url.Action("Edit", "AssessmentTemplates")" method="post" class="form-horizontal" role="form">
+                        @Html.Partial("~/Areas/SustainabilityArea/Views/AssessmentTemplates/_Form.cshtml", Model)
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

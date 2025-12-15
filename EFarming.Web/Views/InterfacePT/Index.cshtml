@@ -1,0 +1,142 @@
+﻿@model List<List<object>>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <h2>Upload a file</h2>
+    <div class="row">
+        <div class="col-md-4 col-lg-4 col-sm-4">
+            <form action="/InterfacePT/UploadFile" enctype="multipart/form-data" method="post">
+                <input type="file" id="excelfile" name="excelfile" />
+                <input class="btn btn-lg btn-success" type="submit" value="Upload!" />
+            </form>
+        </div>
+    </div>
+</div>
+<hr />
+
+@if (Model != null)
+{
+    <div class="container-fluid">
+        <div class="col-md-12 col-lg-12 col-sm-12">
+            <div class="table table-bordered">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Pruebas agregadas</h3>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>id Finca</th>
+                            <th>Kg</th>
+                            <th>Clasificación</th>
+                            <th>Decisión</th>
+                            <th>Defecto</th>
+                            <th>Observaciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var Farm in Model)
+                {
+                    if (Farm[0].ToString() == "AddedFarms")
+                    {
+                                <tr>
+                                    <td>@Farm[1]</td>
+                                    <td>@Farm[2]</td>
+                                    <td>@Farm[3]</td>
+                                    <td>@Farm[4]</td>
+                                    <td>@Farm[5]</td>
+                                    <td>@Farm[6]</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4 col-lg-4 col-sm-4">
+                <div class="table table-bordered">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Fincas no encontradas en la base de datos</h3>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Id Finca</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var Farm in Model)
+                            {
+                                if (Farm[0].ToString() == "BadFarms")
+                                {
+                                    <tr>
+                                        <td>@Farm[1]</td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-4 col-sm-4">
+                <div class="table table-bordered">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Números de factura que ya fueron ingresados</h3>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Id Factura</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var Farm in Model)
+                            {
+                                if (Farm[0].ToString() == "IdExists")
+                                {
+                                    <tr>
+                                        <td>@Farm[1]</td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-4 col-sm-4">
+                <div class="table table-bordered">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Respuestas con errores</h3>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Id Finca</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var Farm in Model)
+                            {
+                                if (Farm[0].ToString() == "BadAnswer")
+                                {
+                                    <tr>
+                                        <td>@Farm[1]</td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+}

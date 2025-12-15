@@ -1,0 +1,106 @@
+﻿@model EFarming.DTO.AdminModule.LoginDTO
+
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>@Message.Login - @Message.App_Name</title>
+
+    <link rel="icon" href="~/Images/favicon.ico">
+
+    <!-- Bootstrap -->
+    @Styles.Render("~/Content/bootstrap")
+    @Styles.Render("~/Content/login")
+    @Styles.Render("~/Content/font")
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+    <div class="container">
+
+        <!--<div class="login-form-links link2  animated fadeInRightBig">-->
+        <div class="logo">
+            <div class="row">
+                <div class="col-sm-6">
+                    <img src="~/Images/logo-efarming-color.png" alt="e-farming-logo" style="width:190px" />
+                </div>
+                @*<div class="col-sm-6">
+                    <img src="~/Images/Clientes/3d93e18b-b323-41c1-b8cc-585493d77303.png" alt="logo" style="width:130px" />
+                </div>*@
+            </div>
+        </div>
+        <!-- </div>-->
+
+        @using (Html.BeginForm("Index", "Accounts", FormMethod.Post, new { @class = "form-signin", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            @Html.Hidden("returnUrl", Model.ReturnUrl)
+
+            <div class="section-title">
+                <h3>@Message.Login_Account</h3>
+                <div class="row" style="text-align:center">
+                    <div class="col-sm-12" >
+                        <img src="~/Images/Clientes/3d93e18b-b323-41c1-b8cc-585493d77303.png" alt="logo" style="width:250px;" />
+                    </div>
+                </div>
+            </div>
+            <div class="textbox-wrap">
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <i class="fa fa-user "></i>
+                    </div>
+                    <input class="form-control" id="Username" name="Username" placeholder="Username" required="required" type="text" value="">
+                </div>
+            </div>
+
+            <div class="textbox-wrap">
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-lock"></i>
+                        </div>
+                        @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = Message.Password, required = "required" })
+                    </div>
+                </div>
+            </div>
+            <div class="login-form-action clearfix">
+                <div class="checkbox pull-left">
+                    <div class="custom-checkbox">
+                        <input type="checkbox" checked="checked" class="css-checkbox" id="RememberMe" name="RememberMe" value="true">
+                        <label class="css-label cb0" for="RememberMe">@Message.RememberMe</label>
+                    </div>
+                </div>
+                <button class="btn btn-success pull-right green-btn" type="submit">@Message.Login &nbsp; <i class="fa fa-chevron-right"></i></button>
+            </div>
+        }
+        <div class="login-form-links link2  animated fadeInRightBig">
+            <h4 class="green">@Message.Dont_Have_Account</h4>
+            <span>@Message.To_Register</span>
+            <a href="@Url.Action("Create")" class="green">@Message.Click_Here</a>
+
+        </div>
+        <div class="footer flogin">
+            <p class="text-center">@string.Format(Message.Footer, DateTime.UtcNow.Year)</p>
+        </div>
+    </div> <!-- end container -->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+</body>
+</html>

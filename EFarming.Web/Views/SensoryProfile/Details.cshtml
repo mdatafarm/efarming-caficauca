@@ -1,0 +1,106 @@
+﻿@model EFarming.DTO.FarmModule.FarmDTO
+@{
+    ViewBag.Title = QualityMessage.Sensory_Profile;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var farm = (EFarming.DTO.FarmModule.FarmDTO)ViewBag.Farm;
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-9">
+        <h2 class="page-name">@QualityMessage.Sensory_Profile</h2>
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Index", "Home", new { })">@Message.Home</a></li>
+            <li><a href="@Url.Action("Index", "Farms", new { })">@FarmMessages.Farms</a></li>
+            <li><a href="@Url.Action("Edit", "Farms", new { id = farm.Id })">@farm.Name</a></li>
+            <li class="active">@QualityMessage.Sensory_Profile</li>
+        </ol>
+    </div>
+    <div class="col-lg-3 ">
+    </div>
+</div>
+
+
+<div class="wrapper wrapper-content">
+    <div class="row"> 
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>@QualityMessage.Sensory_Profile</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="flot-chart farm-search">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <form class="form-inline" role="form">
+                                    <br />
+                                    <div class="form-group">
+                                        <label class="sr-only" for="SensoryProfileAssessmentId">
+                                            @QualityMessage.Sensory_Profile_Assessment
+                                        </label>
+                                        <select class="form-control input-sm" id="SensoryProfileAssessmentId"
+                                                data-bind="options: Assessments, optionsText:'Description', value: Assessment, optionsCaption: '@string.Format(Message.SelectA, QualityMessage.Sensory_Profile_Assessment)', event:{change: ChangeAssessment}"></select>
+                                    </div>
+                                    <br />
+                                    <a class="btn btn-link link-edit" data-toggle="modal" data-target="#new-sensory-profile-assessment">
+                                        <i class="fa fa-coffee"></i>
+                                        @QualityMessage.Create_New_Assessment
+                                    </a>
+                                </form>
+                            </div>
+                            </div>
+                        <div class="row">
+                            <div class="col-sm-12" data-bind="html: Form">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr />
+
+<div class="modal fade" id="new-sensory-profile-assessment" tabindex="-1" aria-labelledby="@QualityMessage.Create_New_Assessment" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">@QualityMessage.Create_New_Assessment</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-group">
+                        <label for="Date"><small>@Message.Date</small></label>
+                        <input type="date" class="form-control input-sm" id="Date" data-bind="value: Date" />
+                    </div>
+                    <div class="form-group">
+                        <label for="Description"><small>@Message.Description</small></label>
+                        <input type="text" placeholder="@Message.Description" class="form-control input-sm" data-bind="value: Description" />
+                    </div>
+                    <div class="form-group">
+                        <label for="AssessmentTemplateId"><small>@QualityMessage.Assessment_Template</small></label>
+                        <select class="form-control input-sm" id="AssessmentTemplateId"
+                                data-bind="options: AssessmentTemplates, optionsText:'Description', value: AssessmentTemplate, optionsCaption: '@string.Format(Message.SelectA, QualityMessage.Assessment_Template)'"></select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success btn-sm" data-bind="click:SaveAssessment">
+                    @Message.Save
+                </button>
+                <button type="button" class="btn btn-link link-delete btn-sm" data-dismiss="modal" data-bind="click:CancelAssessment">@Message.Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var FARMID = '@farm.Id';
+</script>
+@section scripts{
+    <script src="~/Scripts/highcharts/highcharts.js"></script>
+    <script src="~/Scripts/highcharts/highcharts-more.js"></script>
+    <script src="~/Scripts/highcharts/exporting.js"></script>
+    <script src="~/Scripts/mvvm/Common.js"></script>
+    <script src="~/Scripts/mvvm/SensoryProfile.js"></script>
+}

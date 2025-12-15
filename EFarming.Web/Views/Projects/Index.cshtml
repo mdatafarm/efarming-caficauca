@@ -1,0 +1,35 @@
+﻿@model EFarming.DTO.FarmModule.FarmDTO
+
+<table class="table table-hover table-condensed table-striped">
+    <tr>
+        <th>
+            @Message.Name
+        </th>
+        <th>
+            @Message.Description
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Projects)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @if (!User.IsReader() && !User.IsTechnician())
+                {
+                    <a href="@Url.Action("Delete", "Projects", new { id = item.Id, farmId = Model.Id })" class="btn btn-link link-delete delete-project">
+                        <span class="glyphicon glyphicon-remove-sign"></span>
+                        @Message.Delete
+                    </a>
+                }
+            </td>
+        </tr>
+    }
+
+</table>

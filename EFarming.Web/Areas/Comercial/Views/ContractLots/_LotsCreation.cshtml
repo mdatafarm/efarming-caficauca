@@ -1,0 +1,124 @@
+﻿@*@model List<EFarming.Web.Areas.Comercial.Controllers.ContractLotsController.ContractAndLots>*@
+@model EFarming.Web.Areas.Comercial.Controllers.ContractLotsController.ContractAndLots
+
+@section Scripts {
+    <script src="~/Scripts/jquery-ui-1.10.4.min.js"></script>
+    <script src="~/Scripts/commercial/es-CO.js"></script>
+    <script src="~/Scripts/commercial/CreateLots.js"></script>
+    <script src="~/Scripts/commercial/FixationFunctions.js"></script>
+}
+
+<div class="row">
+    <div class="col-md-12 col-lg-12 col-sm-12">
+        <div class="wrapper wrapper-content">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Lots for the Contract @Model.Contract.OurRef</h5>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="flot-chart farm-search">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                @using (Html.BeginForm("Create", "ContractLots", new { ContractId = @Model.Contract.Id }, FormMethod.Post, new { enctype = "multipart/form-data", @class = "form" }))
+                                                {
+                                                    @Html.AntiForgeryToken()
+                                                    foreach (var item in ViewBag.ContractsForLots)
+                                                    {
+                                                        <input type="hidden" value="@item" name="ContractsForLotsPost" />
+                                                    }
+                                                    <h2>Volume: <span id="Volume">@Model.Contract.Volume</span></h2>
+                                                    <p>
+                                                        Unit for lots:
+                                                        <input type="number" id="Unit" name="unit" class="unit control-label" required />
+                                                        <input id="LotsNumberInput" name="LotsNumberInput" class="LotsNumberInput" style="display:none" />
+                                                        <input class="btn btn-success btn-sm" type="submit" value="Create Lots" />
+                                                    </p>
+                                                }
+                                            </div>
+                                            <div class="col-md-3">
+                                                @{
+                                                    string urlSeller = "/Images/" + Model.Contract.Seller.Header + ".png";
+                                                }
+                                                <div class="img-thumbnail">
+                                                    <img class="img-responsive img-rounded" src="@urlSeller" alt="@Model.Contract.Seller.Header" style="width:150px" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                @{
+                                                    string urlClient = "/Images/" + Model.Contract.Client.Id + ".png";
+                                                }
+                                                <div class="img-thumbnail">
+                                                    <img class="img-responsive img-rounded" src="@urlClient" alt="@Model.Contract.Client.Name" style="width:150px" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-primary filterable">
+                                            <div class="panel-heading" style="background-color :aliceblue">
+                                                <h3 class="panel-title">Lots list</h3>
+                                                <div class="pull-right">
+                                                    <label class="btn btn-success btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Filter</label>
+                                                </div>
+                                            </div>
+                                            @if (Model.ContractLots != null)
+                                            {
+                                                @Html.Partial("~/Areas/Comercial/Views/ContractLots/_LotsTable.cshtml", Model.ContractLots)
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+          .filterable {
+              margin-top: 15px;
+          }
+
+              .filterable .panel-heading .pull-right {
+                  margin-top: -20px;
+              }
+
+              .filterable .filters input[disabled] {
+                  background-color: transparent;
+                  border: none;
+                  cursor: auto;
+                  box-shadow: none;
+                  padding: 0;
+                  height: auto;
+              }
+
+                  .filterable .filters input[disabled]::-webkit-input-placeholder {
+                      color: #333;
+                  }
+
+                  .filterable .filters input[disabled]::-moz-placeholder {
+                      color: #333;
+                  }
+
+                  .filterable .filters input[disabled]:-ms-input-placeholder {
+                      color: #333;
+                  }
+
+          table .header-fixed {
+              position: fixed;
+              top: 40px;
+              z-index: 1020; /* 10 less than .navbar-fixed to prevent any overlap */
+              border-bottom: 1px solid #d5d5d5;
+              -webkit-border-radius: 0;
+              -moz-border-radius: 0;
+              border-radius: 0;
+              -webkit-box-shadow: inset 0 1px 0 #fff, 0 1px 5px rgba(0,0,0,.1);
+              -moz-box-shadow: inset 0 1px 0 #fff, 0 1px 5px rgba(0,0,0,.1);
+              box-shadow: inset 0 1px 0 #fff, 0 1px 5px rgba(0,0,0,.1);
+              filter: progid:DXImageTransform.Microsoft.gradient(enabled=false); /* IE6-9 */
+          }
+</style>

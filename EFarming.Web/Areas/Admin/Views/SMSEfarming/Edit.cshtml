@@ -1,0 +1,48 @@
+﻿@model Twilio.Address
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-4-md col-md-offset-4">
+        @using (@Html.BeginForm("EditAddress", "SMSEfarming", FormMethod.Post))
+        {
+            @Html.HiddenFor(m => m.Sid)
+	  <h2>Edit Address</h2>
+            <table>
+                <tr>
+                    <td><label>Customer Name:</label></td>
+                    <td>@Html.TextBoxFor(m => m.CustomerName)</td>
+                </tr>
+                <tr>
+                    <td><label>Street</label></td>
+                    <td>@Html.TextBoxFor(m => m.Street)</td>
+                </tr>
+                <tr>
+                    <td><label>City</label></td>
+                    <td>@Html.TextBoxFor(m => m.City)</td>
+                </tr>
+                <tr>
+                    <td><label>Region</label></td>
+                    <td>@Html.TextBoxFor(m => m.Region)</td>
+                </tr>
+                <tr>
+                    <td><label>Postal Code</label></td>
+                    <td>@Html.TextBoxFor(m => m.PostalCode)</td>
+                </tr>
+                <tr>
+                    <td><label>Friendly Name</label></td>
+                    <td>@Html.TextBoxFor(m => m.FriendlyName)</td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="text-center">
+                        <br />
+                        <input class="btn btn-primary" type="submit" name="name" value="Save Customer" />
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</div>

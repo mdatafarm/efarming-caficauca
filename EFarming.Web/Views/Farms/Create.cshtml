@@ -1,0 +1,128 @@
+﻿@model EFarming.DTO.FarmModule.FarmDTO
+@{
+    ViewBag.Title = FarmMessages.Create_New_Farm;
+}
+
+<!-- Tab panes -->
+@using (Html.BeginForm("Create", "Farms", FormMethod.Post, new { @class = "form-horizontal to-validate-horizontal", role = "form" }))
+{
+
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-9">
+            <h2 class="page-name text-uppercase">@FarmMessages.Create_New_Farm</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="@Url.Action("Index", "Home")">@Message.Home</a>
+                </li>
+
+                <li>
+                    <a href="@Url.Action("Index", "Farms")">@FarmMessages.Farms</a>
+                </li>
+
+                <li class="active">
+                    <strong>@FarmMessages.Create_New_Farm</strong>
+                </li>
+            </ol>
+        </div>
+        <div class="col-lg-3 ">
+            <div class="btn-group pull-right btn-g-edit">
+                <button class="btn btn-success btn-lg" id="SaveFarm">
+                    <i class="fa fa-check"></i>
+                    @Message.Save
+                </button>
+                <a href="@Url.Action("Index", "Farms")" class="btn btn-warning btn-lg">
+                    <i class="fa fa-times"></i>
+                    @Message.Cancel
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="wrapper wrapper-content">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5 class="text-capitalize">@FarmMessages.Create_New_Farm</h5>
+                        <div class="ibox-tools">
+
+                            <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                                <i class="fa fa-bars"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user dropdown-menu-right ">
+                                <li>
+                                    <a href="#">Config option 1</a>
+                                </li>
+                                <li>
+                                    <a href="#">Config option 2</a>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="flot-chart farm-search">
+                            @Html.Partial("~/Views/farms/_Tabs.cshtml")
+                            <div class="tab-content">
+                                <div class="tab-pane fade in active" id="farm-info">
+                                    @Html.Partial("~/Views/Farms/_BasicInformation.cshtml", Model)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script src="~/Scripts/jquery-ui-1.10.4.js"></script>
+<script>
+    $("#Code").focusout(function () {
+        checkCode();
+    });
+
+    function checkCode() {
+        var code = $("#Code").val();
+        console.log(code);
+        if (code != null && code != "") {
+            $.ajax({
+                type: "POST",
+                url: "/Farms/CheckDocument",
+                data: "{ code: '" + code + "'}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: successFunc,
+                error: errorFunc
+            });
+
+            function successFunc(data) {
+                if (data == "True") {
+                    $("#lblInfo").addClass("label label-danger");
+                    $("#lblInfo").html("El codigo de finca: " + code + " ya se encuentra registrada, por favor registre un codigo diferente.");
+                    $("#lblInfo").css("white-space", "normal");
+                    $("#lblInfo").css("display", "block");
+                    $("#lblInfo").css("display", "block"); 
+                    $("#lblInfo").css("font-size", "11px");
+                    $("#SaveFarm").prop('disabled', true);
+                    $("#SaveFarm").hide();
+                    alert("El codigo de finca: " + code + " ya se encuentra registrada, por favor registre un codigo diferente.");
+                }
+                else {
+                    $("#lblInfo").removeClass("label label-danger");
+                    $("#lblInfo").addClass("label label-success");
+                    $("#lblInfo").html("Codigo de finca disponible");
+                    $("#SaveFarm").prop('disabled', false);
+                    $("#SaveFarm").show();
+
+
+                }
+            }
+            function errorFunc() {
+                alert('error');
+            }
+        }
+        
+    }
+</script>
+
+@Html.Partial("~/Views/farms/_Scripts.cshtml")

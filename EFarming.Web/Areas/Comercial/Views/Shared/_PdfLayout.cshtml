@@ -1,0 +1,97 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    @*style documentation for pdf http://demo.itextsupport.com/xmlworker/itextdoc/CSS-conformance-list.htm*@
+    <meta name="viewport" content="width=device-width" />   
+    <title>@ViewBag.Title</title> 
+    <style>
+              html {
+                  font-family: Arial;
+              }
+
+              .documentHeader {
+                  font-size: 16px;
+              }
+
+              .documentBody {
+                  height: 580px;
+                  font-size: 15px;
+              }
+
+              .documentFooter {
+                  text-align: center;
+                  font-size: 12px;
+                  font-family: 'Times New Roman';
+              }
+
+              .signature {
+                  height: 150px;
+              }
+
+              .halfCell {
+                  width: 50%;
+              }
+
+              .halfCellLeftSignature {
+                  width: 50%;
+                  text-align: center;
+              }
+
+              .tableFixations {
+                  width: 100%;
+                  height: 100%;
+                  border: 1px;
+              }
+
+              .tableFixations tr th{
+                    text-align: center;
+                }
+                
+              .tableFixations tr td{
+                    text-align: center;
+                }
+
+              table {
+                  width: 100%;
+                  height: 100%;
+                  border-spacing: 0px;
+              }
+
+                  table tr th {
+                      padding: 0px;
+                  }
+
+                  table tr td {
+                      margin: 0px;
+                  }
+
+              .title {
+                  text-align: center;
+                  font-size: 26px;
+                  border-bottom: thick dotted #ff0000;
+                  border: 1px;
+                  border-left-color: white;
+                  border-right-color: white;
+                  border-top-color: white;
+              }
+
+              /*.thall{
+                        rowspan: 2;
+                    }*/
+
+              .tdleft {
+                  width: 20%;
+              }
+
+              .tdright {
+                  width: 80%;
+              }
+    </style>
+</head>
+<body>
+    @RenderBody()
+</body>
+</html>

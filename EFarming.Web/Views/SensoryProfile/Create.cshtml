@@ -1,0 +1,98 @@
+﻿@model IEnumerable<EFarming.DTO.QualityModule.QualityAttributeDTO>
+    @{
+        Layout = null;
+    }
+    <div class="row">
+        <div class="col-sm-5 col-sm-offset-1">
+            <form role="form" class="form-horizontal" method="put" action="/sensoryprofile/edit/@ViewBag.AssessmentId">
+                @Html.Partial("~/Views/QualityAttributes/Preview.cshtml", Model)
+                <div class="form-group pull-right">
+                    <button class="btn btn-sm btn-success" type="submit">
+                        <i class="fa fa-check"></i>
+                        @Message.Save
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div id="chart-container"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script type="text/javascript">
+
+    var ASSESSMENT_ID = '@ViewBag.AssessmentId';
+    function DrawChart(data) {
+        var self = this;
+        var categories = data.categories;
+        var series = data.series;
+        var title = data.description;
+
+        $('#chart-container').highcharts({
+            chart: {
+                polar: true,
+                type: 'line'
+            },
+            title: {
+                text: title
+            },
+            pane: {
+                size: '80%'
+            },
+            xAxis: {
+                categories: categories,
+                tickmarkPlacement: 'on',
+                lineWidth: 0
+            },
+            yAxis: {
+                gridLineInterpolation: 'polygon',
+                lineWidth: 0,
+                min: 0
+            },
+            tooltip: {
+                shared: true,
+                pointFormat: '<span style="color:{series.color}">{series.name}: <b>{point.y:,.0f}</b><br/>'
+            },
+            legend: {
+                align: 'right',
+                verticalAlign: 'top',
+                y: 70,
+                layout: 'vertical'
+            },
+            series: series
+        });
+    }
+
+    function GetChartData() {
+        $.ajax({
+            url: '/api/sensoryprofileassessments/' + ASSESSMENT_ID,
+            datatype: 'JSON',
+            type: 'GET'
+        }).done(function (data) {
+            DrawChart(data);
+        });
+    }
+
+    $(function () {
+        $("form").on("submit", function (event) {
+            event.preventDefault();
+            var data = $(this).serializeObject();
+            var url = $(this).attr('action');
+            $.ajax({
+                url: url,
+                data: data,
+                datatype: 'JSON',
+                type: 'PUT'
+            }).error(function () {
+            }).done(function () {
+                GetChartData();
+            });
+        });
+
+        GetChartData();
+    })
+</script>

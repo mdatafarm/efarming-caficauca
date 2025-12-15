@@ -1,0 +1,93 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section scripts{
+    <script src="~/Scripts/highcharts/highcharts.js"></script>
+    <script src="~/Scripts/highcharts/highcharts-more.js"></script>
+    <script src="~/Scripts/highcharts/solid-gauge.src.js"></script>
+    <script src="~/Scripts/highcharts/exporting.js"></script>
+    <script src="~/Scripts/dashboard/common.js"></script>
+    <script src="~/Scripts/dashboard/evolution.js"></script>
+}
+
+@section breadcrumb{
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2 class="page-name">@DashboardMessage.Evolution_Performance</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="@Url.Action("Index", "Dashboard")">
+                        @Message.Dashboard
+                    </a>
+                </li>
+
+                <li class="active">
+                    <strong>@DashboardMessage.Evolution_Performance</strong>
+                </li>
+            </ol>
+        </div>
+        <div class="col-lg-2">
+        </div>
+    </div>
+}
+
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-lg-9">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-content" style="display: block;">
+                            <div class="flot-chart">
+                                <div class="charts" id="volume">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-content" style="display: block;">
+                            <div class="flot-chart">
+                                <div class="charts" id="sustainability">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content information-content">
+                    <div class="file-manager">
+                        <h4 class="information">@DashboardMessage.Plantation_Information</h4>
+                        <div class="space-25"></div>
+                        <ul class="folder-list m-b-md">
+                            <li>
+                                <i class="fa fa-globe">&nbsp;</i>
+                                @AdminMessage.Location:
+                                <span class="pull-right"><strong>Global</strong></span>
+                            </li>
+                            <li>
+                                <i class="fa fa-map-marker">&nbsp;</i>
+                                @Message.Countries:
+                                <ul>
+                                    @foreach (var country in (List<EFarming.DTO.AdminModule.CountryDTO>)ViewBag.Countries)
+                                    {
+                                        <li>
+                                            <a href="@Url.Action("Country", "Evolution", new { id = country.Id })">
+                                                @country.Name
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

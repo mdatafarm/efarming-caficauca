@@ -1,0 +1,93 @@
+﻿@model IEnumerable<EFarming.Core.AdminModule.AssessmentAggregate.AssessmentTemplate>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2 class="page-name">Evaluaciones</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="@Url.Action("Index", "Contacts")">
+                    Sostenibilidad
+                </a>
+            </li>
+
+            <li class="active">
+                <strong>Evaluaciones</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <table class="table">
+                        <tr>
+                            <th></th>
+                            <th>
+                                Nombre
+                            </th>
+                            <th>
+                                Tipo
+                            </th>
+                            <th>
+                                @if (!User.IsInRole("Reader"))
+                                {
+                                    <span class="pull-right">
+                                        <a href="@Url.Action("Create", "AssessmentTemplates")" class="btn btn-success btn-sm">
+                                            <span class="glyphicon glyphicon-plus">
+                                            </span>
+                                            Agregar
+                                        </a>
+                                    </span>
+                                }
+                            </th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            if (item.Id != Guid.Parse("208633F3-7FE8-46F7-BCC4-448CCD3DD9C5") && item.Id != Guid.Parse("7B01B167-B114-4D6A-8174-8E45571A9216"))
+                            {
+                                <tr>
+                                    <td>
+                                        <a href="@Url.Action("Details", "AssessmentTemplates", new { id = item.Id })" class="btn btn-success btn-sm">
+                                            <span class="glyphicon glyphicon-cog">
+                                            </span>
+                                            Configurar
+                                        </a>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Type)
+                                    </td>
+                                    <td>
+                                        <div class="pull-right">
+                                            @if (!User.IsInRole("Reader"))
+                                            {
+                                                <a href="@Url.Action("Edit", "AssessmentTemplates", new { id = item.Id })">
+                                                    <span class="glyphicon glyphicon-edit"></span>
+                                                </a>
+                                                <a href="@Url.Action("Delete", "AssessmentTemplates", new { id = item.Id })">
+                                                    <span class="glyphicon glyphicon-remove"></span>
+                                                </a>
+                                            }
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

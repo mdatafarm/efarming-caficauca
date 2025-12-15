@@ -1,0 +1,61 @@
+﻿@model EFarming.DTO.FarmModule.FarmDTO
+
+<ul class="nav nav-tabs" role="tablist">
+    <li class="active">
+        <a href="#farm-info" data-toggle="tab" role="tab">
+            <i class="fa fa-info"></i>
+            @FarmMessages.Farm_Info
+        </a>
+    </li>
+    @if (!Model.IsNew)
+    {
+        <li>
+            <a href="#productivity" data-toggle="tab" role="tab">
+                <i class="fa fa-line-chart"></i>
+                @FarmMessages.Productivity
+            </a>
+        </li>
+        <li>
+            <a href="#sales" data-toggle="tab" role="tab">
+                <i class="fa fa-dollar"></i>
+                Ventas
+            </a>
+        </li>
+        <li>
+            <a href="#fetilizers" data-toggle="tab" role="tab">
+                <i class="fa fa-leaf"></i>
+                Fertilizantes
+            </a>
+        </li>
+        <li>
+            <a href="#family-unit" data-toggle="tab" role="tab">
+                <i class="fa fa-users"></i>
+                @Message.People
+            </a>
+        </li>
+        <li>
+            <a href="#projects" data-toggle="tab" role="tab">
+                <i class="fa fa-file-text-o"></i>
+                @ProjectMessage.Projects
+            </a>
+        </li>
+        <li>
+            <a href="#photo-gallery" data-toggle="tab" role="tab">
+                <i class="fa fa-picture-o"></i>
+                @FarmMessages.Photo_Gallery
+            </a>
+        </li>
+        <li>
+            <a href="#TASQ" data-toggle="tab" role="tab">
+                <i class="glyphicon glyphicon-list-alt"></i>
+                Evaluaciones
+            </a>
+        </li>
+        <li>
+            <a href="#Contacts" data-toggle="tab" role="tab">
+                <i class="glyphicon glyphicon-list-alt"></i>
+                Contactos
+            </a>
+        </li>
+    }
+</ul>

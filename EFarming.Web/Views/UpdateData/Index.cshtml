@@ -1,0 +1,111 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-lg-3 col-sm-3">
+            <a href="@Url.Action("UpdateFarmInformation", "UpdateData", new { area = ""})" title="Farm information" class="icon-home ">
+                <span class="sgv-icon fa fa-home"></span>
+            </a>
+            <h4 class="icon-title">Update Farm and Farmer information</h4>
+        </div>
+        <div class="col-lg-3 col-sm-3">
+            <a href="@Url.Action("UpdateFamilyInformation", "UpdateData", new { area = ""})" title="Family information" class="icon-home ">
+                <span class="sgv-icon fa fa-users"></span>
+            </a>
+            <h4 class="icon-title">Update Family information</h4>
+        </div>
+        <div class="col-lg-3 col-sm-3">
+            <a href="@Url.Action("UpdateInvoiceInformation", "UpdateData", new { area = ""})" title="Invoice information" class="icon-home ">
+                <span class="sgv-icon fa fa-usd"></span>
+            </a>
+            <h4 class="icon-title">Update Invoice information</h4>
+        </div>
+        <div class="col-lg-3 col-sm-3">
+            <a href="@Url.Action("UpdateFertilizerInformation", "UpdateData", new { area = ""})" title="Fertilizer information" class="icon-home ">
+                <span class="sgv-icon fa fa-leaf"></span>
+            </a>
+            <h4 class="icon-title">Update Fertilizer information</h4>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-lg-12 col-sm-12" style="text-align:center">
+            @ViewBag.answer
+        </div>
+    </div>
+</div>
+
+
+<style>
+
+    h4.icon-title {
+        text-transform: capitalize;
+        font-weight: bold;
+        margin-top: 20px;
+        text-align: center;
+        color: #006738;
+    }
+
+    a.icon-home {
+        text-align: center;
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        background: #8cc63f;
+        display: block;
+        margin: 0 auto;
+        cursor: pointer;
+        padding: 20px;
+        color: #006738;
+        -webkit-transition: background 0.3s ease-in;
+        -moz-transition: background 0.3s ease-in;
+        -ms-transition: background 0.3s ease-in;
+        -o-transition: background 0.3s ease-in;
+        transition: background 0.3s ease-in;
+    }
+
+        a.icon-home:hover {
+            background-color: #4A4A49;
+        }
+
+            a.icon-home:hover .sgv-icon {
+                color: #fff;
+                -webkit-transition: color 0.3s ease-in;
+                -moz-transition: color 0.3s ease-in;
+                -ms-transition: color 0.3s ease-in;
+                -o-transition: color 0.3s ease-in;
+                transition: color 0.3s ease-in;
+            }
+
+    .sgv-icon {
+        font-size: 90px;
+        margin: 60px auto;
+        color: #006738;
+        line-height: 0;
+    }
+
+    a.icon-home:hover {
+        text-decoration: none;
+    }
+
+    .icon-description {
+        color: #888;
+        width: 100%;
+        text-align: center;
+        display: block;
+    }
+
+    .wrapper-content {
+        margin-top: 50px;
+    }
+
+</style>
+
+
+

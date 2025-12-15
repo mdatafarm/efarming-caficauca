@@ -1,0 +1,113 @@
+﻿@model EFarming.DTO.AdminModule.SupplyChainDTO
+@{
+    /**/
+
+    /**/
+
+    /**/
+
+    /**/
+
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Title = "Supply chains";
+}
+@using (Html.BeginForm("Edit", "SupplyChains", FormMethod.Post, new { @class = "form-horizontal to-validate", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+
+    <h2>
+        Supply Chains
+    </h2>
+    <hr />
+    @Html.ValidationSummary(true)
+
+    <div class="form-group has-feedback">
+        @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.Name, new { @class = "form-control", placeholder = @Message.Name, required = "required" })
+            <span class="glyphicon form-control-feedback"></span>
+            <span class="help-block">@Html.ValidationMessageFor(model => model.Name)</span>
+        </div>
+    </div>
+    <div class="form-group has-feedback">
+        @Html.LabelFor(model => model.Code, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.Code, new { @class = "form-control", placeholder = "Code", required = "required" })
+            <span class="glyphicon form-control-feedback"></span>
+            <span class="help-block">@Html.ValidationMessageFor(model => model.Code)</span>
+        </div>
+    </div>
+    @Html.ValidationSummary(true)
+    <div class="form-group has-feedback">
+        <label for="DepartmentId" class="control-label col-md-2">
+            @AdminMessage.Department
+        </label>
+        <div class="col-md-10">
+            <select class="form-control" id="departmentId" name="DepartmentId" required
+                    data-bind="value: $root.department, options: $root.departments, optionsText:'name', optionsValue:'id',optionsCaption: '@string.Format(Message.SelectA, Message.Department)', selectedOptions: ['@ViewBag.CurrentDepartment']"></select>
+            <span class="hide glyphicon form-control-feedback"></span>
+            <span class="help-block"></span>
+        </div>
+    </div>
+    @*<div class="form-group has-feedback">
+            <label class="control-label col-md-2">Supplier</label>
+            <div class="col-md-10">
+                <select class="form-control" id="SupplierId" name="SupplierId">
+                    <option value="@ViewBag.suppliers.Id">@ViewBag.suppliers.Name</option>
+                </select>
+            </div>
+        </div>*@
+    
+        <div class="form-group has-feedback">
+            <label class="control-label col-md-2">Supplier</label>
+            <div class="col-md-10">
+                @Html.DropDownList("SupplierId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SupplierId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    
+    <div class="form-group has-feedback">
+        @Html.LabelFor(model => model.Address, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.Address, new { @class = "form-control", placeholder = "Address", required = "required" })
+            <span class="glyphicon form-control-feedback"></span>
+            <span class="help-block">@Html.ValidationMessageFor(model => model.Address)</span>
+        </div>
+    </div>
+    <div class="form-group has-feedback">
+        @Html.LabelFor(model => model.Potencial, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input class="form-control" value="@Model.Potencial" id="Potencial" name="Potencial" type="number">
+        </div>
+    </div>
+    <div class="form-group has-feedback">
+        @Html.LabelFor(model => model.Bags, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input class="form-control" value="@Model.Bags" id="Bags" name="Bags" type="number">
+        </div>
+    </div>
+    <div class="form-group has-feedback" style="display:none;">
+        @Html.LabelFor(model => model.StartDate, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input class="form-control" value="@Model.StartDate" id="StartDate" name="StartDate">
+        </div>
+    </div>
+    <div class="form-group has-feedback" style="display:none;">
+        @Html.LabelFor(model => model.EndDate, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input class="form-control" value="@Model.EndDate" id="EndDate" name="EndDate">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="submit" class="btn btn-primary">@Message.Save</button>
+            @Html.ActionLink(Message.Back, "Index")
+        </div>
+    </div>
+}
+<script src="~/Scripts/mvvm/Common.js"></script>
+<script src="~/Scripts/mvvm/Admin/municipality.js"></script>
+<script type="text/javascript">
+    var selected = "@ViewBag.CurrentDepartment";
+</script>

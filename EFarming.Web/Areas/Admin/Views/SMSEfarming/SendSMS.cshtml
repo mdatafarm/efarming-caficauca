@@ -1,0 +1,61 @@
+﻿@model Twilio.Message
+
+@{
+    ViewBag.Title = "SendSMS";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12 col-md-offset-4">
+        <h2>SMS Efarming platform </h2>
+        @using (Html.BeginForm("SendMessage", "SMSEfarming", FormMethod.Post))
+        {
+            <div class="row">
+                <div class="form-group col-md-4">
+                    <label for="lableTo">To</label>
+                    @Html.TextBoxFor(Model => Model.To, new { @class = "form-control input-sm", @id = "lableTo" })
+                </div>
+                <br style="clear:both">
+                <div class="form-group col-md-4 ">
+                    <label id="messageLabel" for="message">Message </label>
+                    @Html.TextAreaFor(Model => Model.Body, new { @class = "form-control input-sm", @placeholder = "Type your message here..", @maxtlength = "140", @rows = "6", @id = "message" })
+                    @*<textarea class="form-control input-sm " type="textarea" id="message" placeholder="Message" maxlength="140" rows="7"></textarea>*@
+                    <span class="help-block"><p id="characterLeft" class="help-block ">You have reached the limit</p></span>
+                </div>
+                <br style="clear:both">
+                <div class="form-group col-md-2 text-center">
+                    <input class="form-control input-sm btn btn-success " type="submit" style="height:45px;width:150px" value="Send SMS Message" />
+                </div>
+            </div>
+        }
+        @*@if(Model.Status == "failed")
+        {
+            <div class="well">
+	      <h3>Code: @Model.ErrorCode</h3>
+	      <p>@Model.ErrorMessage</p>
+	  </div>
+        }*@
+    </div>    
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#characterLeft').text('140 characters left');
+        $('#message').keydown(function () {
+            var max = 140;
+            var len = $(this).val().length;
+            if (len >= max) {
+                $('#characterLeft').text('You have reached the limit');
+                $('#characterLeft').addClass('red');
+                $('#btnSubmit').addClass('disabled');
+            }
+            else {
+                var ch = max - len;
+                $('#characterLeft').text(ch + ' characters left');
+                $('#btnSubmit').removeClass('disabled');
+                $('#characterLeft').removeClass('red');
+            }
+        });
+    });
+</script>
+

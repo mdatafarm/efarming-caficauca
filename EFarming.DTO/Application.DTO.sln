@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Web Developer Express 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.DTO", "Application.DTO.csproj", "{B077CAD7-6121-4FB2-A2A4-7A19333FD652}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "prueba", "..\prueba\prueba.csproj", "{1356FE13-4339-47B5-B7BF-B323E515D6F5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B077CAD7-6121-4FB2-A2A4-7A19333FD652}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B077CAD7-6121-4FB2-A2A4-7A19333FD652}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B077CAD7-6121-4FB2-A2A4-7A19333FD652}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B077CAD7-6121-4FB2-A2A4-7A19333FD652}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1356FE13-4339-47B5-B7BF-B323E515D6F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1356FE13-4339-47B5-B7BF-B323E515D6F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1356FE13-4339-47B5-B7BF-B323E515D6F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1356FE13-4339-47B5-B7BF-B323E515D6F5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

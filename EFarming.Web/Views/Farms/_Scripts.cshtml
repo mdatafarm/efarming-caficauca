@@ -1,0 +1,167 @@
+﻿@model EFarming.DTO.FarmModule.FarmDTO
+<div class="modal fade" id="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalLarge">
+    <div class="modal-dialog  modal-lg">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+
+    
+
+    $(function () {
+        $(document).on("click", ".make-owner", function (e) {
+            e.preventDefault();
+            var url = $(this).attr("href");
+            $.post(url, function (result) {
+                $("#family-unit-members-content").html(result);
+                paginate("#family-unit-members-content");
+            });
+        });
+
+        $(document).on('input', '#Identification', function (e) {
+            if ($('#Identification').val() != selectedCode) {
+                $('#IsOwner').prop('disabled', true);
+            } else {
+                $('#IsOwner').prop('disabled', false);
+            }
+        });
+
+        $(document).on("click", "#add-project", function (e) {
+            e.preventDefault();
+            var url = $(this).attr("href");
+            url = url.replace("projectId", $("#projects-select").val());
+            $.post(url, function (result) {
+                $("#projects-content").html(result);
+            });
+        });
+
+        $(document).on("click", ".delete-project", function (e) {
+            e.preventDefault();
+            var url = $(this).attr("href");
+            $.ajax({
+                url: url,
+                type: "DELETE"
+            }).done(function (result) {
+                $("#projects-content").html(result);
+            });
+        })
+
+        $.get("/api/projects", function (result) {
+            var options = $("#projects-select");
+            console.log(options);
+            $.each(result, function () {
+                options.append($("<option />").val(this.Id).text(this.Name));
+            });
+        });
+
+        var url = $("#fertilizersin").data("url");
+        if (url && url.length > 0) {
+            $("#fertilizersin").load(url);
+        }
+        var url = $("#salesin").data("url");
+        if (url && url.length > 0) {
+            $("#salesin").load(url);
+        }
+    });
+</script>
+
+<script type="text/javascript">
+    var farmId = "@Model.Id";
+    var selectedCountry = "";
+    var selectedSupplier = "";
+    var selectedSupplyChain = "";
+    var selectedDepartment = "";
+    var selectedMunicipality = "";
+    var selectedVillage = "";
+    var selectedFarmStatus = "";
+    var selectedFarmSubstatus = "";
+    var selectedCooperative = "";
+    var selectedOwnershipType = "";
+    var selectedCode = "";
+    var selectedName = "";
+    var selectedLongitude = "";
+    var selectedLatitude = "";
+    var selectedElevation = "";
+    var selectedAssociatedPeople = "";
+    var selectedFarmerName = "@ViewBag.CurrentFarmerName";
+    var selectedFarmerIdentification = "@ViewBag.CurrentFarmerIdentification";
+    var isNew = "@Model.IsNew".toLowerCase() == "true";
+    if (navigator.geolocation && isNew) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            selectedLongitude = position.coords.longitude;
+            selectedLatitude = position.coords.latitude;
+        });
+    }
+</script>
+
+@if (!Model.IsNew)
+{
+    <script type="text/javascript">
+        selectedDepartment = "@Model.Village.Municipality.DepartmentId";
+        selectedMunicipality = "@Model.Village.MunicipalityId";
+        selectedVillage = "@Model.VillageId";
+        selectedFarmStatus = undefined;
+        selectedFarmSubstatus = "@Model.FarmSubstatusId";
+        selectedCooperative = "@Model.CooperativeId";
+        selectedOwnershipType = "@Model.OwnershipTypeId";
+        selectedCode = "@Model.Code";
+        selectedName = "@Model.Name";
+        selectedLongitude = "@Model.Longitude";
+        selectedLatitude = "@Model.Latitude";
+        selectedElevation = "@Model.Elevation";
+        selectedAssociatedPeople = "@Model.CurrentTechnician";
+    </script>
+    if (Model.FarmStatusId != null)
+    {
+        <script type="text/javascript">
+            selectedFarmStatus = "@Model.FarmStatusId";
+        </script>
+    }
+    if (Model.FarmSubstatus != null)
+    {
+        <script type="text/javascript">
+            selectedFarmSubStatus = "@Model.FarmSubstatus.FarmStatusId";
+        </script>
+    }
+    if (Model.SupplyChain != null)
+    {
+        <script type="text/javascript">
+            selectedSupplyChain = "@Model.SupplyChainId";
+        </script>
+        if (Model.SupplyChain.Supplier != null)
+        {
+            <script type="text/javascript">
+                selectedSupplier = "@Model.SupplyChain.SupplierId";
+                selectedCountry = "@Model.SupplyChain.Supplier.CountryId";
+            </script>
+        }
+    }
+
+    <script src="~/Scripts/mvvm/photoGallery.js"></script>
+}
+
+<script src="~/Scripts/Pagination.js"></script>
+<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCjHGiLnMTX2976ZXNk_A2AjiWGSZyAyZ4&sensor=true"></script>
+<!--<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>-->
+<script src="~/Scripts/mvvm/Common.js"></script>
+<script src="~/Scripts/mvvm/farm.js"></script>
+
+<script src="~/Scripts/highcharts/highcharts.js"></script>
+<script src="~/Scripts/highcharts/highcharts-more.js"></script>
+<script src="~/Scripts/highcharts/solid-gauge.src.js"></script>
+<script src="~/Scripts/highcharts/exporting.js"></script>
+@*<script src="~/Scripts/dashboard/traceability.js"></script>*@
+
+<!-- We use Backloads. bundeling feature to register only those client side javascript and style files of the jQuery File Upload Plugin that are needed  -->
+@Scripts.Render("~/bundles/fileupload/bootstrap/BasicPlusUI/js")

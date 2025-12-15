@@ -1,0 +1,157 @@
+﻿@*@model PagedList.IPagedList<EFarming.DTO.QualityModule.SensoryProfileAssessmentDTO>
+    @model PagedList.IPagedList<EFarming.DTO.QualityModule.SensoryProfileAssessmentDTO>*@
+@using PagedList.Mvc;
+@model PagedList.IPagedList<EFarming.Core.QualityModule.SensoryProfileAggregate.SensoryProfileAssessment>
+
+@*@@model IEnumerable<EFarming.DTO.QualityModule.SensoryProfileAssessmentDTO>*@
+<div id="spa-table">
+    <div>
+        <div style="width:20%; text-align-last:center;display: block; margin-left: auto; margin-right: auto; text-align-last:center;">
+            <br />
+
+            <label for="InputSearchQualTast" class="hidden-xs">Búsqueda rápida</label>
+            <input class="form-control" id="InputSearchQualTast" type="text" placeholder="Buscar..">
+
+            <br />
+        </div>
+    </div>
+
+    <table id="report" class="table-responsive table-condensed table-hover">
+        <thead>
+            <tr>
+                <th class="col-md-1">Editar</th>
+                <!--
+                <th class="col-md-1">Fecha</th>--->
+                <th class="col-md-1">Código</th>
+                <!-- <th class="col-md-1">Documento</th>-->
+                <th>
+                    @Html.ActionLink("Productor", "ByTaster", new { sortOrder = ViewBag.FarmManagerSortParm })
+                </th>
+                <th>
+                    @Html.ActionLink("Finca", "ByTaster", new { sortOrder = ViewBag.NameFarmSortParm })
+                </th>
+
+                <th class="col-md-1">Departamento</th>
+                <th class="col-md-1">Municipio</th>
+                <th class="col-md-1">Vereda</th>
+                <th class="col-md-1">Atributos</th>
+
+
+                <th class="col-md-1">Decisión</th>
+                <th class="col-md-1">Reporte</th>
+            </tr>
+        </thead>
+        <tbody id="TableQualTast">
+            @foreach (var assessment in Model)
+            {
+                <tr>
+                    <td class="col-md-1">
+
+                        <a href="@Url.Action("Edit", "QualityAssessments", new { id = assessment.Id })" class="btn btn-link link-edit">
+                            <span class="glyphicon glyphicon-edit"></span>
+                            Edit
+                        </a>
+                    </td>
+                    @*<td class="col-md-1">@assessment.InputDateFormated</td>*@
+                    @if (assessment.Farm != null)
+                    {
+                        string farmcode = assessment.Farm.Code;
+                        <td class="col-md-1">@assessment.Farm.Code</td>
+
+
+
+                        <!--<td class="col-md-1">@*@(assessment.Farm.FamilyUnitMembers.Count > 0 ? assessment.Farm.FamilyUnitMembers.First().Identification : "")*@</td>-->
+                        <td class="col-md-1">@(assessment.Farm.FamilyUnitMembers.Count > 0 ? assessment.Farm.FamilyUnitMembers.First().FirstName + " " + assessment.Farm.FamilyUnitMembers.First().LastName : " " )</td>
+                        <td class="col-md-1">@assessment.Farm.Name</td>
+                        <td>@assessment.Farm.Village.Municipality.Department.Name</td>
+                        <td>@assessment.Farm.Village.Municipality.Name</td>
+                        <td>@assessment.Farm.Village.Name</td>
+                    }
+                    else
+                    {
+                        <td class="col-md-1">@assessment.Description</td>
+                        <td class="col-md-1">@assessment.Type</td>
+                        <td class="col-md-1">@String.Empty</td>
+                        <td class="col-md-1">@String.Empty</td>
+                        <td></td>
+
+                    }
+                    @*<td class="col-md-1">@assessment.Total_score</td>*@
+                    @*<td class="col-md-1">@assessment.TotalScore(ViewBag.Attributes)</td>*@
+                    @* @foreach (var attr in (List<EFarming.DTO.QualityModule.QualityAttributeDTO>)ViewBag.Attributes)
+                        {
+
+
+                            if (attr.Description.Equals("PUNTAJE CATADOR"))
+                            {
+                                var ans = assessment.GetAnswersByAttribute(attr).GetString();
+
+                                if (ans != null)
+                                {
+
+                                    <td class="col-md-1">@ans</td>
+
+
+                                }
+                                /* else
+                                 {
+                                     <td class="col-md-1">@String.Empty</td>
+                                 }
+
+                            }
+                            }*@
+                    <td>
+                        <!--<div class="pull-right">-->
+                        <a href="@Url.Action("ViewAttributes", "AttributesReport", new {ass= assessment.Id })" data-toggle="modal" data-target="#modalspa">
+                            <span class="glyphicon glyphicon-list-alt"></span>
+                            @Message.View
+                        </a>
+                        <!--</div>-->
+                    </td>
+                    <td class="col-md-1">@assessment.User.FirstName.ToUpper() @assessment.User.LastName.ToUpper()</td>
+                    <td align="left">
+                        <a href="@Url.Action("PDF", "QualityReports",new {id = assessment.Id})" target="_blank" class="img img-responsive"><img src="~/Images/pdf1.png" alt="PDF" /></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<script>
+    $(document).ready(function () {
+
+
+        $("#InputSearchQualTast").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#TableQualTast tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+
+
+    });
+</script>
+<!--Paginación-->
+<div class="text-center">
+    @string.Format(Message.Paging, (Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber), Model.PageCount)
+</div>
+<div class="pagination-container">
+    <div class="text-center">
+        @Html.PagedListPager(Model, page => Url.Action("ByTaster",
+            new
+            {
+                page,
+                sortOrder = ViewBag.CurrentSort,
+                //currentName = ViewBag.CurrentName,
+                currentDepartment = ViewBag.CurrentDepartment,
+                currentMunicipality = ViewBag.CurrentMunicipality,
+                currentVillage = ViewBag.CurrentVillage,
+                currentTaster = ViewBag.CurrentTaster
+                //currentCode = ViewBag.CurrentCode
+            }))
+    </div>
+</div>
+<!--Paginación end-->
+<br />
+
+

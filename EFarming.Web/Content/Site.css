@@ -1,0 +1,40 @@
+﻿.nav > li > a:hover > .indicator-span, .nav > li > a:focus > .indicator-span {
+    color: #fff;
+}
+
+.nav > li > a > .indicator-span {
+    color: black;
+}
+
+.notify {
+    background-color: #FEFEFE;
+    color: #000;
+    border: .1em solid;
+    border-color: #F0F0F0;
+    padding: 10px;
+    cursor: default;
+}
+
+.notify-yellow {
+    background: #fff8c4;
+    border-color: #f7deae;
+}
+
+.notify-red {
+    background: #ffecec;
+    border-color: #fad9d7;
+}
+
+.notify-green {
+    background: #e9ffd9;
+    border-color: #D1FAB6;
+}
+
+.multiple-list {
+    height: 60px !important;
+}
+
+.horizontal-scroll {
+    overflow-x: scroll;
+    white-space:nowrap
+}

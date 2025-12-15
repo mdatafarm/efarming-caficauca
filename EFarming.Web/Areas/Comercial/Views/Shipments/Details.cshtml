@@ -1,0 +1,75 @@
+﻿@model EFarming.Core.ComercialModule.Shipment
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Shipment</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            BL
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DocumentBL)
+        </dd>
+
+        <dt>
+            Shipping date
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShippingDate)
+        </dd>
+
+        <dt>
+            Shipment port
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PortOfLanding)
+        </dd>
+
+        <dt>
+            Port of destination
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PortOfDestination)
+        </dd>
+
+        <dt>
+            Vessel
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Vessel)
+        </dd>
+
+        <dt>
+            Shipping line
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShippingLine)
+        </dd>
+
+        <dt>
+            Expocafe invoice
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExpocafeInvoice)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Atrás", "Index")
+</p>

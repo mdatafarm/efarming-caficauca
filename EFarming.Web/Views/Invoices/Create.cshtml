@@ -1,0 +1,11 @@
+﻿@model EFarming.DTO.TraceabilityModule.InvoiceDTO
+<div class="row remote" id="plantation-form">
+    <div class="col-md-10 col-md-offset-1">
+        <h4>@TraceabilityMessage.Invoices</h4>
+        <form action="@Url.Action("Create", "Invoices")" class="form-horizontal to-validate remote-form" role="form" data-target="invoices-content">
+            @Html.Partial("~/Views/Invoices/_Form.cshtml", Model)
+        </form>
+    </div>
+</div>
+<script src="~/Scripts/mvvm/invoice.js"></script>
+<script src="~/Scripts/remote-validation.js"></script>

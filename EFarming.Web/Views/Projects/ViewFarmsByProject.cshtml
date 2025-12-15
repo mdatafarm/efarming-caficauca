@@ -1,0 +1,101 @@
+﻿@*@model EFarming.Core.ProjectModule.ProjectAggregate.Project*@
+@using PagedList.Mvc;
+@*@model PagedList.IPagedList<EFarming.Core.FarmModule.FarmAggregate.Farm>*@
+@model List<EFarming.Core.FarmModule.FarmAggregate.Farm>
+
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+<div class="modal-header">
+    <h4 class="modal-title">@ViewBag.cantidad - Fincas Asociadas al proyectos</h4>
+    <h5 class="modal-title">@ViewBag.ProjectName</h5>
+    @*<button type="button" class="close" data-dismiss="modal">&times;</button>*@
+</div>
+
+
+<div class="modal-body">
+    <div>
+        <table class="table table-fixed-header">
+            <thead>
+                <tr>
+                    <th>
+                        Código
+                    </th>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        Veredas
+                    </th>
+                    <th>
+                        Cedula Productor
+                    </th>
+                    <th>
+                        Nombre Productor
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var farm in Model)
+                {
+                    <tr>
+                        <td>@farm.Code</td>
+                        <td>@farm.Name</td>
+                        <td>@farm.Village.Name</td>
+                        @foreach (var item in farm.FamilyUnitMembers) {
+                            if (item.IsOwner == true)
+                            {
+                                <td>@item.Identification</td>
+                                <td>@item.FirstName @item.LastName</td>
+                            }
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <script src="~/Scripts/remote-validation.js"></script>
+
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+
+
+<style>
+    .modal-body {
+        height: 500px;
+        width: 100%;
+        overflow-y: auto;
+    }
+
+    .modal-header {
+        border-bottom: 1px solid #eee;
+        background-color: #95c11f;
+        -webkit-border-top-left-radius: 5px;
+        -webkit-border-top-right-radius: 5px;
+        -moz-border-radius-topleft: 5px;
+        -moz-border-radius-topright: 5px;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        text-align: center;
+    }
+
+    .modal-footer {
+        background-color: #95c11f;
+        -webkit-border-bottom-left-radius: 5px;
+        -webkit-border-bottom-right-radius: 5px;
+        -moz-border-radius-topleft: 5px;
+        -moz-border-radius-topright: 5px;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+
+
+    .modal-title {
+        margin: 0;
+        line-height: 1.42857143;
+        font-weight: bold;
+        color: white;
+    }
+</style>

@@ -1,0 +1,22 @@
+﻿@*@model IEnumerable<EFarming.Core.ComercialModule.ContractLot>*@
+@model List<EFarming.Web.Areas.Comercial.Controllers.ContractLotsController.ContractAndLots>
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    <script src="~/Scripts/jquery-ui-1.10.4.min.js"></script>
+    <script src="~/Scripts/commercial/es-CO.js"></script>
+    <script src="~/Scripts/commercial/CreateLots.js"></script>
+    <script src="~/Scripts/commercial/FixationFunctions.js"></script>
+}
+
+@foreach (var item in Model)
+{    
+    if (Model != null)
+    {
+        @Html.Partial("~/Areas/Comercial/Views/ContractLots/_LotsCreation.cshtml", item)        
+    }
+}

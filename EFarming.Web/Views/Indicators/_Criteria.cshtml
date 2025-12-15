@@ -1,0 +1,65 @@
+﻿<div class="">
+    <div class="col-md-12 panel-group" data-bind="foreach: Criteria" id="accordion">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <form class="form-inline to-validate" autocomplete="off" data-bind="visible: visibleForm">
+                    <input type="hidden" name="IndicatorId" data-bind="value: IndicatorId" />
+                    <div class="form-group">
+                        <input type="text" name="Description" class="form-control input-sm  col-sm-4" placeholder="@Message.Description" data-bind="value: Description" required />
+                    </div>
+                    <div class="form-group">
+                        <input name="Value" type="number" class="form-control input-sm" placeholder="@Message.Value" required data-bind="value: Value" />
+                    </div>
+                    <div class="form-group">
+                        <input name="Mandatory" type="checkbox" class="form-control input-sm" placeholder="@IndicatorMessage.Mandatory" required data-bind="checked: Mandatory" />
+                        <small>@IndicatorMessage.Mandatory?</small>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-success btn-sm" data-bind="click: Save">@Message.Save</button>
+                        <button type="reset" class="btn btn-sm" data-bind="click: Cancel">@Message.Cancel</button>
+                        <button type="button" class="btn btn-warning btn-sm" data-bind="click: Delete, visible: !isNew()">@Message.Delete</button>
+                    </div>
+                </form>
+
+                <div class="active" data-bind="visible: visibleInfo">
+
+                    <small data-bind="if: isNew, click: ShowForm" class="action-link">
+                        <span class="indicator glyphicon glyphicon-plus">
+                        </span>
+                        @IndicatorMessage.New_Criteria
+                    </small>
+                    <div class="criteria" data-bind="ifnot: isNew">
+                        <div class="ibox-tools">
+                            <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                                <i class="fa fa-bars"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user dropdown-menu-right">
+                                <li>
+                                    <a href="#" data-bind="click: ShowForm">@Message.Edit</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <small class="col-md-3"><strong>@Message.Description:</strong></small><small data-bind="text: Description"></small>
+                        <br />
+                        <small class="col-md-3"><strong>@Message.Value:</strong></small><small data-bind="text: Value"></small>
+                        <br />
+                        <small class="col-md-3"><strong>@IndicatorMessage.Mandatory:</strong></small>
+                        <small data-bind="ifnot: Mandatory">@Message.No</small>
+                        <small data-bind="if: Mandatory">@Message.Yes</small>
+                        <br />
+                        <small class="action-link" data-parent="accordion" data-toggle="collapse" data-bind="attr:{'data-target': DOMId}, click: GetCriteriaOptions">
+                            <span class="glyphicon glyphicon-chevron-down" data-bind="visible: !IsCollapsed()"></span>
+                            <span class="glyphicon glyphicon-chevron-right" data-bind="visible: IsCollapsed"></span>
+                            <strong>@IndicatorMessage.View_Options</strong>
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <div data-bind="attr: {id: Id}" class="panel-collapse collapse">
+                @Html.Partial("~/Views/Indicators/_CriteriaOptions.cshtml")
+            </div>
+        </div>
+
+    </div>
+</div>

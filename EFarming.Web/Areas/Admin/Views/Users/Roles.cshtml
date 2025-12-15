@@ -1,0 +1,35 @@
+﻿@model ICollection<EFarming.DTO.AdminModule.RoleDTO>
+
+@{
+    ViewBag.Title = "Roles";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Roles del sistema</h2>
+
+<div class="row">
+    <div class="col-md-12">
+        @if (Model != null)
+        {
+            <table class="table table-responsive table-condensed">
+                <thead>
+                    <tr>
+                        <td>ID</td>
+                        <td>Nombre</td>
+                        <td>Descripción</td>
+                        @*<td>Created</td>*@
+                    </tr>
+                </thead>
+                @foreach (var role in Model)
+                {
+                    <tr>
+                        <td>@role.Id</td>
+                        <td>@role.RoleName</td>
+                        <td>@role.Description</td>
+                        @*<td>@role.UpdatedAt</td>*@
+                    </tr>
+                }
+            </table>
+        }
+    </div>
+</div>

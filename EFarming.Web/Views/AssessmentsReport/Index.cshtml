@@ -1,0 +1,95 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section breadcrumb{
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2 class="page-name"> Reporte de evaluaciones</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="@Url.Action("Index", "Home")">
+                        @Message.Home
+                    </a>
+                </li>
+
+                <li class="active">
+                    <strong> Reporte de evaluaciones</strong>
+                </li>
+            </ol>
+        </div>
+
+    </div>
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    @*<div class="row">*@
+
+    <div class="ibox-content">
+        <div class="flot-chart farm-search">
+            <div class="row">
+                <div class="table-responsive">
+                    <table class="table   table-hover table-condensed">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <label for="year" class="hidden-xs">Evaluaciones</label>
+                                </th>
+                                <th>
+                                    <label for="year" class="hidden-xs">Fecha inicio</label>
+                                </th>
+                                <th>
+                                    <label for="year" class="hidden-xs">Fecha fin</label>
+                                </th>
+                                <th>@Message.Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var ta in @ViewBag.TypeAssessment)
+                            {
+
+                                using (Html.BeginForm("ToExcel", "AssessmentsReport"))
+                                {
+                                    if (@ta.Id != Guid.Parse("208633F3-7FE8-46F7-BCC4-448CCD3DD9C5") && @ta.Id != Guid.Parse("7B01B167-B114-4D6A-8174-8E45571A9216"))
+                                    {
+                                        <tr>
+                                            <td>
+                                                <span style="font-weight:bold;"> @ta.Name</span>
+                                            </td>
+                                            <td>
+                                                <input type="date" id="searchStartDate" name="searchStartDate" class="form-control" style="display: block; width:70% ; " />
+                                            </td>
+                                            <td>
+                                                <input type="date" id="searchEndDate" name="searchEndDate" class="form-control" style="display: block; width:70% ; " />
+                                            </td>
+
+                                            <td>
+                                                <input type="hidden" name="idAssessment" value="@ta.Id" />
+                                                <button class="btn btn-link link-edit" type="submit">
+                                                    <span class="glyphicon glyphicon-download"></span>
+                                                    Exportar a excel
+                                                </button>
+                                            </td>
+
+                                        </tr>
+                                    }
+
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    @*</div>*@
+</div>
+
+
+
+
+

@@ -1,0 +1,81 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@section breadcrumb{
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2 class="page-name">@QualityMessage.Dashboard</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="@Url.Action("Index", "Home")">
+                        @Message.Home
+                    </a>
+                </li>
+
+                <li class="active">
+                    <strong>Sustainability Dashboard</strong>
+                </li>
+            </ol>
+        </div>
+        <div class="col-lg-2">
+        </div>
+    </div>
+}
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>TASQ Results</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="flot-chart farm-search">
+                        <div class="row">
+                            <div class="col-md-12">
+                                
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-2">Category</div>
+                                <div class="col-md-6">Question</div>
+                                <div class="col-md-1">Critic</div>
+                                <div class="col-md-1">YES</div>
+                                <div class="col-md-1">NO</div>
+                                <div class="col-md-1">NA</div>
+                                <br />
+                            </div>
+                        </div>
+                        @foreach (var TASQAssessment in ViewBag.TASQTable)
+                        {
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-md-2">@TASQAssessment.CategoryName</div>
+                                    <div class="col-md-6">@TASQAssessment.Text</div>
+                                    @if (@TASQAssessment.FlagIndicatorID == 1)
+                                    {
+                                        <div class="col-md-1">
+                                            <span class="glyphicon glyphicon-exclamation-sign"></span>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="col-md-1"></div>
+                                    }
+                                    <div class="col-md-1">@Math.Round(TASQAssessment.YES, 2)</div>
+                                    <div class="col-md-1">@Math.Round(TASQAssessment.NO, 2)</div>
+                                    <div class="col-md-1">@Math.Round(TASQAssessment.NA, 2)</div>
+                                    <br />
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

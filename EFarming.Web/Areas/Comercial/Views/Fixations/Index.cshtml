@@ -1,0 +1,286 @@
+﻿@model IEnumerable<EFarming.Core.ComercialModule.Fixation>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+    <script src="~/Scripts/jquery-ui-1.10.4.min.js"></script>
+    <script src="~/Scripts/commercial/FixationFunctions.js"></script>
+}
+
+<link href="~/Content/themes/base/all.css" rel="stylesheet" />
+
+<h2>Fixations</h2>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 col-lg-12 col-sm-12">
+            <div class="panel panel-primary filterable">
+                <div class="panel-heading" style="background-color :aliceblue">
+                    <h3 class="panel-title">Contracts without Fixation</h3>
+                </div>
+                <table class="table table-fixed-header">
+                    <thead>
+                        <tr class="filters">
+                            <th>Our Ref</th>
+                            <th>NY Position</th>
+                            <th>Shipment date</th>
+                            <th>Fixation Type</th>
+                            <th>Fixation Date</th>
+                            <th>Fixation level</th>
+                            <th><span class="glyphicon glyphicon-cog"></span></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    @foreach (var item in Model)
+                    {
+                        if ((item.Fixed != true) || (item.Fixed == true && (item.FixationDate == null)))
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Agreement.OurRef)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Agreement.PriceDate)
+                                </td>
+                                <td>
+                                    @string.Format("{0:dd/MM/yyyy}", item.Agreement.ShipmentDate)
+                                </td>
+                                @using (Html.BeginForm("Edit", "Fixations", FormMethod.Post))
+                                {
+                                    @Html.AntiForgeryToken()
+
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    @Html.Partial("~/Areas/Comercial/Views/Fixations/_Edit.cshtml", item)
+
+                                    <td>
+                                        <input type="submit" value="Save" class="btn btn-default" />
+                                    </td>
+                                }
+                            </tr>
+                        }
+                    }
+
+                </table>
+            </div>
+        </div>
+    </div>
+<div class="row">
+    @using (Html.BeginForm("validateFixations", "Fixations", FormMethod.Get, new { @id="formValidate", @target="_blank" } ))
+    {
+        <div>
+
+            @Html.ValidationSummary()
+
+        </div>
+            <div class="col-md-12 col-lg-12 col-sm-12">
+                <div class="panel panel-primary filterable">
+                    <div class="panel-heading" style="background-color :aliceblue">
+                        <h3 class="panel-title">Latest Fixed contracts</h3>
+                    </div>
+                    <div class="pull-right btn">
+                        <input class="btn-success" type="submit" value="Send selected fixations" />
+                    </div>
+                    <table class="table table-fixed-header">
+                        <thead>
+                            <tr class="filters">
+                                <th>To send</th>
+                                <th>Our Ref</th>
+                                <th>NY Position</th>
+                                <th>Shipment date</th>
+                                <th>Fixation Type</th>
+                                <th>Fixation Date</th>
+                                <th>Fixation level</th>
+                                <th>Fixed</th>
+                                <th><span class="glyphicon glyphicon-cog"></span></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        @foreach (var item in Model)
+                        {
+                            if (item.Fixed == true && (item.FixationDate > DateTime.Now.AddDays(-30)))
+                            {
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" name="sendFixations" value="@item.Agreement.Id" />
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Agreement.OurRef)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Agreement.PriceDate)
+                                    </td>
+                                    <td>
+                                        @string.Format("{0:dd/MM/yyyy}", item.Agreement.ShipmentDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.FixationType.Type)
+                                    </td>
+                                    <td>
+                                        @string.Format("{0:dd/MM/yyyy}", item.FixationDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.FixationLevel)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Fixed)
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("Delete", new { id = item.Id })" class="modal1"><span class="glyphicon glyphicon-remove" /></a>
+                                        @*@using (Html.BeginForm("Delete", "Fixations", new { id = item.Id }, FormMethod.Post))
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                <input type="submit" value="Delete" class="btn btn-default deleteButton" />
+                                            }*@
+                                    </td>
+                                </tr>
+                            }
+                        }
+
+                    </table>
+                </div>
+            </div>
+    }
+    </div>
+    <div class="row">
+        @using (Html.BeginForm("validateFixations", "Fixations", FormMethod.Get, new { @id = "formValidate", @target = "_blank" }))
+        {
+            <div>
+                @Html.ValidationSummary()
+            </div>
+            <div class="col-md-12 col-lg-12 col-sm-12">
+                <div class="panel panel-primary filterable">
+                    <div class="panel-heading" style="background-color :aliceblue">
+                        <h3 class="panel-title">Fixed contracts</h3>
+                        <div class="pull-right">
+                            <label class="btn btn-success btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Filter</label>
+                        </div>
+                    </div>
+                    <div class="pull-right btn">
+                        <input class="btn-success" type="submit" value="Send selected fixations" />
+                    </div>
+                    <table class="table table-fixed-header">
+                        <thead>
+                            <tr class="filters">
+                                <th>To send</th>
+                                <th><input type="text" class="form-control" placeholder="Our Ref" disabled></th>
+                                <th><input type="text" class="form-control" placeholder="NY Position" disabled></th>
+                                <th><input type="text" class="form-control" placeholder="Shipment date" disabled></th>
+                                <th><input type="text" class="form-control" placeholder="Fixation Type" disabled></th>
+                                <th><input type="text" class="form-control" placeholder="Fixation Date" disabled></th>
+                                <th><input type="text" class="form-control" placeholder="Fixation level" disabled></th>
+                                <th><input type="text" class="form-control" placeholder="Fixed" disabled></th>
+                                @*<th>Our Ref</th>
+                                    <th>NY Position</th>
+                                    <th>Fixation Type</th>
+                                    <th>Fixation Date</th>
+                                    <th>Fixation level</th>
+                                    <th>Fixed</th>*@
+                                <th><span class="glyphicon glyphicon-cog"></span></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        @foreach (var item in Model)
+                        {
+                            if (item.Fixed == true && item.FixationDate <= DateTime.Now.AddDays(-30))
+                            {
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" name="sendFixations" value="@item.Agreement.Id" />
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Agreement.OurRef)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Agreement.PriceDate)
+                                    </td>
+                                    <td>
+                                        @string.Format("{0:dd/MM/yyyy}", item.Agreement.ShipmentDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.FixationType.Type)
+                                    </td>
+                                    <td>
+                                        @string.Format("{0:dd/MM/yyyy}", item.FixationDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.FixationLevel)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Fixed)
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("Delete", new { id = item.Id })" class="modal1"><span class="glyphicon glyphicon-remove" /></a>
+                                        @*@using (Html.BeginForm("Delete", "Fixations", new { id = item.Id }, FormMethod.Post))
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                <input type="submit" value="Delete" class="btn btn-default deleteButton" />
+                                            }*@
+                                    </td>
+                                </tr>
+                            }
+                        }
+
+                    </table>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    .filterable {
+        margin-top: 15px;
+    }
+
+        .filterable .panel-heading .pull-right {
+            margin-top: -20px;
+        }
+
+        .filterable .filters input[disabled] {
+            background-color: transparent;
+            border: none;
+            cursor: auto;
+            box-shadow: none;
+            padding: 0;
+            height: auto;
+        }
+
+            .filterable .filters input[disabled]::-webkit-input-placeholder {
+                color: #333;
+            }
+
+            .filterable .filters input[disabled]::-moz-placeholder {
+                color: #333;
+            }
+
+            .filterable .filters input[disabled]:-ms-input-placeholder {
+                color: #333;
+            }
+
+    table .header-fixed {
+        position: fixed;
+        top: 40px;
+        z-index: 1020; /* 10 less than .navbar-fixed to prevent any overlap */
+        border-bottom: 1px solid #d5d5d5;
+        -webkit-border-radius: 0;
+        -moz-border-radius: 0;
+        border-radius: 0;
+        -webkit-box-shadow: inset 0 1px 0 #fff, 0 1px 5px rgba(0,0,0,.1);
+        -moz-box-shadow: inset 0 1px 0 #fff, 0 1px 5px rgba(0,0,0,.1);
+        box-shadow: inset 0 1px 0 #fff, 0 1px 5px rgba(0,0,0,.1);
+        filter: progid:DXImageTransform.Microsoft.gradient(enabled=false); /* IE6-9 */
+    }
+</style>
+
+
+
+
+
+
+

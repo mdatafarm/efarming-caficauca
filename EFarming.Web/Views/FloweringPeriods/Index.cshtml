@@ -1,0 +1,81 @@
+﻿@model EFarming.DTO.FarmModule.PlantationDTO
+<div class="row">    
+    <div class="col-md-8">
+        @if (Model != null && Model.FloweringPeriods.Count > 0)
+        {
+            foreach (var period in Model.FloweringPeriods)
+            {
+                <span class="pull-left">
+                    @period.StartDate.ToShortDateString()
+                    @period.FloweringPeriodQualification.Name
+                    <a href="@Url.Action("Delete", "FloweringPeriods", new { id = period.Id, farmId = Model.ProductivityId, plantationId = Model.Id })" data-toggle="modal" data-target="#modal" class="btn btn-link link-delete">
+                        <span class="glyphicon glyphicon-remove-sign"></span>
+                        @Message.Delete
+                    </a>
+                </span>
+            }
+        }
+        else
+        {
+            <span>                
+              Ninguno
+            </span>
+        }
+    </div>
+    <div class="col-md-4">
+        <span class="pull-right">
+            <a href="@Url.Action("Create", "FloweringPeriods", new { farmId = Model.ProductivityId, plantationId = Model.Id })" data-toggle="modal" data-target="#modal" class="btn btn-warning btn-xs">
+                <span class="glyphicon glyphicon-plus">
+                </span>
+               periodo floración
+            </a>
+        </span>
+    </div>
+</div>
+@*ORIGINAL FUNCTION*@
+@*<table class="table table-hover table-condensed table-striped table-bordered">
+    <thead>
+        <tr>
+            <th></th>
+            <th>@Message.Start_Date</th>
+            <th>
+                <span class="pull-right">
+                    <a href="@Url.Action("Create", "FloweringPeriods", new { farmId = Model.ProductivityId, plantationId = Model.Id })" data-toggle="modal" data-target="#modal" class="btn btn-warning btn-xs">
+                        <span class="glyphicon glyphicon-plus">
+                        </span>
+                        @FarmMessages.Add_Flowering_Period
+                    </a>
+                </span>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @if (Model != null && Model.FloweringPeriods.Count > 0)
+        {
+            foreach (var period in Model.FloweringPeriods)
+            {
+                <tr>
+                    <th> - </th>
+                    <td>@period.StartDate.ToShortDateString()</td>
+                    <td>
+                        <span class="pull-right">
+                            <a href="@Url.Action("Delete", "FloweringPeriods", new { id = period.Id, farmId = Model.ProductivityId, plantationId = Model.Id })" data-toggle="modal" data-target="#modal" class="btn btn-link link-delete">
+                                <span class="glyphicon glyphicon-remove-sign"></span>
+                                @Message.Delete
+                            </a>
+                        </span>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5">
+                    @string.Format(Message.No_Records_Found, FarmMessages.Flowering_Periods)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>*@

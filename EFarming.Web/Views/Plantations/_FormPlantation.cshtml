@@ -1,0 +1,489 @@
+﻿@model EFarming.DTO.FarmModule.PlantationDTO
+
+@Html.HiddenFor(model => model.FarmId)
+@Html.HiddenFor(model => model.ProductivityId)
+<input type="hidden" value="@ViewBag.PageNumber" name="page" />
+
+@{
+    DateTime fecha = new DateTime();
+
+    if (Model.Age.Year == 1)
+    {
+        fecha = DateTime.Today.AddYears(-1);
+        fecha = fecha.AddDays(-1);
+    }
+    else
+    {
+        fecha = Model.Age;
+    }
+
+
+}
+
+<div class="row">
+    @*<div class="col-md-6">
+            <div class="form-group has-feedback">
+                @Html.LabelFor(model => model.NumberLot, "Número del lote", new { @class = "col-sm-5 control-label hidden-xs" })
+                <div class="col-sm-7">
+                    @Html.TextBoxFor(model => model.NumberLot, new { type = "number", @class = "form-control", placeholder = "Número del lote", required = "required", @readonly = "readonly" })
+                    <span class="glyphicon form-control-feedback"></span>
+                    <span class="help-block"></span>
+                </div>
+            </div>
+        </div>*@
+    <div class="col-md-6">
+        <div class="form-group has-feedback">
+            @Html.LabelFor(model => model.NomLot, "Nombre del lote", new { @class = "col-sm-5 control-label hidden-xs" })
+            <div class="col-sm-7">
+                @Html.TextBoxFor(model => model.NomLot, new { type = "text", @class = "form-control", placeholder = "Nombre del lote", required = "required", maxlength = "99" })
+                <span class="glyphicon form-control-feedback"></span>
+                <span class="help-block"></span>
+            </div>
+        </div>
+    </div>
+</div>
+@*<div class="row">
+        <div class="col-md-6">
+            <div class="form-group has-feedback">
+                <label class="col-sm-5 control-label hidden-xs" for="MuniLotId">Municipio del lote</label>
+                <div class="col-sm-7">
+                    <select class="form-control required" id="MuniLotId" name="MuniLot" required>
+                        <option value="">Seleccione el municipio</option>
+                        @foreach (var item in ViewBag.muni)
+                        {
+                            if (item.Id == ViewBag.SelectedMuni)
+                            {
+                                <option value="@item.Id" selected>@item.Name</option>
+                            }
+                            else
+                            {
+                                <option value="@item.Id">@item.Name</option>
+                            }
+                        }
+                    </select>
+                    <span class="glyphicon form-control-feedback hidden"></span>
+                    <span class="help-block"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group has-feedback">
+                @Html.LabelFor(model => model.VillageLot, "Vereda del lote", new { @class = "col-sm-5 control-label hidden-xs" })
+                <div class="col-sm-7">
+                    <select class="form-control required" id="VillageLotId" name="VillageLot" required>
+                        <option value="">Seleccione la vereda</option>
+                        @if (ViewBag.vill != null)
+                        {
+                            foreach (var item in ViewBag.vill)
+                            {
+                                if (item.Id == ViewBag.SelectedVill)
+                                {
+                                    <option value="@item.Id" selected>@item.Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            }
+                        }
+                    </select>
+                    <span class="glyphicon form-control-feedback hidden"></span>
+                    <span class="help-block"></span>
+                </div>
+            </div>
+        </div>
+    </div>*@
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group has-feedback">
+            <label class="control-label hidden-xs col-sm-5" for="PlantationTypeId">Tipo Lote</label>
+            <div class="col-sm-7">
+                <select class="form-control" id="PlantationTypeId" name="PlantationTypeId" required
+                        data-bind="value: plantationType, options: plantationTypes, optionsText:'name', optionsValue:'id',optionsCaption: '@string.Format(Message.SelectA, AdminMessage.Plantation_Type)', event:{change: getPlantationVarieties}"></select>
+                <span class="hide glyphicon form-control-feedback"></span>
+                <span class="help-block"></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group has-feedback">
+            @Html.LabelFor(model => model.Age, "Fecha corte/plantación ", new { @class = "col-sm-5 control-label hidden-xs" })
+            <div class="col-sm-7">
+                @Html.TextBoxFor(model => model.Age, "{0:dd/MM/yyyy}", new { type = "text", @class = "form-control dateField", Value = @fecha.ToShortDateString(), placeholder = @Message.Age, required = "required" })
+                <span class="glyphicon form-control-feedback hidden"></span>
+                <span class="help-block"></span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group has-feedback">
+            <label class="col-sm-5 control-label hidden-xs">Edad</label>
+            <div class="col-sm-7">
+                <input type="text" id="txt_edad" class="form-control" readonly="readonly" />
+                <span class="glyphicon form-control-feedback hidden"></span>
+                <span class="help-block"></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group has-feedback">
+            <label class="control-label hidden-xs col-sm-5" for="PlantationVarietyId">@AdminMessage.Plantation_Variety</label>
+            <div class="col-sm-7">
+                <select class="form-control" id="PlantationVarietyId" name="PlantationVarietyId" required
+                        data-bind="value: plantationVariety, options: plantationVarieties, optionsText:'name', optionsValue:'id',optionsCaption: '@string.Format(Message.SelectA, AdminMessage.Plantation_Variety)'"></select>
+                <span class="hide glyphicon form-control-feedback"></span>
+                <span class="help-block"></span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group has-feedback">
+            <label class="control-label hidden-xs col-sm-5" for="PlantationStatusId">Estado del Lote</label>
+            <div class="col-sm-7">
+                <select class="form-control" id="PlantationStatusId" name="PlantationStatusId" required
+                        data-bind="value: plantationStatus, options: plantationStatuses, optionsText:'name', optionsValue:'id',optionsCaption: '@string.Format(Message.SelectA, AdminMessage.Plantation_Status)'"></select>
+                <span class="hide glyphicon form-control-feedback"></span>
+                <span class="help-block"></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group has-feedback">
+            @Html.LabelFor(model => model.LabLot, "Labor del lote", new { @class = "col-sm-5 control-label hidden-xs" })
+            <div class="col-sm-7">
+                <select class="form-control required" id="LabLot" name="LabLot">
+                    <option value="">Seleccione la labor del lote</option>
+                    @foreach (var item in ViewBag.Labor)
+                    {
+                        if (item.Name == Model.LabLot)
+                        {
+                            <option value="@item.Name" selected>@item.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Name">@item.Name</option>
+                        }
+                    }
+                </select>
+                <span class="glyphicon form-control-feedback hidden"></span>
+                <span class="help-block"></span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+
+    <div class="col-md-6">
+        <div class="form-group has-feedback">
+            @Html.LabelFor(model => model.TipoLot, "El lote es", new { @class = "col-sm-5 control-label hidden-xs" })
+            <div class="col-sm-7">
+                <select class="form-control required" id="TipoLot" name="TipoLot">
+                    <option value="">Seleccione el tipo de lote</option>
+                    @foreach (var item in ViewBag.TLot)
+                    {
+                        if (item.Name == Model.TipoLot)
+                        {
+                            <option value="@item.Name" selected>@item.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Name">@item.Name</option>
+                        }
+                    }
+                </select>
+                <span class="glyphicon form-control-feedback hidden"></span>
+                <span class="help-block"></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group has-feedback">
+            @Html.LabelFor(model => model.FormLot, "Forma de siembra", new { @class = "col-sm-5 control-label hidden-xs calDensidad" })
+            <div class="col-sm-7">
+                <select class="form-control required" id="FormLot" name="FormLot" required>
+                    <option value="">Seleccione la forma de siembra</option>
+                    @foreach (var item in ViewBag.FormLot)
+                    {
+                        if (item.Name == Model.FormLot)
+                        {
+                            <option value="@item.Name" selected>@item.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Name">@item.Name</option>
+                        }
+                    }
+                </select>
+                <span class="glyphicon form-control-feedback hidden"></span>
+                <span class="help-block"></span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+
+    <div class="col-md-6">
+        <div class="form-group has-feedback">
+            @Html.LabelFor(model => model.NumEjeArbLot, "Número de ejes", new { @class = "col-sm-5 control-label hidden-xs" })
+            <div class="col-sm-7">
+                <select class="form-control required" id="NumEjeArbLot" name="NumEjeArbLot" required>
+                    <option value="">Seleccione el número de ejes</option>
+                    @foreach (var item in ViewBag.NumEjeArbLot)
+                    {
+                        if (item.Name.ToString() == Model.NumEjeArbLot.ToString())
+                        {
+                            <option value="@item.Name" selected>@item.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Name">@item.Name</option>
+                        }
+                    }
+                </select>
+                <span class="glyphicon form-control-feedback hidden"></span>
+                <span class="help-block"></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group has-feedback">
+            @Html.LabelFor(model => model.NumberOfPlants, "N° de plantas por lote", new { @class = "col-sm-5 control-label hidden-xs" })
+            <div class="col-sm-7">
+                @Html.TextBoxFor(model => model.NumberOfPlants, new { @class = "form-control", placeholder = @FarmMessages.Number_Of_Plants, required = "required", @type = "number" })
+                <span class="glyphicon form-control-feedback hidden"></span>
+                <span class="help-block"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group has-feedback">
+            @Html.LabelFor(model => model.TreesDistance, "Distancia entre plantas", new { @class = "col-sm-5 control-label hidden-xs calDensidad" })
+            <div class="col-sm-7">
+                @Html.TextBoxFor(model => model.TreesDistance, new { @class = "form-control", placeholder = "Distance between trees", required = "required", rows = "6O" })
+                <span class="glyphicon form-control-feedback"></span>
+                <span class="help-block"></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group has-feedback">
+            @Html.LabelFor(model => model.GrooveDistance, "Distancia entre surcos", new { @class = "col-sm-5 control-label hidden-xs calDensidad" })
+            <div class="col-sm-7">
+                @Html.TextBoxFor(model => model.GrooveDistance, new { @class = "form-control", placeholder = "Groove distance", required = "required", rows = "6O" })
+                <span class="glyphicon form-control-feedback"></span>
+                <span class="help-block"></span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group has-feedback">
+            @Html.LabelFor(model => model.Density, "Densidad", new { @class = "col-sm-5 control-label hidden-xs" })
+            <div class="col-sm-7">
+                @Html.TextBoxFor(model => model.Density, "{0:0.00}", new { @class = "form-control", placeholder = "Density", required = "required", @readonly = "readonly" })
+                <span class="glyphicon form-control-feedback"></span>
+                <span class="help-block"></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group has-feedback">
+            @Html.LabelFor(model => model.Hectares, "Área del lote HA", new { @class = "col-sm-5 control-label hidden-xs" })
+            <div class="col-sm-7">
+                @Html.TextBoxFor(model => model.Hectares, new { @class = "form-control", placeholder = @FarmMessages.Hectares, required = "required", @readonly = "readonly" })
+                <span class="glyphicon form-control-feedback"></span>
+                <span class="help-block"></span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group has-feedback">
+            @Html.LabelFor(model => model.EstimatedProduction, "Producción estimada calculada KG", new { @class = "col-sm-5 control-label hidden-xs" })
+            <div class="col-sm-7">
+                @Html.TextBoxFor(model => model.EstimatedProduction, new { @class = "form-control", placeholder = @FarmMessages.Estimated_Production, required = "required", @readonly = "readonly" })
+                <span class="glyphicon form-control-feedback"></span>
+                <span class="help-block"></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group has-feedback">
+            @Html.LabelFor(model => model.EstimatedProductionManual, "Producción estimada manual KG", new { @class = "col-sm-5 control-label hidden-xs" })
+            <div class="col-sm-7">
+                @Html.TextBoxFor(model => model.EstimatedProductionManual, new { @class = "form-control", placeholder = @FarmMessages.Estimated_Production, @type = "number" })
+                <span class="glyphicon form-control-feedback"></span>
+                <span class="help-block"></span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+
+    </div>
+    <div class="col-md-6">
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+
+    </div>
+    <div class="col-md-6">
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <center>
+                <label id="information"></label>
+            </center>
+            <br />
+            <div class="col-sm-offset-3 col-sm-9">
+                <button class="btn btn-success" id="SaveFarm">@Message.Save</button>
+                <a class="btn btn-link link-delete modal-close" id="btnClosePopup" data-dismiss="modal">@Message.Close</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+
+    </div>
+</div>
+
+<script src="http://momentjs.com/downloads/moment.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+
+
+        var date = $('#Age').val();
+
+        var plantationDate = new Date(date.split('/')[2], parseInt(date.split('/')[1]) - 1, date.split('/')[0]);
+
+        var today = new Date();
+
+        var diff = Math.round((today - plantationDate) / (1000 * 3600 * 24) / 365);
+
+        $('#txt_edad').val(diff);
+
+        $('#GrooveDistance').val($('#GrooveDistance').val().replace(',', '.'));
+        $('#TreesDistance').val($('#TreesDistance').val().replace(',', '.'));
+        $('#Density').val($('#Density').val().replace(',', '.'));
+        $('#Hectares').val($('#Hectares').val().replace(',', '.'));
+
+
+
+    });
+
+     $(document).on('change', "#MuniLotId", function () {
+        var s_elm = $(this);
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("Get_Villages", "Farms")',
+            data: {
+                Municipality: s_elm.val()
+            },
+            dataType: "json",
+            success: function (data) {
+                FillSelectFrom_Json(data, $("#VillageLotId"))
+            }
+        });
+    });
+
+    function FillSelectFrom_Json(object, target) {
+        $(target).html("<option value=''>Seleccione la vereda</option>");
+        $.each(object, function (index, value) {
+            $(target).append("<option value='" + value.Id + "'>" + value.Name + "</option>")
+        })
+
+    }
+
+
+    $(document).on('change', "#Age", function () {
+        var date = $('#Age').val();
+        var plantationDate = new Date(date.split('/')[2], parseInt(date.split('/')[1]) - 1, date.split('/')[0]);
+        var today = new Date();
+
+        var diff = Math.round((today - plantationDate) / (1000 * 3600 * 24) / 365);
+
+        $('#txt_edad').val(diff);
+    });
+
+    $(document).on('change', "#FormLot", function (e) {
+        calculaDensidad();
+    });
+
+    $(document).on('input', "#GrooveDistance", function (e) {
+        calculaDensidad();
+    });
+
+    $(document).on('input', "#TreesDistance", function (e) {
+        calculaDensidad();
+    });
+
+    function calculaDensidad() {
+
+        $("#EstimatedProduction").val('0');
+
+        var densidad = 0;
+
+        if ($("#FormLot").val() != "") {
+            if ($("#FormLot").val() == "Cuadrado") {
+                densidad = 10000 / ($("#GrooveDistance").val() * $("#TreesDistance").val());
+            }
+            if ($("#FormLot").val() == "Triángulo") {
+                densidad = (10000 / ($("#GrooveDistance").val() * $("#TreesDistance").val()))*1.154;
+            }
+        }
+
+        $("#Density").val(Math.round(parseFloat(densidad)));
+        calArea();
+        }
+
+     $(document).on('change', "#Density", function (e) {
+        calArea();
+    });
+
+    $(document).on('input', "#NumberOfPlants", function (e) {
+        calArea();
+    });
+
+    function calArea() {
+
+        var area = 0;
+
+        if ($("#NumberOfPlants").val() > 0 && $("#Density").val() > 0 ) {
+            area = $("#NumberOfPlants").val() / $("#Density").val();
+        }
+
+        $("#Hectares").val(area.toFixed(4));
+    }
+
+    $(document).on('input', "#Age", function () {
+        var date = $('#Age').val();
+        var plantationDate = new Date(date.split('/')[2], parseInt(date.split('/')[1]) - 1, date.split('/')[0]);
+        var today = new Date();
+
+        var diff = Math.floor((today - plantationDate) / (1000 * 60 * 60 * 24 * 365));
+
+        $('#txt_edad').val(diff);
+    });
+
+
+        function calProduccionEstimada() {
+
+        }
+
+</script>

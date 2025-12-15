@@ -1,0 +1,176 @@
+﻿@{
+    ViewBag.Title = QualityMessage.Quality_Attributes;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section breadcrumb{
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2 class="page-name">@QualityMessage.Quality_Attributes</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="@Url.Action("Index", "Home")">
+                        @Message.Home
+                    </a>
+                </li>
+
+                <li class="active">
+                    <strong>@QualityMessage.Quality_Attributes</strong>
+                </li>
+            </ol>
+        </div>
+        <div class="col-lg-2">
+        </div>
+    </div>
+}
+
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>@QualityMessage.Quality_Attributes</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="flot-chart farm-search">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="AssessmentTemplate">
+                                        @QualityMessage.Assessment_Template
+                                    </label>
+                                    <select class="form-control input-sm" id="AssessmentTemplate"
+                                            data-bind="options: AssessmentTemplates, optionsText:'Description', value: AssessmentTemplate, optionsCaption: '@string.Format(Message.SelectA, QualityMessage.Assessment_Template)', event:{change: GetQualityAttributes}"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" data-bind="visible: VisibleAttributes">
+                            <div class="col-md-3">
+                                <div class="list-group">
+                                    <a href="#" class=" list-group-item" data-bind="click: AddNew">
+                                        <h5 class="list-group-item-heading">
+                                            <span class="glyphicon glyphicon-plus"></span>
+                                            @QualityMessage.Add_New_attribute
+                                        </h5>
+                                    </a>
+                                    <div data-bind="foreach: QualityAttributes">
+                                        <a href="#" class=" list-group-item" data-bind="click: Click, attr:{class: Class}">
+                                            <h5 class="list-group-item-heading" data-bind="text: Description"></h5>
+                                            <small class="list-group-item-text" data-bind="html: Html"></small>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <h4 class="page-header">@QualityMessage.Create_Edit_Attribute</h4>
+                                <form role="form" class="form-horizontal" data-bind="with: New">
+                                    <div class="form-group form-group-sm">
+                                        <label for="Description" class="control-label col-md-4">@Message.Description</label>
+                                        <div class="col-md-8">
+                                            <input type="text" class="form-control" id="Description" placeholder="@Message.Description" data-bind="value: Description" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-group-sm">
+                                        <label for="Position" class="control-label col-md-4">@Message.Position</label>
+                                        <div class="col-md-8">
+                                            <input type="number" class="form-control" id="Position" placeholder="@Message.Position" data-bind="value: Position" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-group-sm">
+                                        <label for="Description" class="control-label col-md-4">@QualityMessage.Type</label>
+                                        <div class="col-md-8">
+                                            <select class="form-control"
+                                                    data-bind="value: TypeOf, options: @ViewBag.Types, optionsCaption: '@string.Format(Message.SelectA, QualityMessage.Type)', event:{change: ChangeType}"></select>
+                                        </div>
+                                    </div>
+                                    <div data-bind="visible: ShowRange, with: RangeAttribute">
+                                        <div class="form-group form-group-sm">
+                                            <label for="MinVal" class="control-label col-md-4">@QualityMessage.MinVal</label>
+                                            <div class="col-md-8">
+                                                <input type="number" class="form-control" id="MinVal" placeholder="@QualityMessage.MinVal" data-bind="value: MinVal" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group form-group-sm">
+                                            <label for="MaxVal" class="control-label col-md-4">@QualityMessage.MaxVal</label>
+                                            <div class="col-md-8">
+                                                <input type="number" class="form-control" id="MaxVal" placeholder="@QualityMessage.MaxVal" data-bind="value: MaxVal" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group form-group-sm">
+                                            <label for="Step" class="control-label col-md-4">@QualityMessage.Step</label>
+                                            <div class="col-md-8">
+                                                <input type="number" class="form-control" id="Step" placeholder="@QualityMessage.Step" step="any" data-bind="value: Step" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div data-bind="visible: ShowOpenText, with: OpenTextAttribute">
+                                        <div class="checkbox col-md-offset-4">
+                                            <label>
+                                                <input type="checkbox" id="Number" data-bind="checked: Number" /> @QualityMessage.Is_Number
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div data-bind="visible: ShowRange, with: RangeAttribute">
+                                        <div class="form-group form-group-sm">
+                                            <label for="MinVal" class="control-label col-md-4">@QualityMessage.MinVal</label>
+                                            <div class="col-md-8">
+                                                <input type="number" class="form-control" id="MinVal" placeholder="@QualityMessage.MinVal" data-bind="value: MinVal" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group form-group-sm">
+                                            <label for="MaxVal" class="control-label col-md-4">@QualityMessage.MaxVal</label>
+                                            <div class="col-md-8">
+                                                <input type="number" class="form-control" id="MaxVal" placeholder="@QualityMessage.MaxVal" data-bind="value: MaxVal" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group form-group-sm">
+                                            <label for="Step" class="control-label col-md-4">@QualityMessage.Step</label>
+                                            <div class="col-md-8">
+                                                <input type="number" class="form-control" id="Step" placeholder="@QualityMessage.Step" step="any" data-bind="value: Step" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div data-bind="visible: ShowOptions">
+                                        <h4 class="page-header">@QualityMessage.Add_New_Option</h4>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <a class="btn btn-link link-edit btn-sm" data-bind="click:AddOption">
+                                                    <i class="glyphicon glyphicon-plus"></i>
+                                                    @QualityMessage.Add_New_Option
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div data-bind="foreach: OptionAttributes">
+                                            <div class="row">
+                                                <div class="form-group form-group-sm">
+                                                    <div class="col-md-offset-4 col-md-8 input-group">
+                                                        <input type="text" class="form-control" id="Description" placeholder="@Message.Description" data-bind="value: Description" />
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-link link-delete" type="button" data-bind="click: Delete">
+                                                                <span class="glyphicon glyphicon-remove"></span>
+                                                            </button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-actions pull-right">
+                                        <button type="button" class="btn btn-success btn-sm" data-bind="click: Save">@Message.Save</button>
+                                        <button type="button" class="btn btn-warning btn-sm" data-bind="click: Delete, visible: !IsNew()">@Message.Delete</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-offset-1 col-md-4">
+                                <h4 class="page-header">@Message.Preview</h4>
+                                <form class="form-horizontal" data-bind="html: Preview"></form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/mvvm/qualityAttribute.js"></script>

@@ -1,0 +1,69 @@
+﻿@model EFarming.DTO.FarmModule.PlantationDTO
+<div class="remote">
+    <div class="col-md-10 col-md-offset-1">
+        <div class="alert alert-danger fade in">
+            @Html.HiddenFor(model => model.FarmId)
+            <h4>@Message.Delete_Item</h4>
+            <p>
+                @Message.Delete_Item_Text
+
+                @Message.Confirmation_Question
+            </p>
+            <p>
+                <dl class="dl-horizontal">
+                    <dt>
+                        @FarmMessages.Hectares
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Hectares)
+                    </dd>
+
+                    <dt>
+                        @FarmMessages.Estimated_Production
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.EstimatedProduction)
+                    </dd>
+
+                    <dt>
+                        @FarmMessages.Number_Of_Plants
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.NumberOfPlants)
+                    </dd>
+
+                    <dt>
+                        @Message.Farm
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Productivity.Farm.Name)
+                    </dd>
+
+                </dl>
+            </p>
+            <p>
+                @using (Html.BeginForm("Delete", "Plantations", new { id = Model.Id, farmId = Model.Productivity.FarmId }, FormMethod.Post, new { @class = "to-validate remote-form", role = "form", @data_target = "plantations-content" }))
+                {
+                    <input type="hidden" value="@ViewBag.PageNumber" name="page" />
+                    <div class="form-group">
+                        <center>
+                            <label id="information"></label>
+                        </center>
+                        <br />
+                        <div class="col-sm-offset-3 col-sm-9">
+                            <button type="submit" class="btn btn-danger" id="SaveFarm">@Message.Confirmation_Text</button>
+                            <a class="btn btn-link modal-close" id="btnClosePopup" data-dismiss="modal">@Message.Close</a>
+                        </div>
+                    </div>
+                }
+                <br />
+                <br />
+            </p>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/remote-validation.js"></script>

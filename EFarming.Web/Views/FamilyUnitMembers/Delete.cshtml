@@ -1,0 +1,105 @@
+﻿@model EFarming.DTO.FarmModule.FamilyUnitMemberDTO
+<div class="remote">
+    <div class="col-md-10 col-md-offset-1">
+        <div class="alert alert-danger fade in">
+            <h4>@Message.Delete_Item</h4>
+            <p>
+                @Message.Delete_Item_Text
+
+                @Message.Confirmation_Question
+            </p>
+            <p>
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Message.First_Name
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.FirstName)
+                    </dd>
+
+                    <dt>
+                        @Message.Last_Name
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.LastName)
+                    </dd>
+
+                    @{
+                        var now = DateTime.Now;
+                        var age = now.Year - Model.Age.Year;
+                    }
+
+                    <dt>
+                        @Message.Age
+                    </dt>
+
+                    <dd>
+                        @age
+                    </dd>
+
+                    <dt>
+                        @Message.Identification
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Identification)
+                    </dd>
+
+                    <dt>
+                        @Message.Education
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Education)
+                    </dd>
+
+                    <dt>
+                        @Message.Relationship
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Relationship)
+                    </dd>
+
+                    <dt>
+                        @Message.Marital_Status
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.MaritalStatus)
+                    </dd>
+
+                    <dt>
+                        @Message.Farm
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Farm.Name)
+                    </dd>
+
+                </dl>
+            </p>
+            <p>
+                @using (Html.BeginForm("Delete", "FamilyUnitMembers", new { id = Model.Id, farmId = Model.FarmId }, FormMethod.Post, new { @class = "to-validate remote-form", role = "form", @data_target = "family-unit-members-content" }))
+                {
+                    <input type="hidden" value="@ViewBag.PageNumber" name="page" />
+                    <div class="form-group">
+                        <center>
+                            <label id="information"></label>
+                        </center>
+                        <br />
+                        <div class="col-sm-offset-3 col-sm-9">
+                            <button type="submit" class="btn btn-danger" id="SaveFarm">@Message.Confirmation_Text</button>
+                            <a class="btn btn-link modal-close" id="btnClosePopup" data-dismiss="modal">@Message.Close</a>
+                        </div>
+                    </div>
+                }
+                <br />
+                <br />
+            </p>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/remote-validation.js"></script>

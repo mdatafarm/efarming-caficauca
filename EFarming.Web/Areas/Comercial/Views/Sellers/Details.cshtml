@@ -1,0 +1,53 @@
+﻿@model EFarming.Core.ComercialModule.Seller
+
+@{
+    ViewBag.Title = "Details Seller";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("~/Areas/Comercial/Views/Shared/_Navegation_Comercial.cshtml")
+
+<h2>Details</h2>
+
+<div>
+    <h4>Seller</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Footer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Footer)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Header)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Header)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SubHeader)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubHeader)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Atrás", "Index")
+</p>

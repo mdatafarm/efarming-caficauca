@@ -1,0 +1,27 @@
+﻿@model EFarming.DTO.FarmModule.FarmOtherActivityDTO
+@Html.HiddenFor(model => model.FarmId)
+<input type="hidden" value="@ViewBag.PageNumber" name="page" />
+
+<div class="form-group has-feedback">
+    <label class="control-label hidden-xs col-sm-3" for="OtherActivityId">@AdminMessage.Other_Activity</label>
+    <div class="col-sm-8">
+        <select class="form-control" id="OtherActivityId" name="OtherActivityId" required
+                data-bind="value: otherActivity, options: otherActivities, optionsText:'name', optionsValue:'id',optionsCaption: '@string.Format(Message.SelectA, AdminMessage.Other_Activity)'"></select>
+        <span class="hide glyphicon form-control-feedback"></span>
+        <span class="help-block"></span>
+    </div>
+</div>
+<div class="form-group has-feedback">
+    @Html.LabelFor(model => model.Percentage, @Message.Percentage, new { @class = "col-sm-3 control-label hidden-xs" })
+    <div class="col-sm-8">
+        @Html.TextBoxFor(model => model.InputPercentage, new { type = "number", @class = "form-control", placeholder = @Message.Percentage, required = "required" })
+        <span class="glyphicon form-control-feedback hidden"></span>
+        <span class="help-block"></span>
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-sm-offset-3 col-sm-9">
+        <button class="btn btn-success">@Message.Save</button>
+        <a class="btn btn-link link-delete modal-close" data-dismiss="modal">@Message.Close</a>
+    </div>
+</div>

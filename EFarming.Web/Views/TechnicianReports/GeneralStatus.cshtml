@@ -1,0 +1,153 @@
+﻿@model IEnumerable<EFarming.Web.Controllers.TechnicianReportsController.DetailElement>
+
+@{
+    ViewBag.Title = "GeneralStatus";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2 class="page-name">Estatus general</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="@Url.Action("Index", "TechnicianReports")">
+                    Reportes
+                </a>
+            </li>
+
+            <li class="active">
+                <strong>Estatus general</strong>
+            </li>
+        </ol>
+        <br />
+        <form class="form-inline col-md-10" role="form" method="get" action="~/TechnicianReports/GeneralStatus">
+            <div class="form-group">
+                <label> Filtro por año: </label>
+                @*value="@string.Format("{0:yyyy}", DateTime.Now)"*@
+                <input type="number" id="start" name="start" class="form-control dateField" value="@ViewBag.year" />
+            </div>
+            
+            <div class="form-group">
+                <button type="submit" class="btn btn-default">Mostrar reporte</button>
+            </div>
+        </form>
+        <div class="text-right col-md-2">
+            <p class="text-right"><a href="@Url.Action("ToExcel", "TechnicianReports", new { start = ViewBag.year })" class="btn btn-default">Detalle en excel </a></p>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content row">
+                <div class="col-lg-12">
+                    <div class="table-responsive horizontal-scroll showback">
+                        @if (Model.Count() > 0)
+                        {
+                        <table class="table table-striped  table-hover table-condensed table-bordered">
+                            <thead style="border:1px">
+                                <tr>
+                                    <th rowspan="4" style="text-align:center"></th>
+                                    <th rowspan="2" style="text-align:center">Área en café</th>
+                                    <th colspan="4" style="text-align:center">Variedades (Area)</th>
+                                    <th colspan="4" style="text-align:center">Edades (Area)</th>
+                                    <th colspan="2" style="text-align:center">Productividad (kg cps)</th>
+                                    <th style="text-align:center">Fertiliz. (bags)</th>
+                                    <th style="text-align:center"></th>
+                                </tr>
+                                <tr>
+                                    <th>Castillo</th>
+                                    <th>Colombia</th>
+                                    <th>Caturra</th>
+                                    <th>Tabi</th>
+                                    <th>Otros</th>
+                                    <th>0-2 años</th>
+                                    <th>3-5 años</th>
+                                    <th>6-9 años</th>
+                                    <th>> 9 años</th>
+                                    <th>Estimado</th>
+                                    <th>Ventas</th>
+                                    <th>Consumo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    string Municipality = "";
+                                }
+                                @foreach (var item in Model)
+                                {
+                                    if (Municipality != item.Municipality)
+                                    {
+                                        foreach (var itemM in ViewBag.MunicipalityGroupedInformation)
+                                        {
+                                            if (itemM.Municipality == item.Municipality)
+                                            {
+                                                <tr>
+                                                    <td colspan="1" style="text-align:right"><b>TOTAL @itemM.Municipality</b></td>
+                                                    <td class="textAling"><b>@string.Format("{0:0.0#}", itemM.CoffeArea)</b></td>
+                                                    <td class="textAling"><b>@string.Format("{0:0.0#}", itemM.Castillo)</b></td>
+                                                    <td class="textAling"><b>@string.Format("{0:0.0#}", itemM.Colombia)</b></td>
+                                                    <td class="textAling"><b>@string.Format("{0:0.0#}", itemM.Caturra)</b></td>
+                                                    <td class="textAling"><b>@string.Format("{0:0.0#}", itemM.Tabi)</b></td>
+                                                    <td class="textAling"><b>@string.Format("{0:0.0#}", itemM.Other)</b></td>
+                                                    <td class="textAling"><b>@string.Format("{0:0.0#}", itemM.CeroDosAnios)</b></td>
+                                                    <td class="textAling"><b>@string.Format("{0:0.0#}", itemM.DosCincoAnios)</b></td>
+                                                    <td class="textAling"><b>@string.Format("{0:0.0#}", itemM.SeisNueveAnios)</b></td>
+                                                    <td class="textAling"><b>@string.Format("{0:0.0#}", itemM.MasNueveanios)</b></td>
+                                                    <td class="textAling"><b>@string.Format("{0:0.0#}", itemM.Estimativokg)</b></td>
+                                                    <td class="textAling"><b>@string.Format("{0:0.0#}", itemM.Ventaskg)</b></td>
+                                                    <td class="textAling"><b>@string.Format("{0:0.0#}", itemM.ConsumoSacos)</b></td>
+                                                </tr>
+                                            }
+                                        }
+                                    }
+
+                                                @*<tr>
+                                                    <td>@item.Municipality</td>
+                                                    <td>@item.Agency</td>
+                                                    <td class="textAling">@item.Farms</td>
+                                                    <td class="textAling">@string.Format("{0:0.0#}", item.CoffeArea)</td>
+                                                    <td class="textAling">@string.Format("{0:0.0#}", item.Castillo)</td>
+                                                    <td class="textAling">@string.Format("{0:0.0#}", item.Colombia)</td>
+                                                    <td class="textAling">@string.Format("{0:0.0#}", item.Caturra)</td>
+                                                    <td class="textAling">@string.Format("{0:0.0#}", item.Tabi)</td>
+                                                    <td class="textAling">@string.Format("{0:0.0#}", item.Other)</td>
+                                                    <td class="textAling">@string.Format("{0:0.0#}", item.CeroDosAnios)</td>
+                                                    <td class="textAling">@string.Format("{0:0.0#}", item.DosCincoAnios)</td>
+                                                    <td class="textAling">@string.Format("{0:0.0#}", item.SeisNueveAnios)</td>
+                                                    <td class="textAling">@string.Format("{0:0.0#}", item.MasNueveanios)</td>
+                                                    <td class="textAling">@string.Format("{0:0.0#}", item.Estimativokg)</td>
+                                                    <td class="textAling">@string.Format("{0:0.0#}", item.Ventaskg)</td>
+                                                    <td class="textAling">@string.Format("{0:0.0#}", item.ConsumoSacos)</td>
+                                                </tr>*@
+                                    Municipality = item.Municipality;
+                                }
+                            </tbody>
+                            @* <tfoot>
+                                   <tr>
+                                   <th colspan="2" style="text-align:right">Total</th>
+                                   <th class="textAling">@ViewBag.totalInformation.Farms</th>
+                                   <th class="textAling">@string.Format("{0:0.0#}", ViewBag.totalInformation.CoffeArea)</th>
+                                    <th class="textAling">@string.Format("{0:0.0#}", ViewBag.totalInformation.Castillo)</th>
+                                    <th class="textAling">@string.Format("{0:0.0#}", ViewBag.totalInformation.Colombia)</th>
+                                    <th class="textAling">@string.Format("{0:0.0#}", ViewBag.totalInformation.Caturra)</th>
+                                    <th class="textAling">@string.Format("{0:0.0#}", ViewBag.totalInformation.Other)</th>
+                                    <th class="textAling">@string.Format("{0:0.0#}", ViewBag.totalInformation.CeroDosAnios)</th>
+                                    <th class="textAling">@string.Format("{0:0.0#}", ViewBag.totalInformation.DosCincoAnios)</th>
+                                    <th class="textAling">@string.Format("{0:0.0#}", ViewBag.totalInformation.SeisNueveAnios)</th>
+                                    <th class="textAling">@string.Format("{0:0.0#}", ViewBag.totalInformation.MasNueveanios)</th>
+                                    <th class="textAling">@string.Format("{0:0.0#}", ViewBag.totalInformation.Estimativokg)</th>
+                                    <th class="textAling">@string.Format("{0:0.0#}", ViewBag.totalInformation.Ventaskg)</th>
+                                    <th class="textAling">@string.Format("{0:0.0#}", ViewBag.totalInformation.ConsumoSacos)</th>
+                                    </tr>
+                                </tfoot>
+                            *@
+                        </table>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

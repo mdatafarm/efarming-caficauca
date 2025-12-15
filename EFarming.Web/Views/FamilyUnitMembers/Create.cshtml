@@ -1,0 +1,16 @@
+﻿@model EFarming.DTO.FarmModule.FamilyUnitMemberDTO
+<div class="row remote" id="family-unit-members-form">
+    <div class="col-md-10 col-md-offset-1">
+        <h4>@FarmMessages.Family_Unit</h4>
+        <form action="@Url.Action("Create", "FamilyUnitMembers")" class="form-horizontal to-validate remote-form" role="form" data-target="family-unit-members-content" id="Save">
+            @Html.Partial("~/Views/FamilyUnitMembers/_Form.cshtml", Model)
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    var selectedEducation = "";
+    var selectedRelationship = "";
+    var selectedMaritalStatus = "";
+</script>
+<script src="~/Scripts/mvvm/familyUnitMember.js"></script>
+<script src="~/Scripts/remote-validation.js"></script>

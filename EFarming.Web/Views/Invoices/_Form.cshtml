@@ -1,0 +1,51 @@
+﻿@model EFarming.DTO.TraceabilityModule.InvoiceDTO
+
+@Html.HiddenFor(model => model.FarmId)
+<input type="hidden" value="@ViewBag.PageNumber" name="page" />
+
+<div class="form-group has-feedback">
+    <label class="control-label hidden-xs col-sm-3" for="Date">@Message.Date</label>
+    <div class="col-sm-8">
+        <input type="date" class="form-control" id="Date" name="Date" required  value="@Model.InputDateFormated"/>
+        <span class="hide glyphicon form-control-feedback"></span>
+        <span class="help-block"></span>
+    </div>
+</div>
+<div class="form-group has-feedback">
+    <label class="control-label hidden-xs col-sm-3" for="PlantationStatusId">@TraceabilityMessage.Receipt</label>
+    <div class="col-sm-8">
+        @Html.TextBoxFor(model => model.Receipt, new { @class = "form-control", placeholder = @TraceabilityMessage.Receipt, required = "required", rows = "6O" })
+        <span class="hide glyphicon form-control-feedback"></span>
+        <span class="help-block"></span>
+    </div>
+</div>
+<div class="form-group has-feedback">
+    @Html.LabelFor(model => model.Identification, @Message.Identification, new { @class = "col-sm-3 control-label hidden-xs" })
+    <div class="col-sm-8">
+        @Html.TextBoxFor(model => model.Identification, new { @class = "form-control", placeholder = @Message.Identification, required = "required", rows = "6O" })
+        <span class="glyphicon form-control-feedback"></span>
+        <span class="help-block"></span>
+    </div>
+</div>
+<div class="form-group has-feedback">
+    @Html.LabelFor(model => model.Weight, @TraceabilityMessage.Weight, new { @class = "col-sm-3 control-label hidden-xs" })
+    <div class="col-sm-8">
+        @Html.TextBoxFor(model => model.Weight, new { @class = "form-control", placeholder = @TraceabilityMessage.Weight, required = "required", rows = "6O" })
+        <span class="glyphicon form-control-feedback"></span>
+        <span class="help-block"></span>
+    </div>
+</div>
+<div class="form-group has-feedback">
+    @Html.LabelFor(model => model.Price, @TraceabilityMessage.Unit_Price, new { @class = "col-sm-3 control-label hidden-xs" })
+    <div class="col-sm-8">
+        @Html.TextBoxFor(model => model.Price, new { @class = "form-control", placeholder = @TraceabilityMessage.Unit_Price, required = "required" })
+        <span class="glyphicon form-control-feedback hidden"></span>
+        <span class="help-block"></span>
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-sm-offset-3 col-sm-9">
+        <button class="btn btn-success">@Message.Save</button>
+        <a class="btn btn-link link-delete modal-close" data-dismiss="modal">@Message.Close</a>
+    </div>
+</div>

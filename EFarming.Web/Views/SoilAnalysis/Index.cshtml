@@ -1,0 +1,46 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+@model EFarming.DTO.FarmModule.FarmDTO
+<table class="table table-hover table-condensed table-striped">
+    <thead>
+        <tr>
+            <th>@Message.Date</th>
+            <th>@Message.Comment</th>
+            <th>@FarmMessages.Depth</th>
+            <th>
+                <span class="pull-right">
+                    <a href="@Url.Action("Create", "SoilAnalysis", new { farmId = Model.Id, page = ((IPagedList<EFarming.DTO.FarmModule.SoilAnalysisDTO>)ViewBag.PagedSoilAnalysis).PageNumber })" data-toggle="modal" data-target="#modal" class="btn btn-success btn-xs">
+                        <span class="glyphicon glyphicon-plus">
+                        </span>
+                        @Message.Add
+                    </a>
+                </span>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var analysis in (IPagedList<EFarming.DTO.FarmModule.SoilAnalysisDTO>)ViewBag.PagedSoilAnalysis)
+        {
+            <tr>
+                <td>@analysis.FormatedDate</td>
+                <td>@analysis.Comment</td>
+                <td>@analysis.Depth</td>
+                <td>
+                    <span class="pull-right">
+                        <a href="@Url.Action("Edit", "SoilAnalysis", new { id = analysis.Id, farmId = analysis.FarmId, page = ((IPagedList<EFarming.DTO.FarmModule.SoilAnalysisDTO>)ViewBag.PagedSoilAnalysis).PageNumber })" data-toggle="modal" data-target="#modal" class="btn btn-link link-edit">
+                            <span class="glyphicon glyphicon-edit"></span>
+                            @Message.Edit
+                        </a>
+                        <a href="@Url.Action("Delete", "SoilAnalysis", new { id = analysis.Id, farmId = analysis.FarmId, page = ((IPagedList<EFarming.DTO.FarmModule.SoilAnalysisDTO>)ViewBag.PagedSoilAnalysis).PageNumber })" data-toggle="modal" data-target="#modal" class="btn btn-link link-delete">
+                            <span class="glyphicon glyphicon-remove-sign"></span>
+                            @Message.Delete
+                        </a>
+                    </span>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@Html.PagedListPager((IPagedList<EFarming.DTO.FarmModule.SoilAnalysisDTO>)ViewBag.PagedSoilAnalysis,
+    page => Url.Action("Index", "SoilAnalysis", new { page, farmId = Model.Id }),
+            PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new System.Web.Mvc.Ajax.AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "soil-types-content" }))

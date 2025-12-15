@@ -1,0 +1,320 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B96F9030-D448-402C-9F68-883887BF3A24}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EFarming.Core</RootNamespace>
+    <AssemblyName>EFarming.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>bin\Debug\EFarming.Core.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Common.Logging, Version=3.4.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.3.4.1\lib\net40\Common.Logging.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Common.Logging.Core, Version=3.4.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.Core.3.4.1\lib\net40\Common.Logging.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus.Interfaces, Version=8.0.0.0, Culture=neutral, PublicKeyToken=a694d7f3b0907a61, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.Interfaces.8.0.0\lib\net35\EPPlus.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AdminModule\AssessmentAggregate\AssessmentTemplate.cs" />
+    <Compile Include="AdminModule\AssessmentAggregate\AssessmentTemplateSpecification.cs" />
+    <Compile Include="AdminModule\AssessmentAggregate\IAssessmentTemplateRepository.cs" />
+    <Compile Include="AdminModule\CooperativeAggregate\Cooperative.cs" />
+    <Compile Include="AdminModule\CooperativeAggregate\CooperativeFactory.cs" />
+    <Compile Include="AdminModule\CooperativeAggregate\CooperativeSpecification.cs" />
+    <Compile Include="AdminModule\CooperativeAggregate\ICooperativeRepository.cs" />
+    <Compile Include="AdminModule\CountryAggregate\Country.cs" />
+    <Compile Include="AdminModule\CountryAggregate\CountrySpecification.cs" />
+    <Compile Include="AdminModule\CountryAggregate\ICountryRepository.cs" />
+    <Compile Include="AdminModule\DepartmentAggregate\Department.cs" />
+    <Compile Include="AdminModule\DepartmentAggregate\DepartmentFactory.cs" />
+    <Compile Include="AdminModule\DepartmentAggregate\DepartmentSpecification.cs" />
+    <Compile Include="AdminModule\DepartmentAggregate\IDepartmentRepository.cs" />
+    <Compile Include="AdminModule\FarmStatusAggregate\FarmStatusSpecification.cs" />
+    <Compile Include="AdminModule\FarmStatusAggregate\FarmStatus.cs" />
+    <Compile Include="AdminModule\FarmStatusAggregate\FarmStatusFactory.cs" />
+    <Compile Include="AdminModule\FarmStatusAggregate\IFarmStatusRepository.cs" />
+    <Compile Include="AdminModule\FarmSubstatusAggregate\FarmSubstatus.cs" />
+    <Compile Include="AdminModule\FarmSubstatusAggregate\FarmSubstatusFactory.cs" />
+    <Compile Include="AdminModule\FarmSubstatusAggregate\FarmSubstatusSpecification.cs" />
+    <Compile Include="AdminModule\FarmSubstatusAggregate\IFarmSubstatusRepository.cs" />
+    <Compile Include="AdminModule\FloweringPeriodQualificationAggregate\FloweringPeriodQualification.cs" />
+    <Compile Include="AdminModule\FloweringPeriodQualificationAggregate\FloweringPeriodQualificationFactory.cs" />
+    <Compile Include="AdminModule\FloweringPeriodQualificationAggregate\FloweringPeriodQualificationSpecification.cs" />
+    <Compile Include="AdminModule\FloweringPeriodQualificationAggregate\IFloweringPeriodQualificationRepository.cs" />
+    <Compile Include="AdminModule\MunicipalityAggregate\IMunicipalityRepository.cs" />
+    <Compile Include="AdminModule\MunicipalityAggregate\Municipality.cs" />
+    <Compile Include="AdminModule\MunicipalityAggregate\MunicipalityFactory.cs" />
+    <Compile Include="AdminModule\MunicipalityAggregate\MunicipalitySpecification.cs" />
+    <Compile Include="AdminModule\OtherActivitiesAggregate\IOtherActivityRepository.cs" />
+    <Compile Include="AdminModule\OtherActivitiesAggregate\OtherActivity.cs" />
+    <Compile Include="AdminModule\OtherActivitiesAggregate\OtherActivityFactory.cs" />
+    <Compile Include="AdminModule\OtherActivitiesAggregate\OtherActivitySpecification.cs" />
+    <Compile Include="AdminModule\OwnershipTypeAggregate\IOwnershipTypeRepository.cs" />
+    <Compile Include="AdminModule\OwnershipTypeAggregate\OwnershipType.cs" />
+    <Compile Include="AdminModule\OwnershipTypeAggregate\OwnershipTypeFactory.cs" />
+    <Compile Include="AdminModule\OwnershipTypeAggregate\OwnershipTypeSpecification.cs" />
+    <Compile Include="AdminModule\PlantationStatusAggregate\IPlantationStatusRepository.cs" />
+    <Compile Include="AdminModule\PlantationStatusAggregate\PlantationStatus.cs" />
+    <Compile Include="AdminModule\PlantationStatusAggregate\PlantationStatusFactory.cs" />
+    <Compile Include="AdminModule\PlantationStatusAggregate\PlantationStatusSpecification.cs" />
+    <Compile Include="AdminModule\PlantationTypeAggregate\IPlantationTypeRepository.cs" />
+    <Compile Include="AdminModule\PlantationTypeAggregate\PlantationType.cs" />
+    <Compile Include="AdminModule\PlantationTypeAggregate\PlantationTypeFactory.cs" />
+    <Compile Include="AdminModule\PlantationTypeAggregate\PlantationTypeSpecification.cs" />
+    <Compile Include="AdminModule\PlantationVarietyAggregate\IPlantationVarietyRepository.cs" />
+    <Compile Include="AdminModule\PlantationVarietyAggregate\PlantationVariety.cs" />
+    <Compile Include="AdminModule\PlantationVarietyAggregate\PlantationVarietyFactory.cs" />
+    <Compile Include="AdminModule\PlantationVarietyAggregate\PlantationVarietySpecification.cs" />
+    <Compile Include="AdminModule\SoilTypeAggregate\ISoilTypeRepository.cs" />
+    <Compile Include="AdminModule\SoilTypeAggregate\SoilType.cs" />
+    <Compile Include="AdminModule\SoilTypeAggregate\SoilTypeFactory.cs" />
+    <Compile Include="AdminModule\SoilTypeAggregate\SoilTypeSpecification.cs" />
+    <Compile Include="AdminModule\SupplierAggregate\ISupplierRepository.cs" />
+    <Compile Include="AdminModule\SupplierAggregate\Supplier.cs" />
+    <Compile Include="AdminModule\SupplierAggregate\SupplierSpecification.cs" />
+    <Compile Include="AdminModule\SupplyChainAggregate\ISupplyChainRepository.cs" />
+    <Compile Include="AdminModule\SupplyChainAggregate\ISupplyChainStatusRepository.cs" />
+    <Compile Include="AdminModule\SupplyChainAggregate\SupplyChain.cs" />
+    <Compile Include="AdminModule\SupplyChainAggregate\SupplyChainSpecification.cs" />
+    <Compile Include="AdminModule\SupplyChainAggregate\SupplyChainStatus.cs" />
+    <Compile Include="AdminModule\VillageAggregate\IVillageRepository.cs" />
+    <Compile Include="AdminModule\VillageAggregate\Village.cs" />
+    <Compile Include="AdminModule\VillageAggregate\VillageFactory.cs" />
+    <Compile Include="AdminModule\VillageAggregate\VillageSpecification.cs" />
+    <Compile Include="AuthenticationModule\AutenticationAggregate\IRoleRepository.cs" />
+    <Compile Include="AuthenticationModule\AutenticationAggregate\IUserRepository.cs" />
+    <Compile Include="AuthenticationModule\AutenticationAggregate\Role.cs" />
+    <Compile Include="AuthenticationModule\AutenticationAggregate\User.cs" />
+    <Compile Include="AuthenticationModule\AutenticationAggregate\UserSpecification.cs" />
+    <Compile Include="ComercialModule\Agent.cs" />
+    <Compile Include="ComercialModule\Agreement.cs" />
+    <Compile Include="ComercialModule\Client.cs" />
+    <Compile Include="ComercialModule\ContractLot.cs" />
+    <Compile Include="ComercialModule\DocumentReference.cs" />
+    <Compile Include="ComercialModule\Fixation.cs" />
+    <Compile Include="ComercialModule\FixationType.cs" />
+    <Compile Include="ComercialModule\ContractInvoice.cs" />
+    <Compile Include="ComercialModule\MDCooperative.cs" />
+    <Compile Include="ComercialModule\MDOrigin.cs" />
+    <Compile Include="ComercialModule\MDType.cs" />
+    <Compile Include="ComercialModule\MoreInformation.cs" />
+    <Compile Include="ComercialModule\NYPosition.cs" />
+    <Compile Include="ComercialModule\ReferenceRelationShip.cs" />
+    <Compile Include="ComercialModule\RequeiredAttribute.cs" />
+    <Compile Include="ComercialModule\Seller.cs" />
+    <Compile Include="ComercialModule\Shipment.cs" />
+    <Compile Include="ComercialModule\VolumeByQuality.cs" />
+    <Compile Include="CoreServices\Contracts\IDashboardServices.cs" />
+    <Compile Include="CoreServices\Implementation\DashboardServices.cs" />
+    <Compile Include="DashboardModule\BarChart.cs" />
+    <Compile Include="DashboardModule\BasicColumn\BasicColumn.cs" />
+    <Compile Include="DashboardModule\Chart.cs" />
+    <Compile Include="DashboardModule\ColumnChart.cs" />
+    <Compile Include="DashboardModule\DataItem.cs" />
+    <Compile Include="DashboardModule\LineChart.cs" />
+    <Compile Include="DashboardModule\PieChart.cs" />
+    <Compile Include="DashboardModule\PolarChart.cs" />
+    <Compile Include="DashboardModule\SerieItem.cs" />
+    <Compile Include="FarmModule\FamilyUnitAggregate\FamilyUnitMember.cs" />
+    <Compile Include="FarmModule\FamilyUnitAggregate\FamilyUnitSpecification.cs" />
+    <Compile Include="FarmModule\FamilyUnitAggregate\IFamilyUnitRepository.cs" />
+    <Compile Include="FarmModule\FarmAggregate\Farm.cs" />
+    <Compile Include="FarmModule\FarmAggregate\FarmFactory.cs" />
+    <Compile Include="FarmModule\FarmAggregate\FarmOtherActivity.cs" />
+    <Compile Include="FarmModule\FarmAggregate\FarmSpecification.cs" />
+    <Compile Include="FarmModule\FarmAggregate\Fertilizer.cs" />
+    <Compile Include="FarmModule\FarmAggregate\FloweringPeriod.cs" />
+    <Compile Include="FarmModule\FarmAggregate\IFarmRepository.cs" />
+    <Compile Include="FarmModule\FarmAggregate\Image.cs" />
+    <Compile Include="FarmModule\FarmAggregate\Plantation.cs" />
+    <Compile Include="FarmModule\FarmAggregate\Productivity.cs" />
+    <Compile Include="FarmModule\FarmAggregate\SoilAnalysis.cs" />
+    <Compile Include="FarmModule\FarmAggregate\Worker.cs" />
+    <Compile Include="FerilizersCalculatorModule\AverageExtraction.cs" />
+    <Compile Include="FerilizersCalculatorModule\FertilizerInformation.cs" />
+    <Compile Include="ImpactModule\ImpactAggregate\IImpactAssessmentRepository.cs" />
+    <Compile Include="ImpactModule\ImpactAggregate\ImpactAssessment.cs" />
+    <Compile Include="ImpactModule\ImpactAggregate\ImpactAssessmentSpecification.cs" />
+    <Compile Include="ImpactModule\IndicatorAggregate\Category.cs" />
+    <Compile Include="ImpactModule\IndicatorAggregate\Criteria.cs" />
+    <Compile Include="ImpactModule\IndicatorAggregate\CriteriaOptionSpecification.cs" />
+    <Compile Include="ImpactModule\IndicatorAggregate\ICategoryRepository.cs" />
+    <Compile Include="ImpactModule\IndicatorAggregate\CategorySpecification.cs" />
+    <Compile Include="ImpactModule\IndicatorAggregate\ICriteriaOptionRepository.cs" />
+    <Compile Include="ImpactModule\IndicatorAggregate\ICriteriaRepository.cs" />
+    <Compile Include="ImpactModule\IndicatorAggregate\IIndicatorRepository.cs" />
+    <Compile Include="ImpactModule\IndicatorAggregate\Indicator.cs" />
+    <Compile Include="ImpactModule\IndicatorAggregate\CriteriaOption.cs" />
+    <Compile Include="ImpactModule\IndicatorAggregate\IndicatorSpecification.cs" />
+    <Compile Include="ImpactModule\IndicatorAggregate\IRequirementRepository.cs" />
+    <Compile Include="ImpactModule\IndicatorAggregate\Requirement.cs" />
+    <Compile Include="IRepository.cs" />
+    <Compile Include="IStorage.cs" />
+    <Compile Include="IUnitOfWork.cs" />
+    <Compile Include="ProjectModule\ProjectAggregate\IProjectRepository.cs" />
+    <Compile Include="ProjectModule\ProjectAggregate\Project.cs" />
+    <Compile Include="ProjectModule\ProjectAggregate\ProjectSpecification.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QualityModule\ChecklistAggregate\Almacenamiento.cs" />
+    <Compile Include="QualityModule\ChecklistAggregate\Checklist.cs" />
+    <Compile Include="QualityModule\ChecklistAggregate\ChecklistSpecification.cs" />
+    <Compile Include="QualityModule\ChecklistAggregate\Despulpado.cs" />
+    <Compile Include="QualityModule\ChecklistAggregate\Fermentacion.cs" />
+    <Compile Include="QualityModule\ChecklistAggregate\IChecklistRepository.cs" />
+    <Compile Include="QualityModule\ChecklistAggregate\Infraestructura.cs" />
+    <Compile Include="QualityModule\ChecklistAggregate\Mantenimiento.cs" />
+    <Compile Include="QualityModule\ChecklistAggregate\Recoleccion.cs" />
+    <Compile Include="QualityModule\ChecklistAggregate\Secado.cs" />
+    <Compile Include="QualityModule\DashboardAggregate\Clasification.cs" />
+    <Compile Include="QualityModule\MicrolotAggregate\IMicrolotRepository.cs" />
+    <Compile Include="QualityModule\MicrolotAggregate\Microlot.cs" />
+    <Compile Include="QualityModule\MicrolotAggregate\MicrolotSpecification.cs" />
+    <Compile Include="QualityModule\QualityProfileAggregate\IQualityProfileRepository.cs" />
+    <Compile Include="QualityModule\QualityProfileAggregate\QualityProfile.cs" />
+    <Compile Include="QualityModule\SensoryProfileAggregate\OpenTextAttribute.cs" />
+    <Compile Include="QualityModule\SensoryProfileAggregate\QualityAttributeSpecification.cs" />
+    <Compile Include="QualityModule\SensoryProfileAggregate\QualityRecommendation.cs" />
+    <Compile Include="QualityModule\SensoryProfileAggregate\SensoryProfileAssessmentSpecification.cs" />
+    <Compile Include="QualityModule\SensoryProfileAggregate\ISensoryProfileRepository.cs" />
+    <Compile Include="QualityModule\SensoryProfileAggregate\QualityAttribute.cs" />
+    <Compile Include="QualityModule\SensoryProfileAggregate\IQualityAttributeRepository.cs" />
+    <Compile Include="QualityModule\SensoryProfileAggregate\OptionAttribute.cs" />
+    <Compile Include="QualityModule\SensoryProfileAggregate\RangeAttribute.cs" />
+    <Compile Include="QualityModule\SensoryProfileAggregate\SensoryProfileAnswer.cs" />
+    <Compile Include="QualityModule\SensoryProfileAggregate\SensoryProfileAssessment.cs" />
+    <Compile Include="QualityModule\SensoryProfileAggregate\SensoryProfileModules.cs" />
+    <Compile Include="Resources\Messages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Messages.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Specification\AndSpecification.cs" />
+    <Compile Include="Specification\Common\ExpressionBuilder.cs" />
+    <Compile Include="Specification\Common\ParameterRebinder.cs" />
+    <Compile Include="Specification\CompositeSpecification.cs" />
+    <Compile Include="Specification\Contract\ISpecification.cs" />
+    <Compile Include="Specification\DirectSpecification.cs" />
+    <Compile Include="Specification\Implementation\Specification.cs" />
+    <Compile Include="Specification\NotSpecification.cs" />
+    <Compile Include="Specification\OrSpecification.cs" />
+    <Compile Include="Specification\TrueSpecification.cs" />
+    <Compile Include="SustainabilityModule\ContactAggregate\Contact.cs" />
+    <Compile Include="SustainabilityModule\ContactAggregate\Location.cs" />
+    <Compile Include="SustainabilityModule\ContactAggregate\Topic.cs" />
+    <Compile Include="SustainabilityModule\ContactAggregate\ContactType.cs" />
+    <Compile Include="SustainabilityModule\DashboardAggregate\TASQByFarm.cs" />
+    <Compile Include="SustainabilityModule\DashboardAggregate\TASQClasification.cs" />
+    <Compile Include="SustainabilityModule\DashboardAggregate\TASQResults.cs" />
+    <Compile Include="TasqModule\TASQCriteriaType.cs" />
+    <Compile Include="TasqModule\FlagIndicator.cs" />
+    <Compile Include="TasqModule\TASQCriteria.cs" />
+    <Compile Include="TasqModule\Module.cs" />
+    <Compile Include="TasqModule\SubModule.cs" />
+    <Compile Include="TasqModule\TASQAssessment.cs" />
+    <Compile Include="TasqModule\TASQAssessmentAnswer.cs" />
+    <Compile Include="TraceabilityModule\InvoicesAggregate\CoffeeType.cs" />
+    <Compile Include="TraceabilityModule\InvoicesAggregate\IInvoiceRepository.cs" />
+    <Compile Include="TraceabilityModule\InvoicesAggregate\Invoice.cs" />
+    <Compile Include="TraceabilityModule\InvoicesAggregate\InvoiceSpecification.cs" />
+    <Compile Include="TraceabilityModule\LotAggregate\ILotRepository.cs" />
+    <Compile Include="TraceabilityModule\LotAggregate\Lot.cs" />
+    <Compile Include="TraceabilityModule\LotAggregate\LotSpecification.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Messages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Messages.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EFarming.Common\EFarming.Common.csproj">
+      <Project>{675c4e4d-10ff-4b18-98e3-5e2e06d6fcc0}</Project>
+      <Name>EFarming.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EFarming.DTO\EFarming.DTO.csproj">
+      <Project>{B077CAD7-6121-4FB2-A2A4-7A19333FD652}</Project>
+      <Name>EFarming.DTO</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

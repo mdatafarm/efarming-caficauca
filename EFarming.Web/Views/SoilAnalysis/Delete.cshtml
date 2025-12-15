@@ -1,0 +1,56 @@
+﻿@model EFarming.DTO.FarmModule.SoilAnalysisDTO
+<div class="remote">
+    <div class="col-md-10 col-md-offset-1">
+        <div class="alert alert-danger fade in">
+            <h4>@Message.Delete_Item</h4>
+            <p>
+                @Message.Delete_Item_Text
+
+                @Message.Confirmation_Question
+            </p>
+            <p>
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Message.Comment
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Comment)
+                    </dd>
+
+                    <dt>
+                        @FarmMessages.Depth
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Depth)
+                    </dd>
+
+                    <dt>
+                        @Message.Farm
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Farm.Name)
+                    </dd>
+
+                </dl>
+            </p>
+            <p>
+                @using (Html.BeginForm("Delete", "SoilAnalysis", new { id = Model.Id, farmId = Model.FarmId }, FormMethod.Post, new { @class = "to-validate remote-form", role = "form", @data_target = "soil-types-content" }))
+                {
+                    <input type="hidden" value="@ViewBag.PageNumber" name="page" />
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-9">
+                            <button type="submit" class="btn btn-danger">@Message.Confirmation_Text</button>
+                            <a class="btn btn-link modal-close" data-dismiss="modal">@Message.Close</a>
+                        </div>
+                    </div>
+                }
+                <br />
+                <br />
+            </p>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/remote-validation.js"></script>

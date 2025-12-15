@@ -1,0 +1,63 @@
+﻿@{
+    ViewBag.Title = @IndicatorMessage.Impact_Indicators;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@section breadcrumb{
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2 class="page-name">@IndicatorMessage.Impact_Indicators</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="@Url.Action("Index", "Home")">
+                        @Message.Home
+                    </a>
+                </li>
+
+                <li class="active">
+                    <strong>@IndicatorMessage.Impact_Indicators</strong>
+                </li>
+            </ol>
+        </div>
+        <div class="col-lg-2">
+        </div>
+    </div>
+}
+
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>@IndicatorMessage.Impact_Indicators</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="flot-chart farm-search">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="AssessmentTemplate">
+                                        @QualityMessage.Assessment_Template
+                                    </label>
+                                    <select class="form-control input-sm" id="AssessmentTemplate"
+                                            data-bind="options: AssessmentTemplates, optionsText:'Description', value: AssessmentTemplate, optionsCaption: '@string.Format(Message.SelectA, QualityMessage.Assessment_Template)', event:{change: SelectAssessmentTemplate}"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5">
+                                @Html.Partial("~/Views/Indicators/_Indicators.cshtml")
+                            </div>
+                            <div class="col-md-7">
+                                @Html.Partial("~/Views/Indicators/_Criteria.cshtml")
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/mvvm/indicator.js"></script>

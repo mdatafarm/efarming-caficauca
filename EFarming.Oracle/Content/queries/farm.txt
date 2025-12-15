@@ -1,0 +1,17 @@
+select dirv_tercero,  
+terc_finca nombre_finca,  
+terc_vereda vereda,  
+tern_ubicacion_geografica ciudad,  
+'COOCENTRAL' Cooperativa,  
+'ACTIVO' Estado,  
+dirc_tenencia,  
+terc_primer_nombre || ' ' || terc_segundo_nombre FarmerName,  
+terc_primer_apellido || ' ' || terc_segundo_apellido LastName,  
+terf_nacimiento,  
+terc_educacion,  
+terc_estado_civil  
+from bdir_direccion,  
+bter_tercero   
+where terv_codigo = dirv_tercero  
+ and dirn_numero = 0  
+ and terc_publico = 'S' 

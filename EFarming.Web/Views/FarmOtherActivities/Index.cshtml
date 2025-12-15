@@ -1,0 +1,44 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+@model EFarming.DTO.FarmModule.FarmDTO
+<table class="table table-hover table-condensed table-striped">
+    <thead>
+        <tr>
+            <th>@AdminMessage.Other_Activity</th>
+            <th>@Message.Percentage</th>
+            <th>
+                <span class="pull-right">
+                    <a class="btn btn-success btn-xs" href="@Url.Action("Create", "FarmOtherActivities", new { farmId = Model.Id, page = ((IPagedList<EFarming.DTO.FarmModule.FarmOtherActivityDTO>)ViewBag.PagedActivities).PageNumber })" data-toggle="modal" data-target="#modal">
+                        <span class="glyphicon glyphicon-plus">
+                        </span>
+                        @Message.Add
+                    </a>
+                </span>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var activity in (IPagedList<EFarming.DTO.FarmModule.FarmOtherActivityDTO>)ViewBag.PagedActivities)
+        {
+            <tr>
+                <td>@activity.OtherActivity.Name</td>
+                <td>@activity.FormatedPercentage</td>
+                <td>
+                    <span class="pull-right">
+                        <a href="@Url.Action("Edit", "FarmOtherActivities", new { id = activity.Id, farmId = activity.FarmId, page = ((IPagedList<EFarming.DTO.FarmModule.FarmOtherActivityDTO>)ViewBag.PagedActivities).PageNumber })" data-toggle="modal" data-target="#modal" class="btn btn-link link-edit">
+                            <span class="glyphicon glyphicon-edit"></span>
+                            @Message.Edit
+                        </a>
+                        <a href="@Url.Action("Delete", "FarmOtherActivities", new { id = activity.Id, farmId = activity.FarmId, page = ((IPagedList<EFarming.DTO.FarmModule.FarmOtherActivityDTO>)ViewBag.PagedActivities).PageNumber })" data-toggle="modal" data-target="#modal" class="btn btn-link link-delete">
+                            <span class="glyphicon glyphicon-remove-sign"></span>
+                            @Message.Delete
+                        </a>
+                    </span>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@Html.PagedListPager((IPagedList<EFarming.DTO.FarmModule.FarmOtherActivityDTO>)ViewBag.PagedActivities,
+    page => Url.Action("Index", "FarmOtherActivities", new { page, farmId = Model.Id }),
+            PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new System.Web.Mvc.Ajax.AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "soil-types-content" }))

@@ -1,0 +1,17 @@
+﻿@model EFarming.Core.TasqModule.TASQCriteria
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
+<div class="row remote" id="module-form">
+    <div class="col-md-10 col-md-offset-1">
+        <h4>Preguntas</h4>
+        <form action="@Url.Action("Create", "TASQCriterias")" method="post" class="form-horizontal to-validate remote-form" role="form" data-target="tasq-criterias-content">
+            @Html.Partial("~/Areas/SustainabilityArea/Views/TASQCriterias/_Form.cshtml", Model)
+        </form>
+    </div>
+</div>
+<script src="~/Scripts/remote-validation.js"></script>

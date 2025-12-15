@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = AdminMessage.Pending_Users;
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h4>@AdminMessage.Pending_Users</h4>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover table-condensed">
+        <thead>
+            <tr>
+                <th>@Message.First_Name</th>
+                <th>@Message.Last_Name</th>
+                <th>@Message.Email</th>
+                <th>@Message.Actions</th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: Users">
+
+            <tr>
+                <td data-bind="text: FirstName"></td>
+                <td data-bind="text: LastName"></td>
+                <td data-bind="text: Email"></td>
+                <td>
+                    <div class="pull-right">
+                        <a class="btn btn-primary" href="#" data-bind="click: Approve">
+                            <span class="glyphicon glyphicon-edit">
+                            </span>
+                            @AdminMessage.Approve
+                        </a>
+                        <a class="btn btn-danger" href="#" data-bind="click: Deny">
+                            <span class="glyphicon glyphicon-trash">
+                            </span>
+                            @AdminMessage.Deny
+                        </a>
+                    </div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+
+<script src="~/Scripts/mvvm/Users.js"></script>

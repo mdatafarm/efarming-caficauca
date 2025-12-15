@@ -1,0 +1,90 @@
+﻿@model EFarming.Core.TasqModule.TASQCriteria
+
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<div class="form-group">
+    <label class="control-label col-md-2">Pregunta</label>
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="control-label col-md-2">Sub Categoría</label>
+    <div class="col-md-10">
+        @Html.DropDownList("SubModuleId", null, htmlAttributes: new { @class = "form-control", required = "required" })
+        @Html.ValidationMessageFor(model => model.SubModuleId, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="control-label col-md-2">Indicador</label>
+    <div class="col-md-10">
+        @Html.DropDownList("FlagIndicatorId", null, htmlAttributes: new { @class = "form-control", required = "required" })
+        @Html.ValidationMessageFor(model => model.FlagIndicatorId, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="control-label col-md-2">Tipo</label>
+    <div class="col-md-10">
+        <select class="form-control" id="CriteriaTypeId" name="CriteriaTypeId" required="required">
+            @foreach (var item in ViewBag.CriteriaTypeId)
+            {
+                if (Model != null)
+                {
+
+
+                    if (Model.CriteriaTypeId.ToString() == item.Value)
+                    {
+                        <option value="@item.Value" selected>@item.Text</option>
+                    }
+                    else
+                    {
+                        <option value="@item.Value">@item.Text</option>
+                    }
+                }
+                else
+                {
+                    <option value="@item.Value">@item.Text</option>
+                }
+            }
+        </select>
+        @Html.ValidationMessageFor(model => model.CriteriaTypeId, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="control-label col-md-2">Nombre corto</label>
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.Short, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+        @Html.ValidationMessageFor(model => model.Short, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="control-label col-md-2">Orden</label>
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.CriteriaOrder, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+        @Html.ValidationMessageFor(model => model.CriteriaOrder, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="control-label col-md-2"> Opciones de respuestas</label>
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.Options, new { htmlAttributes = new { @class = "form-control", required = "" } })
+        @Html.ValidationMessageFor(model => model.Options, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    <center>
+        <label id="information"></label>
+    </center>
+    <br />
+    <div class="col-sm-offset-3 col-sm-9">
+        <button class="btn btn-success" id="SaveFarm">Guardar</button>
+        <a class="btn btn-link link-delete modal-close" id="btnClosePopup" data-dismiss="modal">Cerrar</a>
+    </div>
+</div>

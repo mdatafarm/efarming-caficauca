@@ -1,0 +1,63 @@
+﻿@*@model IEnumerable<EFarming.Core.ComercialModule.ContractLot>*@
+@model List<IGrouping<Guid, EFarming.Core.ComercialModule.ContractLot>>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@using (Html.BeginForm("Create", "Shipments", FormMethod.Get, new { @id = "formCreate" }))
+{
+    string contractIds = null;
+    foreach (var item in ViewBag.ContractsForLots)
+    {
+        contractIds = contractIds + item + "|";
+    }    
+    <table class="table table-fixed-header">
+        <thead>
+            <tr class="filters">
+                <th class="text-center"><input class="btn btn-success" type="submit" value="Ship lots" /></th>
+                <th><input type="text" class="form-control" placeholder="Internal Refrence" disabled></th>
+                <th><input type="text" class="form-control" placeholder="Ico Mark" disabled></th>
+                <th><input type="text" class="form-control" placeholder="B/L" disabled></th>
+                <th><span class="glyphicon glyphicon-cog"></span></th>
+            </tr>
+        </thead>
+        @foreach (var item in Model)
+        {
+            int i = 1;
+            foreach (var shipmentItem in ViewBag.shipments)
+            {
+                if (item.Select(s => s.ShipmentId).First() == shipmentItem)
+                {
+                    string color = "#fff";
+                    if (i % 2 == 0)
+                    {
+                        color = "#f9f9f9";
+                    }
+                    foreach (var lot in item.OrderBy(l => Convert.ToInt32(l.LotReference.Split('-')[1])).ToList())
+                    {
+                        <tr style="background-color:@color">
+                            <td class="text-center">
+                                <input type="checkbox" name="lotsForShipment" value="@lot.Id" />
+                            </td>
+                            <td>
+                                @lot.LotReference
+                            </td>
+                            <td>
+                                @lot.IcoMark
+                            </td>
+                            <td>
+                                @lot.Shipment.DocumentBL
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = lot.Id, ContractsForLots = contractIds })
+                            </td>
+                        </tr>
+                    }
+                }
+                i++;
+            }
+        }
+    </table>
+}
+

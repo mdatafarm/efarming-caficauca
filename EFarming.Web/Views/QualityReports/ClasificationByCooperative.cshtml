@@ -1,0 +1,118 @@
+﻿
+@{
+    ViewBag.Title = "Clasification";
+}
+
+@section scripts{
+    <script src="~/Scripts/highcharts/highcharts.js"></script>
+    <script src="~/Scripts/highcharts/highcharts-more.js"></script>
+    <script src="~/Scripts/highcharts/solid-gauge.src.js"></script>
+    <script src="~/Scripts/highcharts/exporting.js"></script>
+    <script src="~/Scripts/dashboard/common.js"></script>
+    <script src="~/Scripts/dashboard/QualityClasificationByCooperative.js"></script>
+}
+
+@section breadcrumb{
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2 class="page-name">@QualityMessage.DashboardByCooperative</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="@Url.Action("Index", "Home")">
+                        @Message.Home
+                    </a>
+                </li>
+
+                <li>
+                    <a href="@Url.Action("Clasification", "QualityReports")">
+                        @QualityMessage.Dashboard
+                    </a>
+                </li>
+
+                <li class="active">
+                    <strong>@ViewBag.cooperative</strong>
+                </li>
+            </ol>
+        </div>
+        <div class="col-lg-2">
+        </div>
+    </div>
+}
+
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-lg-9">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-content" style="display: block;">
+                            <div class="flot-chart">
+                                <div class="charts" id="clasification">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-content" style="display: block;">
+                            <div class="flot-chart">
+                                <div class="charts" id="farms-per-location">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content information-content">
+                    <div class="file-manager">
+                        <h4 class="information">@DashboardMessage.Plantation_Information</h4>
+                        <div class="space-25"></div>
+                        <ul class="folder-list m-b-md">
+                            <li>
+                                <i class="fa fa-globe">&nbsp;</i>
+                                @AdminMessage.Location:
+                                <span class="pull-right"><strong>@ViewBag.cooperative</strong></span>
+                            </li>
+                            <li>
+                                <i class="fa fa-map-marker">&nbsp;</i>
+                                Cooperativas:
+                                <ul>
+                                    @foreach (var cooperative in ViewBag.cooperatives)
+                                    {
+                                        <li>
+                                            <a href="@Url.Action("ClasificationByCooperative", "QualityReports", new { id = cooperative.Id })">
+                                                @cooperative.Name
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                            </li>
+                            @*<li>
+                                    <i class="fa fa-home"></i>
+                                    @DashboardMessage.Number_Of_Farms:
+                                    <span class="badge pull-right">@ViewBag.CountFarms</span>
+                                </li>
+                                <li>
+                                    <i class="fa fa-th-large"></i>
+                                    @DashboardMessage.Total_Area:
+                                    <span class="badge pull-right">@ViewBag.TotalArea</span>
+                                </li>*@
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- se almacena la coperativa en la variable para la seleccion de las coperativas en QualityClasificationByCooperative.js -->
+<script type="text/javascript">
+    var cooperative = "@ViewBag.cooperativeId";
+</script>
+
+
+

@@ -1,0 +1,175 @@
+﻿
+@{
+    ViewBag.Title = "Clasification";
+}
+
+@section scripts{
+    <script src="~/Scripts/highcharts/highcharts.js"></script>
+    <script src="~/Scripts/highcharts/highcharts-more.js"></script>
+    <script src="~/Scripts/highcharts/solid-gauge.src.js"></script>
+    <script src="~/Scripts/highcharts/exporting.js"></script>
+    <script src="~/Scripts/jquery-ui-1.10.4.min.js"></script>
+    <script src="~/Scripts/dashboard/common.js"></script>
+    <script src="~/Scripts/dashboard/QualityClasification.js"></script>
+}
+
+<link href="~/Content/themes/base/all.css" rel="stylesheet" />
+
+@section breadcrumb{
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2 class="page-name">@QualityMessage.Dashboard</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="@Url.Action("Index", "Home")">
+                        @Message.Home
+                    </a>
+                </li>
+
+                <li class="active">
+                    <strong>@QualityMessage.Dashboard</strong>
+                </li>
+            </ol>
+        </div>
+        <div class="col-lg-2">
+        </div>
+    </div>
+}
+
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Dashboard</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="flot-chart farm-search">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form class="form-inline" role="form" method="get" action="/QualityReports/Clasification">
+                                    <div class="form-group">
+                                        <label for="year">@Message.Start_Date</label>
+                                        <input type="date" id="start" name="start" class="form-control" value="@ViewBag.start.ToString("yyyy-MM-dd")" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="year">@Message.End_Date</label>
+                                        <input type="date" id="end" name="end" class="form-control" value="@ViewBag.end.ToString("yyyy-MM-dd")" />
+                                    </div>
+                                    <button type="submit" class="btn btn-default">@Message.Search</button>
+                                </form>
+                            </div>
+                            <hr />
+                            <div class="col-lg-12">
+                                <div class="row">
+
+                                    <div class="col-lg-6">
+                                        <div class="ibox float-e-margins">
+                                            <div class="ibox-content" style="display: block;">
+                                                <div class="flot-chart">
+                                                    <div class="charts" id="ByType">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="ibox float-e-margins">
+                                            <div class="ibox-content" style="display: block;">
+                                                <div class="flot-chart">
+                                                    <div class="charts" id="QDA">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <div class="ibox float-e-margins">
+                                            <div class="ibox-content" style="display: block;">
+                                                <div class="flot-chart">
+                                                    <div class="charts" id="farms-per-location">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="ibox float-e-margins">
+                                            <div class="ibox-content" style="display: block;">
+                                                <div class="flot-chart">
+                                                    <div class="charts" id="clasification">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @*<div class="col-lg-3">
+                                <div class="ibox float-e-margins">
+                                    <div class="ibox-content information-content">
+                                        <div class="file-manager">
+                                            <h4 class="information">@DashboardMessage.Plantation_Information</h4>
+                                            <div class="space-25"></div>
+                                            <ul class="folder-list m-b-md">
+                                                <li>
+                                                    <i class="fa fa-map-marker">&nbsp;</i>
+                                                    Cooperativas:
+                                                    <ul>
+                                                        @foreach (var cooperative in ViewBag.cooperatives)
+                                                        {
+                                                            <li>
+                                                                <a href="@Url.Action("ClasificationByCooperative", "QualityReports", new { cooperativeId = cooperative.CooperativeId })">
+                                                                    @cooperative.Name
+                                                                </a>
+                                                            </li>
+                                                        }
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    //$(function () {
+    //    $("#start").datepicker({
+    //        changeMonth: true,
+    //        changeYear: true,
+    //        dateFormat: "yy-mm-dd",
+    //        /*Configuracion para mostrar la fecha abajo del textbox*/
+    //        beforeShow: function (input, inst) {
+    //            var rect = input.getBoundingClientRect();
+    //            setTimeout(function () {
+    //                inst.dpDiv.css({ top: rect.top + 40, left: rect.left + 0 });
+    //            }, 0);
+    //        }
+    //    });
+    //    $("#end").datepicker({
+    //        changeMonth: true,
+    //        changeYear: true,
+    //        dateFormat: "yy-mm-dd",
+    //        beforeShow: function (input, inst) {
+    //            var rect = input.getBoundingClientRect();
+    //            setTimeout(function () {
+    //                inst.dpDiv.css({ top: rect.top + 40, left: rect.left + 0 });
+    //            }, 0);
+    //        }
+    //    });
+    //});
+
+    var startdate = "@ViewBag.SelectedStart";
+    var enddate = "@ViewBag.SelectedEnd";
+</script>
+
+

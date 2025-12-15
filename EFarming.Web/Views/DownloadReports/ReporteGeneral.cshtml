@@ -1,0 +1,39 @@
+﻿@model IEnumerable<EFarming.Web.Controllers.DownloadReportsController>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2 class="page-name">Reporte general</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="@Url.Action("ReporteGeneral", "DownloadReports")">
+                    Descargar reporte
+                </a>
+            </li>
+
+            <li class="active">
+                <strong>Reporte integrado</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+
+<div class="row wrapper border-bottom white-bg page-heading" style="margin-top:15px">
+    <div class="col-lg-10" style="margin-top:15px">
+        <form class="form-inline col-md-12" role="form" method="get" action="~/DownloadReports/ToExcelReporteGeneral">
+            @*<div class="form-group">
+                <label> Filtro por año: Desde: </label>
+                  @string.Format("{0:yyyy}", DateTime.Now)
+                <input type="number" id="start" name="start" class="form-control dateField" value="@ViewBag.year" />
+                <input type="hidden" id="reports" name="reports" class="form-control dateField" value="1" />
+            </div>*@
+            <div class="form-group">
+                <button type="submit" class="btn btn-default">Descargar reporte</button>
+            </div>
+        </form>
+    </div>
+</div>

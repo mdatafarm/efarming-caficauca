@@ -1,0 +1,95 @@
+﻿@model EFarming.Core.SustainabilityModule.ContactAggregate.Contact
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+
+            <h4 class="panel-title">Información Contacto</h4>
+        </div>
+
+        <div class="panel-body">
+
+
+            <dl class="dl-horizontal">
+                <dt>
+                  Nombre
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+                <dt>
+                  Fecha
+                </dt>
+
+                <dd>
+                    @string.Format("{0:dd/MM/yyyy}", Model.Date)
+                </dd>
+                <dt>
+                    Tipo
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Type.Name)
+                </dd>
+                <dt>
+                    Ubicación
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Location.Name)
+                </dd>
+                <dt>
+                   Comentarios
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Comment)
+                </dd>
+                <dt>
+                    Fincas
+                </dt>
+                <dd>
+                    <ul style="list-style-type: none; padding:0">
+                        @foreach (var farm in Model.Farms)
+                        {
+                            <li>@farm.Code @farm.Name</li>
+                        }
+                    </ul>
+                </dd>
+                <dt>
+                    Temas
+                </dt>
+                <dd>
+                    <ul style="list-style-type: none; padding:0">
+                        @foreach (var topic in Model.Topics)
+                        {
+                            <li>@topic.Name</li>
+                        }
+                    </ul>
+                </dd>
+                <dt>
+                    Usuario
+                </dt>
+                <dd>
+                    @Model.User.FirstName @Model.User.LastName
+                </dd>
+            </dl>
+        </div>
+
+        <div class="form-group col-md-12" style="margin-top:10px">
+            @if (!ViewBag.User.IsReader())
+            {
+                <div class="col-md-offset-4 col-md-2">
+                    <div class="col-md-2">@Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-success btn-lg" })</div>
+                </div>
+                <div>
+                    <div class="col-md-2">@Html.ActionLink("Atrás", "Index", null, new { @class = "btn btn-default btn-block btn-lg" })</div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

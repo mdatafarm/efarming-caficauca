@@ -1,0 +1,275 @@
+﻿@model EFarming.DTO.FarmModule.FarmDTO
+@{ ICollection<EFarming.DTO.QualityModule.SensoryProfileAssessmentDTO> PTList = (ICollection<EFarming.DTO.QualityModule.SensoryProfileAssessmentDTO>)ViewBag.PT; }
+@{ ICollection<EFarming.DTO.QualityModule.SensoryProfileAssessmentDTO> PCList = (ICollection<EFarming.DTO.QualityModule.SensoryProfileAssessmentDTO>)ViewBag.PC; }
+
+@{
+    ViewBag.Title = "Prueba de Taza por Finca";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/themes/base/all.css" rel="stylesheet" />
+
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div class="flot-chart farm-search">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <center>
+                                    <h1>Laboratorio de Catación</h1>
+                                    <h2>RESULTADO ANALISIS DE MUESTRA</h2>                                    
+                                </center>
+                            </div>                            
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table table-bordered table-responsive">
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="4" align="center"><strong>ANALISIS FISICO Y SENSORIAL DE CAFE</strong></td>
+                                            <td class="center">COD: @Model.Code  </td>
+                                            <td class="center"><a href="@Url.Action("Edit", "Farms", new { id = Model.Id })" class="btn btn-success btn-sm">Ver Finca</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="6" align="center">
+                                                <strong> INFORMACION GENERAL DE LA FINCA </strong>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong> Nombre de la finca </strong></td>
+                                            <td>@Model.Name</td>
+                                            <td><strong> Cadena de Suministros </strong></td>
+                                            <td>@Model.SupplyChain.Name</td>
+                                            <td><strong> Cooperativa </strong></td>
+                                            <td>@Model.Cooperative.Name</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong> Departamentno </strong></td>
+                                            <td>@Model.Village.Municipality.Department.Name</td>
+                                            <td><strong> Municipio </strong></td>
+                                            <td>@Model.Village.Municipality.Name</td>
+                                            <td><strong> Vereda </strong></td>
+                                            <td>@Model.Village.Name</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong> Total Hectarias </strong></td>
+                                            <td>@Model.Productivity.TotalHectares </td>
+                                            <td><strong> Indicador de Edad </strong></td>
+                                            <td>@Model.AgeIndicator</td>
+                                            <td><strong> Altura </strong></td>
+                                            <td>@Model.GeoLocation.Elevation </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="6" align="center">
+                                                <strong> INFORMACION GENERAL DE LA(s) MUESTRA(s) </strong>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="6">
+                                                <center><strong><h2>PUNTAJE DE CATACION Y PERFIL</h2></strong></center>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="6">
+                                                @*@Html.Partial("~/Views/QualityReports/_byTasterReport.cshtml", PTList)*@
+                                                @*<div class="container-fluid" style="overflow: auto">*@
+                                                @if (PTList != null)
+                                                {
+                                                    <ul class="nav nav-tabs">
+                                                        @foreach (var item in PTList)
+                                                        {
+                                                        <li><a href="#@item.Id" data-toggle="tab" class="sub-active btn btn-sm btn-success">@String.Format("{0:m}", item.FormatedDate)</a></li>
+                                                        }
+                                                    </ul>
+                                                    <div class="tab-content">
+                                                        @foreach (var item in PTList)
+                                                        {
+                                                        <div id="@item.Id" class="tab-pane fade">
+                                                            <table class="table table-responsive">                                                                
+                                                                <tr>
+                                                                    <td><strong> Fecha de recoleccion </strong></td>
+                                                                    <td>@item.InputDateFormated</td>
+                                                                    <td><strong> Tecnico </strong></td>
+                                                                    <td>@item.User.FullName</td>
+                                                                    <td><strong> Fecha Creacion Sistema </strong></td>
+                                                                    <td>@item.CreatedAt</td>
+                                                                    <td align="right">
+                                                                        <a href="@Url.Action("PDF", "Reports",new {id = item.Id})" class="img img-responsive"><img src="~/Images/pdf1.png" alt="PDF" /></a>
+                                                                    </td>
+                                                                </tr>                                                                
+                                                                <tr>
+                                                                    <td><strong>Tipo de Prueba</strong></td>
+                                                                    <td>@item.Type</td>
+                                                                    <td><strong>Descripcion</strong></td>
+                                                                    <td colspan="4">
+                                                                        @item.Description
+                                                                    </td>
+                                                                </tr>                                                                
+                                                                <tr>
+                                                                    <td colspan="6">
+                                                                        <table class="table table-responsive table-hover table-bordered">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <!--
+                                                                                    1. FRAGANCIA /AROMA
+                                                                                    3. ACIDEZ
+                                                                                    4. CUERPO
+                                                                                    5. AMARGO
+                                                                                    6. VINOSO
+                                                                                    7. CLASIFICACIÓN
+                                                                                    8. ATRIBUTOS POSITIVOS
+                                                                                    9. ATRIBUTOS NEGATIVOS
+                                                                                    10. KILOGRAMOS
+                                                                                    11. OBSERVACIONES
+                                                                                    12. DECISION-->
+
+                                                                                    <th class="col-md-1">CLASIFICACION</th>
+                                                                                    <th class="col-md-1">Fragancia</th>
+                                                                                    <th class="col-md-1">Sabor</th>
+                                                                                    <th class="col-md-1">Sabor residual</th>
+                                                                                    <th class="col-md-1">Acidez</th>
+                                                                                    <th class="col-md-1">Cuerpo</th>
+                                                                                    <th class="col-md-1">Balance</th>
+                                                                                    <th class="col-md-1">Dulzor</th>
+                                                                                    <th class="col-md-1">Puntaje Catador</th>
+                                                                                    <th class="col-md-1">Taza limpia</th>
+                                                                                    <th class="col-md-1">uniformidad</th>
+                                                                                    <th class="col-md-1">ATRIBUTOS POSITIVOS</th>
+                                                                                    <th class="col-md-1">ATRIBUTOS NEGATIVOS</th>
+                                                                                    <th class="col-md-1">KILOGRAMOS</th>
+                                                                                    <th class="col-md-1">OBSERVACIONES</th>                                                                             
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    @foreach (var attr in (List<EFarming.DTO.QualityModule.QualityAttributeDTO>)ViewBag.Cupping)
+                                                                                    {
+                                                                                        var ans = item.GetAnswersByAttribute(attr).GetString();
+
+                                                                                        if (ans != null)
+                                                                                        {
+                                                                                            <td class="col-md-1">@ans</td>
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            <td class="col-md-1">@String.Empty</td>
+                                                                                        }
+                                                                                    }
+                                                                                </tr>                                                                                
+                                                                            </tbody>                                                                           
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                        }
+                                                    </div>
+                                                }
+                                            </td>
+                                           <!-- FIN CUADRO DE ANALISIS SENSORIAL -->
+                                        </tr>                                        
+                                        <tr>
+                                            <td colspan="6" align="center">
+                                                <strong><h2> CARACTERISTICAS FISICAS </h2> </strong>
+                                            </td>
+                                        </tr>                                        
+                                        <tr>
+                                        <tr>
+                                            <td colspan="6">
+                                                @*@Html.Partial("~/Views/QualityReports/_byTasterReport.cshtml", PTList)*@
+                                                @*<div class="container-fluid" style="overflow: auto">*@
+                                                @if (PCList != null)
+                                                {
+                                                    <ul class="nav nav-tabs">
+                                                        @foreach (var item in PCList)
+                                                        {
+                                                            <li><a href="#@item.Id" data-toggle="tab" class="sub-active btn btn-sm btn-success">@String.Format("{0:m}", item.FormatedDate)</a></li>
+                                                        }
+                                                    </ul>
+                                                    <div class="tab-content">
+                                                        @foreach (var item in PCList)
+                                                        {
+                                                            <div id="@item.Id" class="tab-pane fade">
+                                                                <table class="table table-responsive">
+                                                                    <tr>
+                                                                        <td><strong> Fecha de recoleccion </strong></td>
+                                                                        <td>@item.InputDateFormated</td>
+                                                                        <td><strong> Tecnico </strong></td>
+                                                                        <td>@item.User.FullName</td>
+                                                                        <td><strong> Fecha Creacion Sistema </strong></td>
+                                                                        <td>@item.CreatedAt</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td><strong>Tipo de Prueba</strong></td>
+                                                                        <td>@item.Type</td>
+                                                                        <td><strong>Descripcion</strong></td>
+                                                                        <td colspan="3">
+                                                                            @item.Description
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td colspan="6">
+                                                                            <table class="table table-responsive table-hover table-bordered">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        @foreach (var attr in (List<EFarming.DTO.QualityModule.QualityAttributeDTO>)ViewBag.PuntoZero)
+                                                                                        {
+                                                                                            <th>@attr.Description </th>
+                                                                                        }                                                                                        
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    <tr>
+                                                                                        @foreach (var attr in (List<EFarming.DTO.QualityModule.QualityAttributeDTO>)ViewBag.PuntoZero)
+                                                                                        {
+                                                                                            var ans = item.GetAnswersByAttribute(attr).GetString();
+
+                                                                                            if (ans != null)
+                                                                                            {
+                                                                                                <td class="col-md-1">@ans</td>
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                <td class="col-md-1">@String.Empty</td>
+                                                                                            }
+                                                                                        }
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                }
+                                            </td>
+                                        </tr>                                           
+                                        <tr>
+                                            <td colspan="6"><center>Este informe es de caracter educativo, No tiene ningun uso comercial y solo aplica para las muestras levantadas por el personal de la emrpesa</center></td>
+                                        </tr>                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

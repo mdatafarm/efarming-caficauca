@@ -1,0 +1,424 @@
+﻿@model EFarming.DTO.FarmModule.FarmDTO
+
+@{
+    Layout = "~/Views/Shared/_printable_layout.cshtml";
+    @*<link href="@Server.MapPath("~/Content/bootstrap.min.css")" rel="stylesheet" />*@
+var principal = Model.Images.FirstOrDefault(i => i.Principal);
+if (principal == null)
+{
+    principal = Model.Images.FirstOrDefault();
+}
+}
+
+@section title{
+    @ReportMessage.Farm_Report 
+}
+<div class="row">
+    <div class="col-xs-12">
+        <center>
+            <h4>
+                <b>FINCA: @Model.Name</b>
+            </h4>
+        </center>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="col-xs-2">
+                @if (principal != null)
+                {
+                    <img src="@principal.Thumb" alt="@principal.Name" class="img-rounded" style="width:150px;">
+                }
+            </div>
+            <div class="col-xs-10">
+                <div class="row">
+                    <div class="col-xs-2">
+                    </div>
+                    <div class="col-xs-2">
+                        <h4 class="">@Message.Country</h4>
+                        <p class="">
+                            @Model.SupplyChain.Supplier.Country.Name
+                        </p>
+                    </div>
+                    <div class="col-xs-2">
+                        <h4 class="">Departamento</h4>
+                        <p class="">
+                            @Model.Village.Municipality.Department.Name
+                        </p>
+                    </div>
+                    <div class="col-xs-2">
+                        <h4 class="">Municipio</h4>
+                        <p class="">
+                            @Model.Village.Municipality.Name
+                        </p>
+                    </div>
+                    <div class="col-xs-2">
+                        <h4 class="">Vereda</h4>
+                        <p class="">
+                            @Model.Village.Name
+                        </p>
+                    </div>
+                    <div class="col-xs-2">
+                        <h4 class="">Agencia</h4>
+                        <p class="">
+                            @Model.SupplyChain.Name
+                        </p>
+                    </div>
+
+                </div>
+                <hr />
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-xs-3">
+                <h4 class="page-header text-capitalize">Productivity summary</h4>
+                <table class="table table-hover table-condensed table-striped">
+                    <tbody>
+                        <tr>
+                            <td><b>Edad promedio</b></td>
+                            <td>@Model.Productivity.averageAge.ToString("0.##")</td>
+                        </tr>
+                        <tr>
+                            <td><b>Densidad promedio</b></td>
+                            <td>@Convert.ToDouble(Model.Productivity.averageDensity.Replace(".", ",")).ToString("0.##")</td>
+                        </tr>
+                        <tr>
+                            <td><b>Area cafe</b></td>
+                            <td>@Model.Productivity.coffeeArea</td>
+                        </tr>
+                        <tr>
+                            <td><b>Produccion estimada</b></td>
+                            <td>@Model.Productivity.estimatedProduction</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-xs-3">
+                <h4 class="page-header text-capitalize">Productive trees</h4>
+                <table class="table table-hover table-condensed table-striped">
+                    <tbody>
+                        <tr>
+                            <td><b>Árboles productivos</b></td>
+                            <td>@Model.Productivity.productionPlants</td>
+                        </tr>
+                        <tr>
+                            <td><b>Árboles productivos (%)</b></td>
+                            <td>% @Model.Productivity.productionPercentage.ToString("0.##")</td>
+                        </tr>
+                        <tr>
+                            <td><b>Area productiva</b></td>
+                            <td>@Model.Productivity.productionArea</td>
+                        </tr>
+                        <tr>
+                            <td><b>Area productiva (%)</b></td>
+                            <td>% @Model.Productivity.productionAreaPercentage.ToString("0.##")</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-xs-3">
+                <h4 class="page-header text-capitalize">Growing trees</h4>
+                <table class="table table-hover table-condensed table-striped">
+                    <tbody>
+                        <tr>
+                            <td><b>Árboles en crecimiento</b></td>
+                            <td>@Model.Productivity.growingPlants</td>
+                        </tr>
+                        <tr>
+                            <td><b>Árboles en crecimiento (%)</b></td>
+                            <td>% @Model.Productivity.growingPercentage.ToString("0.##")</td>
+                        </tr>
+                        <tr>
+                            <td><b>Área de cultivo</b></td>
+                            <td>@Model.Productivity.growingArea</td>
+                        </tr>
+                        <tr>
+                            <td><b>Área de cultivo (%)</b></td>
+                            <td>% @Model.Productivity.growingAreaPercentage.ToString("0.##")</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-xs-3">
+                <h4 class="page-header text-capitalize">Varieties Information</h4>
+                <table class="table table-hover table-condensed table-striped">
+                    <tbody>
+                        <tr>
+                            <td><b>Colombia (%)</b></td>
+                            <td class="align-right">% @Model.Productivity.percentageColombia.ToString("0.##")</td>
+                        </tr>
+                        <tr>
+                            <td><b>Caturra (%)</b></td>
+                            <td class="align-right">% @Model.Productivity.percentageCaturra.ToString("0.##")</td>
+                        </tr>
+                        <tr>
+                            <td><b>Castillo (%)</b></td>
+                            <td class="align-right">% @Model.Productivity.percentageCastillo.ToString("0.##")</td>
+                        </tr>
+                        <tr>
+                            <td><b>Otros (%)</b></td>
+                            <td class="align-right">% @Model.Productivity.percentageotra.ToString("0.##")</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <h2>Plantaciones</h2>
+        <table class="table table-hover table-condensed table-striped">
+            <thead>
+                <tr>
+                    <th>@AdminMessage.Plantation_Type</th>
+                    <th>@AdminMessage.Plantation_Variety</th>
+                    <th>@FarmMessages.Hectares</th>
+                    <th>@FarmMessages.Estimated_Production</th>
+                    <th>@Message.Age (years)</th>
+                    <th>@FarmMessages.Number_Of_Plants</th>
+                    @*<th>@FarmMessages.Number_Of_Productive_Plants</th>*@
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var plantation in (IEnumerable<EFarming.DTO.FarmModule.PlantationDTO>)Model.Productivity.Plantations)
+                {
+                    <tr>
+                        <td>@plantation.PlantationType.Name</td>
+
+                        @{
+                            if (plantation.PlantationVariety != null)
+                            {
+                                <td>
+                                    @plantation.PlantationVariety.Name
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    @string.Empty
+                                </td>
+                            }
+                        }
+
+                        <td>@plantation.Hectares</td>
+                        <td>@plantation.EstimatedProduction</td>
+                        @{
+                            TimeSpan daysAge = DateTime.Now - plantation.Age;
+                            double Age = (daysAge.Days * 1.0) / 365;
+                        }
+                        <td>@Age.ToString("0.#")</td>
+                        <td>@plantation.NumberOfPlants</td>
+                        @*<td>@plantation.NumberOfProductivePlants</td>*@
+                    </tr>
+                            }
+            </tbody>
+        </table>
+        <h2>@FarmMessages.Family_Unit</h2>
+        <table class="table table-hover table-condensed table-striped">
+            <thead>
+                <tr>
+                    <th>@Message.Owner</th>
+                    <th>@Message.First_Name</th>
+                    <th>@Message.Last_Name</th>
+                    <th>Date Of Birthday</th>
+                    <th>@Message.Identification</th>
+                    <th>@Message.Education</th>
+                    <th>@Message.Relationship</th>
+                    <th>@Message.Marital_Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var member in (IEnumerable<EFarming.DTO.FarmModule.FamilyUnitMemberDTO>)Model.FamilyUnitMembers)
+                {
+                    <tr>
+                        <td>
+                            @{
+                                if (member.IsOwner)
+                                {
+                                    <span class="glyphicon glyphicon-ok"></span>
+                                }
+                                else
+                                {
+                                    <span></span>
+                                }
+                            }
+                        </td>
+                        <td>@member.FirstName</td>
+                        <td>@member.LastName</td>
+                        <td>@string.Format("{0:dd/MM/yyyy}", Convert.ToDateTime(@member.Age))</td>
+                        <td>@member.Identification</td>
+                        <td>@member.Education</td>
+                        <td>@member.Relationship</td>
+                        <td>@member.MaritalStatus</td>
+                    </tr>
+                                }
+            </tbody>
+        </table>
+        <h2>Proyectos</h2>
+        <table class="table table-hover table-condensed table-striped">
+            <tr>
+                <th>
+                    @Message.Name
+                </th>
+                <th>
+                    @Message.Description
+                </th>
+            </tr>
+
+            @foreach (var item in Model.Projects)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+        @*<hr />
+            <h2>@Message.Indicators</h2>
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <h2 class="text-capitalize text-center">
+                                        <strong>@DashboardMessage.Fertilizers</strong>
+                                    </h2>
+                                </div>
+                                <div class="col-xs-12">
+                                    <p class="lead text-capitalize text-center">
+                                        @string.Format("{0:0.##}", Model.FertilizerIndicator)
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class=" col-xs-12 text-capitalize text-center">
+                                    <strong>@DashboardMessage.Number_Productive_Plants:</strong>
+                                    @Model.Plants
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class=" col-xs-12 text-center text-capitalize">
+                                    <strong>@DashboardMessage.Number_Fertilizer_Bags:</strong>
+                                    @Model.FertilizerBags
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12" id="fertilizer-indicator">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <h2 class="text-capitalize text-center">
+                                        <strong>@DashboardMessage.Density</strong>
+                                    </h2>
+                                </div>
+                                <div class="col-xs-12">
+                                    <p class="lead text-capitalize text-center">
+                                        @string.Format("{0:0.##}", Model.DensityIndicator)
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class=" col-xs-12 text-capitalize text-center">
+                                    <strong>@DashboardMessage.Number_Plants:</strong>
+                                    @Model.Plants
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class=" col-xs-12 text-center text-capitalize">
+                                    <strong>@DashboardMessage.Number_Hectares:</strong>
+                                    @Model.Hectares
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12" id="density-indicator">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <h2 class="text-capitalize text-center">
+                                        <strong>@DashboardMessage.Productivity</strong>
+                                    </h2>
+                                </div>
+                                <div class="col-xs-12">
+                                    <p class="lead text-capitalize text-center">
+                                        @string.Format("{0:0.##}", Model.ProductivityIndicator)
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class=" col-xs-12 text-capitalize text-center">
+                                    <strong>@DashboardMessage.Estimated_Production:</strong>
+                                    @string.Format("{0:0.##}", Model.EstimatedProduction)
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class=" col-xs-12 text-center text-capitalize">
+                                    <strong>@DashboardMessage.Number_Hectares:</strong>
+                                    @Model.Hectares
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12" id="productivity-indicator">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <h2 class="text-capitalize text-center">
+                                        <strong>@DashboardMessage.Age</strong>
+                                    </h2>
+                                </div>
+                                <div class="col-xs-12">
+                                    <p class="lead text-capitalize text-center">
+                                        @string.Format("{0:0.##}", Model.AgeIndicator)
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12" id="age-indicator">
+
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    var start = new Date().getFullYear() + '-01-01';
+    var end = '';
+    var lotid = '';
+    var farmid = '@ViewBag.FarmId';
+    var farmId = "@ViewBag.FarmId";
+    var longitude = "@Model.GeoLocation.Longitude".replace(',', '.');
+    var latitude = "@Model.GeoLocation.Latitude".replace(',', '.');
+    var density_value = "@string.Format("{0:0.##}", Model.DensityIndicator)".replace(",", ".") * 1;
+    var fertilizer_value = "@string.Format("{0:0.##}", Model.FertilizerIndicator)".replace(",", ".") * 1;
+    var productivity_value = "@string.Format("{0:0.##}", Model.ProductivityIndicator)".replace(",", ".") * 1;
+    var age_value = "@Model.AgeIndicator".replace(",", ".") * 1;
+</script>

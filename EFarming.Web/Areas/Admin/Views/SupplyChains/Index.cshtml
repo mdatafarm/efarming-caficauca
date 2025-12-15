@@ -1,0 +1,89 @@
+﻿@model PagedList.IPagedList<EFarming.DTO.AdminModule.SupplyChainDTO>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Title = "Supply chains";
+    int counter = 0;
+}
+
+<h2>
+    Supply chains
+</h2>
+@using (Html.BeginForm("Index", "SupplyChains", FormMethod.Get, new { @class = "form-horizontal", role = "form", novalidate = "novalidate" }))
+{
+    <div data-bind="with: filter" class="filter-form">
+        <div class="row">
+
+            <div class="col-md-6">
+                <label class="control-label hidden-xs pull-left">@Message.Name</label>
+                @Html.TextBox("searchString", ViewBag.CurrentFilter as string, new { @class = "form-control", placeholder = @Message.Name })
+            </div>
+            <div class="col-md-6 pull-right">
+                <button type="submit" class="btn btn-primary pull-right">
+                    <span class="glyphicon glyphicon-search"></span>
+                    @Message.Search
+                </button>
+            </div>
+        </div>
+    </div>
+}
+<br />
+<span class="pull-right">
+    <a href="@Url.Action("Create", "SupplyChains", new { })">
+        <span class="glyphicon glyphicon-plus">
+        </span>
+        Create a new Supply chain
+    </a>
+</span>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover table-condensed">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>@Message.Name</th>
+                <th>Code</th>
+                <th>Departamento</th>
+                <th>Address</th>
+                <th>@Message.Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var supplychain in Model)
+            {
+                counter += 1;
+                <tr>
+                    <td>@counter</td>
+                    <td>@Html.DisplayFor(modelItem => supplychain.Name)</td>
+                    <td>@Html.DisplayFor(modelItem => supplychain.Code)</td>
+                    <td>@Html.DisplayFor(modelItem => supplychain.Department.Name)</td>
+                    <td>@Html.DisplayFor(modelItem => supplychain.Address)</td>
+                    <td>
+                        <a href="@Url.Action("Edit", "SupplyChains", new { id = supplychain.Id })">
+                            <span class="glyphicon glyphicon-edit">
+                            </span>
+                            @Message.Edit
+                        </a>
+                        <a href="@Url.Action("Delete", "SupplyChains", new { id = supplychain.Id })">
+                            <span class="glyphicon glyphicon-trash">
+                            </span>
+                            @Message.Delete
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @string.Format(Message.Paging, (Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber), Model.PageCount)
+
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+</div>
+
+<script src="~/Scripts/mvvm/Common.js"></script>
+<script src="~/Scripts/mvvm/Admin/municipality.js"></script>
+
+<script type="text/javascript">
+      var selected = "@ViewBag.CurrentDepartment";
+      var selectedMunicipality = "@ViewBag.CurrentMunicipality";
+</script>

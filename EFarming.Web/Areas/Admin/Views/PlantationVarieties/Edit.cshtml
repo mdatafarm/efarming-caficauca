@@ -1,0 +1,48 @@
+﻿@model EFarming.DTO.AdminModule.PlantationVarietyDTO
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Title = AdminMessage.Plantation_Variety;
+}
+@using (Html.BeginForm("Edit", "PlantationVarieties", FormMethod.Post, new { @class = "form-horizontal to-validate", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+
+    <h2>
+        @AdminMessage.Plantation_Varieties
+    </h2>
+    <hr />
+    @Html.ValidationSummary(true)
+    <div class="form-group has-feedback">
+        <label for="DepartmentId" class="control-label col-md-2">
+            @AdminMessage.Plantation_Type
+        </label>
+        <div class="col-md-10">
+            <select class="form-control" id="PlantationTypeId" name="PlantationTypeId" required
+                    data-bind="value: $root.plantationType, options: $root.plantationTypes, optionsText:'name', optionsValue:'id',optionsCaption: '@string.Format(Message.SelectA, AdminMessage.Plantation_Type)'"></select>
+            <span class="hide glyphicon form-control-feedback"></span>
+            <span class="help-block"></span>
+        </div>
+    </div>
+    <div class="form-group has-feedback">
+        <label for="Name" class="control-label col-md-2">
+            @Message.Name
+        </label>
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.Name, new { @class = "form-control", placeholder = @Message.Name, required = "required" })
+            <span class="glyphicon form-control-feedback"></span>
+            <span class="help-block">@Html.ValidationMessageFor(model => model.Name)</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="submit" class="btn btn-primary">@Message.Save</button>
+            @Html.ActionLink(Message.Back, "Index")
+        </div>
+    </div>
+}
+<script src="~/Scripts/mvvm/Common.js"></script>
+<script src="~/Scripts/mvvm/Admin/plantation-varieties.js"></script>
+<script type="text/javascript">
+        var selected = "@ViewBag.CurrentPlantationType";
+</script>

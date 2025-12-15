@@ -1,0 +1,10 @@
+﻿@model EFarming.DTO.FarmModule.SoilAnalysisDTO
+<div class="row remote" id="plantation-form">
+    <div class="col-md-10 col-md-offset-1">
+        <h4>@FarmMessages.Soil_Analysis</h4>
+        <form action="@Url.Action("Create", "SoilAnalysis")" class="form-horizontal to-validate remote-form" role="form" data-target="soil-types-content">
+            @Html.Partial("~/Views/SoilAnalysis/_Form.cshtml", Model)
+        </form>
+    </div>
+</div>
+<script src="~/Scripts/remote-validation.js"></script>

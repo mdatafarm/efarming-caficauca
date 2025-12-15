@@ -1,0 +1,106 @@
+﻿@model List<EFarming.Web.Controllers.ImpactController.groupedAssessments>
+@{
+    ViewBag.Title = "TASQ";
+}
+<div class="row">
+    @if (Model != null)
+    {
+        foreach (var TASQAssessment in Model)
+        {
+            int YesSocial = 0;
+            int NoSocial = 0;
+            double SocialIndicator = 0;
+            int YesEnvironmental = 0;
+            int NoEnvironmental = 0;
+            double EnvironmentalIndicator = 0;
+            <div class="col-sm-6">
+                <div class="ibox-title">
+                    <h5>Resultados @string.Format("{0:dd/MM/yyyy}", Convert.ToDateTime(TASQAssessment.Answers[0].TASQAssessment.Date))</h5>
+                </div>
+                <div class="ibox-content">
+
+                    <table class="table table-striped  table-hover table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Sub Category</th>
+                                <th>Answer</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                foreach (var assessment in TASQAssessment.Answers)
+                                {
+                                    if (assessment.CriteriaId >= 380 && assessment.CriteriaId <= 394)
+                                    {
+                                        if (assessment.Criteria.FlagIndicatorId != 1)
+                                        {
+                                            if (assessment.Value == "SI")
+                                            {
+                                                YesSocial = YesSocial + 1;
+                                            }
+                                            else
+                                            {
+                                                NoSocial = NoSocial + 1;
+                                            }
+                                        }
+                                    }
+                                    if (assessment.CriteriaId >= 366 && assessment.CriteriaId <= 379)
+                                    {
+                                        if (assessment.Criteria.FlagIndicatorId != 1)
+                                        {
+                                            if (assessment.Value == "SI")
+                                            {
+                                                YesEnvironmental = YesEnvironmental + 1;
+                                            }
+                                            else
+                                            {
+                                                NoEnvironmental = NoEnvironmental + 1;
+                                            }
+                                        }
+                                    }
+                                    SocialIndicator = (YesSocial * 1.0 / (YesSocial * 1.0 + NoSocial * 1.0)) * 100.0;
+                                    EnvironmentalIndicator = (YesEnvironmental * 1.0 / (YesEnvironmental * 1.0 + NoEnvironmental * 1.0)) * 100.0;
+
+                                    <tr>
+                                        <td>@assessment.Criteria.SubModule.Name</td>
+                                        <td>@assessment.Criteria.Description</td>
+                                        @*@if (assessment.Criteria.FlagIndicatorId == 1)
+                                        {
+                                            <td>
+                                                <span class="glyphicon glyphicon-exclamation-sign"></span>
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td></td>
+                                        }*@
+                                        @{
+                                            string color;
+                                        }
+                                        @if (assessment.Value == "SI")
+                                        {
+                                            color = "bg-success";
+                                        }
+                                        else if (assessment.Value == "NO")
+                                        {
+                                            color = "bg-danger";
+                                        }
+                                        else
+                                        {
+                                            color = "";
+                                        }
+                                        <td>@assessment.Value</td>
+                                    </tr>
+                                            }
+                            }
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+                                                }
+                                            }
+</div>

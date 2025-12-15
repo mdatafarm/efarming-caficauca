@@ -1,0 +1,70 @@
+﻿using EFarming.Core.AdminModule.FloweringPeriodQualificationAggregate;
+using EFarming.DTO.AdminModule;
+using EFarming.Manager.Contract.AdminModule;
+using EFarming.Manager.Implementation.AdminModule;
+using PagedList;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace EFarming.Web.Areas.Admin.Controllers
+{
+    /// <summary>
+    /// FloweringPeriodQualification Controller
+    /// </summary>
+    public class FloweringPeriodQualificationsController : AdminController<FloweringPeriodQualificationDTO, FloweringPeriodQualification>
+    {
+        /// <summary>
+        /// The _manager
+        /// </summary>
+        private IFloweringPeriodQualificationManager _manager;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FloweringPeriodQualificationsController"/> class.
+        /// </summary>
+        /// <param name="manager">The manager.</param>
+        public FloweringPeriodQualificationsController(FloweringPeriodQualificationManager manager)
+	  : base(manager)
+        {
+	  _manager = manager;
+        }
+
+        /// <summary>
+        /// Indexes the specified current filter.
+        /// </summary>
+        /// <param name="currentFilter">The current filter.</param>
+        /// <param name="searchString">The search string.</param>
+        /// <param name="page">The page.</param>
+        /// <returns>The view</returns>
+        public ViewResult Index(string currentFilter, string searchString, int? page)
+        {
+	  if (searchString != null)
+	  {
+	      page = 1;
+	  }
+	  else
+	  {
+	      searchString = currentFilter;
+	  }
+
+	  ViewBag.CurrentFilter = searchString;
+	  int pageSize = 15;
+	  int pageNumber = (page ?? 1);
+	  IPagedList<FloweringPeriodQualificationDTO> FloweringPeriodQualifications;
+	  if (!string.IsNullOrEmpty(searchString))
+	  {
+	      FloweringPeriodQualifications = _manager
+		.GetAll(FloweringPeriodQualificationSpecification.FilterByName(searchString), d => d.Name)
+		.ToPagedList(pageNumber, pageSize);
+	  }
+	  else
+	  {
+	      FloweringPeriodQualifications = _manager
+		.GetAll(d => d.Name)
+		.ToPagedList(pageNumber, pageSize);
+	  }
+	  return View(FloweringPeriodQualifications);
+        }
+    }
+}

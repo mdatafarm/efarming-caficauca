@@ -1,0 +1,64 @@
+﻿<div class="col-sm-12">
+    <div class="ibox-title">
+        <h5>TASQ Results</h5>
+    </div>
+    <div class="ibox-content">
+        <div class="flot-chart farm-search">
+            <div class="row">
+                <div class="col-md-12">
+
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-2">Category</div>
+                    <div class="col-md-8">Question</div>
+                    <div class="col-md-1">Critic</div>
+                    <div class="col-md-1">Answer</div>
+                    <br />
+                </div>
+            </div>
+
+            @if (ViewBag.TASQTable != null)
+            {
+                foreach (var TASQAssessment in ViewBag.TASQTable)
+                {
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-2">@TASQAssessment.Category</div>
+                            <div class="col-md-8">@TASQAssessment.Question</div>
+                            @if (@TASQAssessment.Critic == 1)
+                            {
+                                <div class="col-md-1">
+                                    <span class="glyphicon glyphicon-exclamation-sign"></span>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col-md-1"></div>
+                            }
+                            @{
+                                string color;
+                            }
+                            @if (@TASQAssessment.Answer == "YES")
+                            {
+                                color = "bg-success";
+                            }
+                            else if (@TASQAssessment.Answer == "NO")
+                            {
+                                color = "bg-danger";
+                            }
+                            else
+                            {
+                                color = "";
+                            }
+                            <div class="col-md-1 @color">@TASQAssessment.Answer</div>
+                            <br />
+                        </div>
+                    </div>
+                                    }
+                                }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+﻿@model IEnumerable<EFarming.DTO.QualityModule.QualityAttributeDTO>
+    @{
+        Layout = null;
+    }
+@foreach (var item in Model)
+{
+        <div class="form-group form-group-sm">
+            <label class="control-label">
+                @item.Description
+            </label>
+            @Html.Partial(string.Concat("~/Views/QualityAttributes/_", item.TypeOf, ".cshtml"), EFarming.DTO.QualityModule.QualityAttributeDTO.ObjectType(item))
+        </div>
+}

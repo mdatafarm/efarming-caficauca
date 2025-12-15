@@ -1,0 +1,295 @@
+﻿@model EFarming.DTO.QualityModule.ChecklistDTO
+
+@{
+    ViewBag.Title = QualityMessage.Checklists;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-9">
+        <h2 class="page-name">@QualityMessage.Checklist</h2>
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Index", "Home", new { })">@Message.Home</a></li>
+            <li class="active">@QualityMessage.Checklists</li>
+        </ol>
+    </div>
+    <div class="col-sm-3 ">
+
+    </div>
+</div>
+
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>@QualityMessage.Checklists</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <form class="form-inline" role="form">
+                                <div class="form-group">
+                                    <label class="sr-only" for="checklist">@QualityMessage.Checklist: </label>
+                                    <select name="ChecklistId" class="form-control"></select>
+                                </div>
+                                <a class="btn btn-link">@QualityMessage.Create_New_Checklist</a>
+                            </form>
+                        </div>
+                    </div>
+                    <hr />
+                    <form class="form-horizontal">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="made_by" class="col-sm-2 control-label">@QualityMessage.Made_By</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static" id="made_by">@User.FullName</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <fieldset>
+                            <legend>@QualityMessage.Basic_Information</legend>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="farm_code" class="col-sm-2 control-label">@FarmMessages.Code</label>
+                                        <div class="col-sm-10">
+                                            <input type="number" class="form-control" id="farm_code" placeholder="@FarmMessages.Code">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="farm_name" class="col-sm-2 control-label">@FarmMessages.Name</label>
+                                        <div class="col-sm-10">
+                                            <p class="form-control-static" id="date">@Model.Farm.Name</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="date" class="col-sm-2 control-label">@Message.Date</label>
+                                        <div class="col-sm-10">
+                                            <p class="form-control-static" id="date">@Model.Date</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="village" class="col-sm-2 control-label">@AdminMessage.Village</label>
+                                        <div class="col-sm-10">
+                                            <p class="form-control-static" id="village">@Model.Farm.Village.Name</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="municipality" class="col-sm-2 control-label">@AdminMessage.Municipality</label>
+                                        <div class="col-sm-10">
+                                            <p class="form-control-static" id="municipality">@Model.Farm.Village.Municipality.Name</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="department" class="col-sm-2 control-label">@AdminMessage.Department</label>
+                                        <div class="col-sm-10">
+                                            <p class="form-control-static" id="department">@Model.Farm.Village.Municipality.Department.Name</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="owner" class="col-sm-2 control-label">@FarmMessages.Owner</label>
+                                        <div class="col-sm-10">
+                                            @*<p class="form-control-static" id="municipality">@Model.Farm.Owner</p>*@
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend>@QualityMessage.Recoleccion</legend>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label for="control_proceso_recoleccion" class="col-sm-8 control-label">@QualityMessage.Control_Proceso_Recoleccion</label>
+                                        <div class="col-sm-4">
+                                            @Html.DropDownListFor(model => model.Recoleccion.ControlRecoleccion, (System.Web.Mvc.SelectList)ViewBag.SINO, string.Format(Message.SelectA, QualityMessage.Control_Proceso_Recoleccion), new { @class = "form-control col-sm-2" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label for="verdes" class="col-sm-8 control-label">@QualityMessage.Verdes</label>
+                                        <div class="col-sm-1">
+                                            <input type="number" class="form-control" id="verdes" placeholder="@QualityMessage.Verdes">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label for="pintones" class="col-sm-4 control-label">@QualityMessage.Pintones</label>
+                                        <div class="col-sm-1">
+                                            <input type="number" class="form-control" id="pintones" placeholder="@QualityMessage.Pintones">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label for="maduros" class="col-sm-1 control-label">@QualityMessage.Maduros</label>
+                                        <div class="col-sm-1">
+                                            <input type="number" class="form-control" id="maduros" placeholder="@QualityMessage.Maduros">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label for="sobremaduros" class="col-sm-1 control-label">@QualityMessage.Sobremaduros</label>
+                                        <div class="col-sm-1">
+                                            <input type="number" class="form-control" id="sobremaduros" placeholder="@QualityMessage.Sobremaduros">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="sobremaduros" class="col-sm-1 control-label">@QualityMessage.Sobremaduros</label>
+                                        <div class="col-sm-1">
+                                            <input type="number" class="form-control" id="sobremaduros" placeholder="@QualityMessage.Sobremaduros">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="control_proceso_recoleccion" class="col-sm-10 control-label">@QualityMessage.Control_Proceso_Recoleccion</label>
+                                        <div class="col-sm-2">
+                                            @Html.DropDownListFor(model => model.Recoleccion.ManejaTolvaSifon, (System.Web.Mvc.SelectList)ViewBag.SINO, string.Format(Message.SelectA, QualityMessage.Control_Proceso_Recoleccion), new { @class = "form-control col-sm-2" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend>@QualityMessage.Despulpado</legend>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="sistema_clasificacion" class="col-sm-10 control-label">@QualityMessage.Sistema_Clasificacion</label>
+                                        <div class="col-sm-2">
+                                            @Html.DropDownListFor(model => model.Despulpado.SistemaClasificacion, (System.Web.Mvc.SelectList)ViewBag.SINO, string.Format(Message.SelectA, QualityMessage.Sistema_Clasificacion), new { @class = "form-control col-sm-2" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="utiliza_agua" class="col-sm-10 control-label">@QualityMessage.Utiliza_Agua</label>
+                                        <div class="col-sm-2">
+                                            @Html.DropDownListFor(model => model.Despulpado.UtilizaAgua, (System.Web.Mvc.SelectList)ViewBag.SINO, string.Format(Message.SelectA, QualityMessage.Utiliza_Agua), new { @class = "form-control col-sm-2" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="Pasa_Fermentacion" class="col-sm-10 control-label">@QualityMessage.Pasa_Fermentacion</label>
+                                        <div class="col-sm-2">
+                                            @Html.DropDownListFor(model => model.Despulpado.PasaFermentacion, (System.Web.Mvc.SelectList)ViewBag.SINO, string.Format(Message.SelectA, QualityMessage.Pasa_Fermentacion), new { @class = "form-control col-sm-2" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend>@QualityMessage.Fermentacion</legend>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="Tipo_Beneficiadero" class="col-sm-8 control-label">@QualityMessage.Tipo_Beneficiadero</label>
+                                        <div class="col-sm-4">
+                                            @Html.DropDownListFor(model => model.Fermentacion.TipoBeneficiadero, (System.Web.Mvc.SelectList)ViewBag.TipoBeneficiadero, Message.SelectA, new { @class = "form-control col-sm-2" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="Tiempo_Fermentacion" class="col-sm-8 control-label">@QualityMessage.Tiempo_Fermentacion</label>
+                                        <div class="col-sm-4">
+                                            <input type="number" class="form-control" id="verdes" placeholder="@QualityMessage.Tiempo_Fermentacion">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="Sistema_Fermentacion" class="col-sm-8 control-label">@QualityMessage.Sistema_Fermentacion</label>
+                                        <div class="col-sm-4">
+                                            @Html.DropDownListFor(model => model.Fermentacion.SistemaFermentacion, (System.Web.Mvc.SelectList)ViewBag.SistemaFermentacion, Message.SelectA, new { @class = "form-control col-sm-4" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="Criterio_Identificacion_Lavado" class="col-sm-8 control-label">@QualityMessage.Criterio_Identificacion_Lavado</label>
+                                        <div class="col-sm-4">
+                                            @Html.DropDownListFor(model => model.Fermentacion.CriterioIdentificacionLavado, (System.Web.Mvc.SelectList)ViewBag.CriterioIdentificacionLavado, Message.SelectA, new { @class = "form-control col-sm-4" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="Material_Tanque" class="col-sm-8 control-label">@QualityMessage.Material_Tanque</label>
+                                        <div class="col-sm-4">
+                                            <input type="number" class="form-control" id="verdes" placeholder="@QualityMessage.Material_Tanque">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="Lava_Despues_Fermentado" class="col-sm-8 control-label">@QualityMessage.Lava_Despues_Fermentado</label>
+                                        <div class="col-sm-4">
+                                            @Html.DropDownListFor(model => model.Fermentacion.LavaDespuesFermentado, (System.Web.Mvc.SelectList)ViewBag.SINO, Message.SelectA, new { @class = "form-control col-sm-4" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="Junta_En_Cochadas" class="col-sm-8 control-label">@QualityMessage.Junta_En_Cochadas</label>
+                                            <div class="col-sm-4">
+                                                @Html.DropDownListFor(model => model.Fermentacion.JuntaEnCochadas, (System.Web.Mvc.SelectList)ViewBag.SINO, Message.SelectA, new { @class = "form-control col-sm-2" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="Cuantas_Cochadas" class="col-sm-8 control-label">@QualityMessage.Cuantas_Cochadas</label>
+                                            <div class="col-sm-1">
+                                                <input type="number" class="form-control" id="verdes" placeholder="@QualityMessage.Cuantas_Cochadas">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="Cuantos_Dias_Cochadas" class="col-sm-8 control-label">@QualityMessage.Cuantos_Dias_Cochadas</label>
+                                            <div class="col-sm-1">
+                                                <input type="number" class="form-control" id="verdes" placeholder="@QualityMessage.Cuantos_Dias_Cochadas">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="Fuente_Agua" class="col-sm-8 control-label">@QualityMessage.Fuente_Agua</label>
+                                        <div class="col-sm-4">
+                                            @Html.DropDownListFor(model => model.Fermentacion.FuenteAgua, (System.Web.Mvc.SelectList)ViewBag.FuenteAgua, Message.SelectA, new { @class = "form-control col-sm-4" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

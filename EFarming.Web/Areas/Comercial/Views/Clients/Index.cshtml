@@ -1,0 +1,112 @@
+﻿@model IEnumerable<EFarming.Core.ComercialModule.Client>
+
+@{
+    ViewBag.Title = "Client";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("~/Areas/Comercial/Views/Shared/_Navegation_Comercial.cshtml")
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            @Html.ActionLink("Create New Client", "Create", null, new { @class = "btn btn-success btn-lg" })
+            <br />
+            <br />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                    <div class="col-md-3">
+                        <div class="well well-lg">
+                            <div class="row">
+                                <div class="col-md-7"></div>
+                                <div class="col-md-1">
+                                    <a href="@Url.Action("Edit", new { id = item.Id })"><span class="glyphicon glyphicon-edit"></span></a>
+                                </div>
+                                <div class="col-md-1">
+                                    <a href="@Url.Action("Details", new { id= item.Id })"> <span class="glyphicon glyphicon-list"></span></a>
+                                </div>
+                                <div class="col-md-1">
+                                    <a href="@Url.Action("Delete", new { id= item.Id })"><span class="glyphicon glyphicon-remove"></span></a>
+                                </div>
+                            </div>
+                            <h3>
+                                Name: @item.Name
+                            </h3>
+                            <h4>Addres: @item.Address</h4>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <p>Contry: <span class="label label-warning">@item.Country</span></p>
+                                </div>
+                                <div class="col-md-4">
+                                    <p>City: <span class="label label-warning">@item.City</span></p>
+                                </div>
+                                <div class="col-md-4">
+                                    <p>
+                                        ZipCode: <span class="label label-warning">@item.ZipCode</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <br />
+        <br />
+    </div>
+</div>
+
+@*<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ZipCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.City)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Country)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ZipCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Country)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>*@

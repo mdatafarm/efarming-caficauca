@@ -1,0 +1,105 @@
+﻿@model IEnumerable<EFarming.Core.TasqModule.TASQCriteria>
+
+@{
+    ViewBag.Title = "Index";
+}
+<style>
+    td{
+        vertical-align:top;
+    }
+</style>
+<div>
+    <p class="pull-left"><b>Preguntas</b></p>
+</div>
+<div class="table-responsive">
+
+    <table  class="table" style="font-size:12px !important;">
+        <tr>
+            <th>
+                Indicador
+            </th>
+            <th>
+                Sub Categoría
+            </th>
+            <th>
+                Descripción
+            </th>
+            <th>
+                Nombre corto
+            </th>
+            <th>
+                Orden
+            </th>
+            <th>
+                Opciones de respuestas
+            </th>
+            <th>
+                <span class="pull-right">
+                    @if (!User.IsInRole("Reader"))
+                    {
+                        if (ViewBag.mod != null)
+                        {
+                            <a href="@Url.Action("Create", "TASQCriterias", new { assesmentId = ViewBag.mod.AssessmentTemplateId })" data-toggle="modal" data-target="#modal" class="btn btn-success btn-sm">
+                                <span class="glyphicon glyphicon-plus">
+                                </span>
+                                Agregar
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("Create", "TASQCriterias")" data-toggle="modal" data-target="#modal" class="btn btn-success btn-sm">
+                                <span class="glyphicon glyphicon-plus">
+                                </span>
+                                Agregar
+                            </a>
+                        }
+                    }
+                </span>
+            </th>
+        </tr>
+
+        @foreach (var item in Model.OrderBy(o => o.SubModule.SubModuleOrder).ThenBy(o => o.CriteriaOrder))
+        {
+            <tr>
+                <td style="width:10%;">
+                    @Html.DisplayFor(modelItem => item.FlagIndicator.Name)
+                </td>
+                <td style="width:10%;">
+                    @Html.DisplayFor(modelItem => item.SubModule.Name)
+                </td>
+                <td style="width:10%;">
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td style="width:10%;">
+                    @Html.DisplayFor(modelItem => item.Short)
+                </td>
+                <td style="width:10%;">
+                    @Html.DisplayFor(modelItem => item.CriteriaOrder)
+                </td>
+                <td style="width:40%; width:360px !important;  word-wrap: break-word;">
+                    @*@Html.DisplayFor(modelItem => item.Options)*@
+                    @if(item.Options.Trim().Length > 0)
+                    {
+                    <span>@Html.Raw("- " + item.Options.Trim().Replace(",", "<br />- "))</span>
+                    }
+                    
+                </td>
+                <td style="width:10%;">
+                    <div class="pull-right">
+                        @if (!User.IsInRole("Reader"))
+                        {
+                            <a href="@Url.Action("Edit", "TASQCriterias", new { id = item.Id, assesmentId = ViewBag.mod.AssessmentTemplateId })" data-toggle="modal" data-target="#modal">
+                                <span class="glyphicon glyphicon-edit"></span>
+                            </a>
+                            <a href="@Url.Action("Delete", "TASQCriterias", new { id = item.Id, assesmentId = ViewBag.mod.AssessmentTemplateId })" data-toggle="modal" data-target="#modal">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </a>
+                        }
+                    </div>
+                </td>
+            </tr>
+        }
+
+    </table>
+
+</div>

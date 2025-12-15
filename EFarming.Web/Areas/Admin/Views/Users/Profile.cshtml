@@ -1,0 +1,217 @@
+﻿@model EFarming.DTO.AdminModule.UserDTO
+
+@{
+    ViewBag.Title = "User";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@if (Model != null)
+{
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="list-group">
+                            <a href="#" class="list-group-item active">Perfil</a>
+                            <div class="list-group-item">
+                                Nombres: @Model.FirstName
+                            </div>
+                            <div class="list-group-item">
+                                Apellidos: @Model.LastName
+                            </div>
+                            <div class="list-group-item">
+                                <span class="glyphicon glyphicon-user"></span> Username: @Model.Username
+                            </div>
+                            <div class="list-group-item">
+                                <span class="glyphicon glyphicon-inbox"></span> Correo: @Model.Email
+                            </div>
+                            <div class="list-group-item">
+                                Nombre completo: <br />
+                                @Model.FullName
+                            </div>
+                            <div class="list-group-item">
+                                Estado:
+                                @if (Model.IsActive)
+                                {
+                                    <span class="glyphicon glyphicon-ok-sign"></span> @Model.IsActive
+                                }
+                                else
+                                {
+                                    <span class="glyphicon glyphicon-remove-circle "></span> @Model.IsActive
+                                }
+                            </div>
+                            <div class="list-group-item">
+                                <span class="glyphicon glyphicon-calendar"></span> Fecha de creación: @string.Format("{0:dd/MM/yyyy}", Model.CreatedAt)
+                            </div>
+                            <div class="list-group-item">
+                                <span class="glyphicon glyphicon-calendar"></span> Fecha de actualización: @string.Format("{0:dd/MM/yyyy}", Model.UpdatedAt)
+                            </div>
+                            <div class="list-group-item text-center">
+                                <a id="modal-940840" href="#modal-container-940840" role="button" class="btn btn-primary" data-toggle="modal">Resumen Usuario</a>
+                            </div>
+                            <div class="list-group-item active">
+                                <a class="list-group-item"><span class="badge">@Model.Roles.Count</span># Roles</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+
+                        <!-- Tasb definiton -->
+                        <ul class="nav nav-tabs">
+                            <li class="nav active"><a href="#A" data-toggle="tab">Roles</a></li>
+                            @*<li class="nav"><a href="#B" data-toggle="tab">Farms</a></li>*@
+                            <li class="nav"><a href="#C" data-toggle="tab">Contraseña</a></li>
+                            <li class="nav">
+                        </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <!-- roles -->
+                            <div class="tab-pane fade in active" id="A">
+                                <div class="list-group-item-heading">
+                                    <br />
+                                    <p>Roles activos en el sistema</p>
+                                    <ul>
+                                        @if (Model.Roles != null)
+                                        {
+                                            foreach (var rol in Model.Roles)
+                                            {
+                                                <li>
+                                                    <a class="btn btn-primary" href="#">@rol.RoleName: @rol.Description </a>
+                                                    @using (Html.BeginForm("DeleteRole", "Users", FormMethod.Post))
+                                                    {
+                                                        @Html.Hidden("idUser", Model.Id)
+                                                        @Html.Hidden("Roleid", rol.Id)
+                                                        <button type="submit" class="btn btn-danger"> X </button>
+                                                    }
+                                                </li>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <li></li>
+                                        }
+                                    </ul>
+                                    <hr />
+                                    <p>Añadir roles al usuario</p>
+                                    @if (ViewBag.Roles != null)
+                                    {
+                                        foreach (var rol in (ICollection<EFarming.DTO.AdminModule.RoleDTO>)ViewBag.Roles)
+                                        {
+                                            using (Html.BeginForm("AddRole", "Users", FormMethod.Post))
+                                            {
+                                                @Html.Hidden("idUser", Model.Id)
+                                                @Html.Hidden("Roleid", rol.Id)
+                                                <button type="submit" class="btn btn-danger">Add Role @rol.RoleName</button>
+                                            }
+                                        }
+                                    }
+                                </div>
+                            </div>
+                            <!-- Password -->
+                            <div class="tab-pane fade" id="C">
+                                <div class="list-group-item-heading">
+                                    <h3>Contraseña</h3>
+                                    <p>Mostrar la información para acceder.</p>
+                                    @using (Html.BeginForm("ShowPassword", "Users", FormMethod.Post))
+                                    {
+                                        <div class="form-inline" role="form">
+                                            <div class="input-group">
+                                                @Html.TextBox("KGATFRDSHNVB", null, new { @placeholder = "ID",@class="form-control" })
+                                                @Html.Hidden("idUser", Model.Id)
+                                                @*<input type="text" class="form-control" placeholder="Key">*@
+                                                <span class="input-group-btn">
+                                                    <button type="submit" class="btn btn-default">Buscar</button>
+                                                </span>
+                                            </div>
+				</div>
+                                    }                                    
+                                </div>
+                            </div>
+                            <!-- farms -->
+                            @*<div class="tab-pane fade" id="B">
+                                <div class="list-group-item-heading">
+                                    <br />
+                                    <ul>
+                                        @if (Model.Farms != null)
+                                        {
+                                            foreach (var farm in Model.Farms)
+                                            {
+                                                <li><a href="#">@farm.Code -- @farm.Name</a></li>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <li>No data</li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>*@
+                            <!-- Quality -->
+                            <div class="tab-pane fade" id="C">
+                                <div class="list-group-item-heading">
+                                    <br />
+                                    <ul>
+                                        @if (Model.SensoryProfileAssessments != null)
+                                        {
+                                            foreach (var tst in Model.SensoryProfileAssessments)
+                                            {
+                                                <li><a href="#">@tst.AssessmentTemplate.Name </a></li>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <li>No data</li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal fade" id="modal-container-940840" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                            Cerrar
+                                        </button>
+                                        <h4 class="modal-title" id="myModalLabel">
+                                            Nombre completo: @Model.FullName
+                                        </h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        Nombres: @Model.FirstName
+                                        <br />
+                                        Apellidos: @Model.LastName
+                                        <br />
+                                        ID: @Model.Id
+                                        <br />
+                                        UserName: @Model.Username
+                                        <br />
+                                        Correo: @Model.Email
+                                        <br />
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                                            Cerrar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="row">
+        <h2>No data to show..</h2>
+    </div>
+}
+
+

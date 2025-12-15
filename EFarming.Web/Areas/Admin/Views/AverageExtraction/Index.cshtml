@@ -1,0 +1,112 @@
+﻿@model IEnumerable<EFarming.Core.FerilizersCalculatorModule.AverageExtraction>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Promedio de Extración por Ha</h2>
+
+<p>
+    @Html.ActionLink("Crear", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.N)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.P2O5)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.K20)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CaO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MgO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SO4)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.B)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Zn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cu)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fe)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Mn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Mo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SiO)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.N)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.P2O5)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.K20)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CaO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MgO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SO4)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.B)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Zn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cu)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fe)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Mn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Mo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SiO)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Detalle", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

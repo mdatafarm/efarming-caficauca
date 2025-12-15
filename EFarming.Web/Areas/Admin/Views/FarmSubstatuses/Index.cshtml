@@ -1,0 +1,88 @@
+﻿@model PagedList.IPagedList<EFarming.DTO.AdminModule.FarmSubstatusDTO>
+
+    @using PagedList.Mvc;
+    <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+    @{
+        ViewBag.Title = AdminMessage.Farm_Substatuses;
+        int counter = 0;
+        Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    }
+
+    <h2>
+        @AdminMessage.Farm_Substatuses
+    </h2>
+    @using (Html.BeginForm("Index", "FarmSubstatuses", FormMethod.Get, new { @class = "form-horizontal", role = "form", novalidate = "novalidate" }))
+    {
+        <div class="filter-form">
+            <div class="row">
+                <div class="col-md-6">
+                    <label class="control-label hidden-xs pull-left" for="FarmStatus">@AdminMessage.Farm_Status</label>
+                    <select class="form-control" id="FarmSubstatus" name="searchFarmStatus"
+                            data-bind="value: $root.farmStatus, options: $root.farmStatuses, optionsText:'name', optionsValue:'id',optionsCaption: '@string.Format(Message.SelectA, AdminMessage.Farm_Status)'"></select>
+                </div>
+                <div class="col-md-6">
+                    <label class="control-label hidden-xs pull-left">@Message.Name</label>
+                    @Html.TextBox("searchString", ViewBag.CurrentFilter as string, new { @class = "form-control", placeholder = @Message.Name })
+                </div>
+                <div class="col-md-6 pull-right">
+                    <button type="submit" class="btn btn-primary pull-right">
+                        <span class="glyphicon glyphicon-search"></span>
+                        @Message.Search
+                    </button>
+                </div>
+            </div>
+        </div>
+    }
+    <br />
+    <span class="pull-right">
+        <a href="@Url.Action("Create", "FarmSubstatuses", new { })">
+            <span class="glyphicon glyphicon-plus">
+            </span>
+            @AdminMessage.Create_New_Farm_Substatus
+        </a>
+    </span>
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover table-condensed">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>@AdminMessage.Farm_Status</th>
+                    <th>@Message.Name</th>
+                    <th>@Message.Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var substatus in Model)
+                {
+                    counter += 1;
+                    <tr>
+                        <td>@counter</td>
+                        <td>@Html.DisplayFor(modelItem => substatus.FarmStatus.Name)</td>
+                        <td>@Html.DisplayFor(modelItem => substatus.Name)</td>
+                        <td>
+                            <a href="@Url.Action("Edit", "FarmSubstatuses", new { id = substatus.Id })">
+                                <span class="glyphicon glyphicon-edit">
+                                </span>
+                                @Message.Edit
+                            </a>
+                            <a href="@Url.Action("Delete", "FarmSubstatuses", new { id = substatus.Id })">
+                                <span class="glyphicon glyphicon-trash">
+                                </span>
+                                @Message.Delete
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        @string.Format(Message.Paging, (Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber), Model.PageCount)
+
+        @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+    </div>
+
+    <script src="~/Scripts/mvvm/Common.js"></script>
+    <script src="~/Scripts/mvvm/Admin/farm-substatus.js"></script>
+    <script type="text/javascript">
+        var selected = "@ViewBag.CurrentFarmStatus";
+    </script>

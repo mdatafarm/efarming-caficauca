@@ -1,0 +1,256 @@
+﻿
+@{
+    ViewBag.Title = "Resume";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2 class="page-name">Resumen por evaluaciones</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="@Url.Action("Index", "AssessmentTemplates")">
+                    Sostenibilidad
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("Index", "AssessmentTemplates")">
+                    Evaluaciones
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action("DashboardHome", "AssessmentTemplates")">
+                    Dashboard Home
+                </a>
+            </li>
+            <li class="active">
+                <strong>Resumen por @ViewBag.name</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+@*<script src="~/Scripts/highcharts/6.1.1/export-data.js"></script>*@
+@*<script src="~/Scripts/highcharts/6.1.1/exporting.js"></script>*@
+<script src="~/Scripts/highcharts/6.1.1/highcharts.js"></script>
+<script src="~/Scripts/jquery-ui-1.10.4.min.js"></script>
+<script src="~/Scripts/dashboard/DashboardFarm.js"></script>
+<script src="~/Scripts/dashboard/Common.js"></script>
+<link href="~/Scripts/jquery.loading/jquery.loading.min.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.loading/jquery.loading.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.11.1.js"></script>
+<script src="~/Scripts/remote-validation.js"></script>
+
+
+<div class="modal fade" id="modalspa">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var selectedCountry = "";
+    var selectedSupplier = "";
+    var selectedSupplyChain = "";
+    var selectedDepartment = "@ViewBag.CurrentDepartment";
+    var selectedMunicipality = "@ViewBag.CurrentMunicipality";
+    var selectedVillage = "@ViewBag.CurrentVillage";
+    var selectedFarmStatus = "";
+    var selectedFarmSubstatus = "";
+    var selectedCooperative = "";
+    var selectedOwnershipType = "";
+    var selectedCode = "@ViewBag.CurrentCode";
+    var selectedName = "@ViewBag.CurrentName";
+    var selectedFarmerName = "@ViewBag.CurrentFarmerName";
+    var selectedFarmerIdentification = "@ViewBag.CurrentFarmerIdentification";
+    var selectedLongitude = "";
+    var selectedLatitude = "";
+    var selectedElevation = "";
+    var selectedAssociatedPeople = "";
+    var selectedOption = "";
+</script>
+<script src="~/Scripts/mvvm/Common.js"></script>
+<!--<script type="text/javascript" src="~/Scripts/mvvm/farm.js"></script>-->
+
+<script type="text/javascript">
+    function GetMunicipalitiesList(DepartmentId) {
+	    var procemessage = "<option value='0'> Please wait...</option>";
+        $("#searchMunicipality").html(procemessage).show();
+
+	    var url = '@Url.Action("getMucipalitiesByDepartment")';
+        $.ajax({
+        url: url,
+        data: { dep:DepartmentId },
+        cache: false,
+        type: "POST",
+        success: function (data) {
+        var markup = "<option value='0'>Select Municipality</option>";
+        for (var i = 0; i < data.length; i++) {
+        markup += "<option value=" + data[i].Value + ">" + data[i].Text + "</option>";
+        }
+        $("#searchMunicipality").html(markup).show();
+        },
+        error: function (reponse) {
+        //alert("error : " + reponse);
+        }
+        });
+
+        }
+
+    function GetVillagesList(NameMunicipality) {
+        var procemessage = "<option value='0'> Please wait...</option>";
+        $("#searchVillage").html(procemessage).show();
+
+        var url = '@Url.Action("getVillagesByMunicipality")';
+
+        $.ajax({
+        url: url,
+        data: { mun: NameMunicipality },
+        cache: false,
+        type: "POST",
+        success: function (data) {
+        var markup = "<option value='0'>Select Village</option>";
+        for (var i = 0; i < data.length; i++) {
+            markup += "<option value=" + data[i].Value + ">" + data[i].Text + "</option>";
+        }
+        $("#searchVillage").html(markup).show();
+        },
+        error: function (reponse) {
+        alert("error : " + reponse);
+        }
+        });
+
+        }
+</script>
+
+<link href="~/Content/themes/base/all.css" rel="stylesheet" />
+
+<form role="form" class="filter-form" data-bind="with: farm">
+    <div class="wrapper wrapper-content" id="tabItemDashboard">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+
+                    </div>
+                    <div class="ibox-content">
+                        <div class="flot-chart farm-search">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    
+                                       
+                                            
+                                        
+                                    
+                                    <div class="row">
+                                        <form role="form" class="filter-form" data-bind="with: farm">
+                                            <div class="row-fluid">
+                                                <div class="col-lg-6 col-sm-6">
+                                                    <div style="text-align:center;">
+                                                        <div class="form-group">
+                                                            <label for="year"> Fecha inicio</label>
+                                                            <input type="date" id="start" name="start" class="form-control" value="@ViewBag.start.ToString("yyyy-MM-dd")" style="width:60%; text-align-last:center;display: block; margin-left: auto; margin-right: auto; text-align-last:center;" />
+                                                        </div>
+                                                    </div>
+                                                    <div style="text-align:center;">
+                                                        <label for="searchDepartment" class="hidden-xs"> Departamento</label>
+                                                        <!--Inicio Select-->
+                                                        @Html.DropDownList("searchDepartment", ViewBag.Departments as SelectList, "Please select a department", new { @class = "form-control", @id = "searchDepartment", style = "width:60%; text-align-last:center;display: block; margin-left: auto; margin-right: auto;", @onchange = "javascript:GetMunicipalitiesList(this.value);", @onclick = "javascript:GetMunicipalitiesList(this.value);" })
+                                                        @*Lugares*@
+                                                    </div>
+                                                    <div style="text-align:center;">
+                                                        <label for="searchVillage" class="hidden-xs"> Vereda</label>
+                                                        <!--Inicio Select-->
+                                                        <select id="searchVillage" name="searchVillage" class="form-control" style="width:60%; text-align-last:center;display: block; margin-left: auto; margin-right: auto; text-align-last:center;"></select>
+                                                        @*Lugares*@
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 col-sm-6">
+                                                    <div style="text-align:center;">
+                                                        <div class="form-group">
+                                                            <label for="year"> Fecha fin</label>
+                                                            <input type="date" id="end" name="end" class="form-control" value="@ViewBag.end.ToString("yyyy-MM-dd")" style="width:60%; text-align-last:center;display: block; margin-left: auto; margin-right: auto; text-align-last:center;" />
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div style="text-align:center;">
+                                                        <label for="searchMunicipality" class="hidden-xs"> Municipio</label>
+                                                        <!--Inicio Select-->
+                                                        <select id="searchMunicipality" name="searchMunicipality" class="form-control" style="width:60%; text-align-last:center;display: block; margin-left: auto;  margin-right: auto; text-align-last:center;" value=ViewBag.CurrentMunicipality onchange="javascript:GetVillagesList(this.value);"></select>
+
+                                                        @*Lugares*@
+                                                    </div>
+                                                    
+                                                </div>
+
+
+                                                </div>
+</form>
+                                    </div>
+                                    <div class="row">
+                                        <div div class="col-md-12 text-center" style="margin-top:15px">
+                                            <button id="btnsearch" type="submit" class="btn btn-success">Buscar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <table class="table table-striped  table-hover table-condensed">
+
+                                    <thead>
+                                        <tr>
+                                            <th>Sub Categoría</th>
+                                            <th> Cantidad YES</th>
+                                            <th> Cantidad NO</th>
+                                            @if (ViewBag.id == "be690312-2132-41ca-83e6-049b58e37d90")
+                                            {
+                                                <th> Quantity COMPLY</th>
+                                                <th> Quantity PARTIALLY COMPLIES</th>
+                                                <th> Quantity FAILS</th>
+                                            }
+                                            <th>Fincas fallan</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (ViewBag.TASQ != null)
+                                        {
+                                            foreach (var TASQAssessment in ViewBag.TASQ)
+                                            {
+                                                if (@TASQAssessment.Cantidadyes > 0 || @TASQAssessment.Cantidadno > 0)
+                                                {
+                                                    <tr>
+                                                        <td>@TASQAssessment.Description</td>
+                                                        <td>@TASQAssessment.Cantidadyes %</td>
+                                                        <td>@TASQAssessment.Cantidadno %</td>
+
+                                                        @if (ViewBag.id == "be690312-2132-41ca-83e6-049b58e37d90")
+                                                        {
+                                                            <td>@TASQAssessment.Cantidadcumple %</td>
+                                                            <td>@TASQAssessment.Cantidadcumpar %</td>
+                                                            <td>@TASQAssessment.Cantidadnocumple %</td>
+                                                        }
+                                                            <td>
+                                                                @*<a href="@Url.Action("ViewFarmsFail", new {idCriteria= @TASQAssessment.Id,idAssessment= @ViewBag.id, start = @ViewBag.start, end = @ViewBag.end, searchDepartment = @ViewBag.CurrentDepartment, searchMunicipality = @ViewBag.CurrentMunicipality, searchVillage = @ViewBag.CurrentVillage})" data-toggle="modal" data-target="#modalspa">
+            <span class="glyphicon glyphicon-list-alt"></span>
+            View farms fail
+        </a>}*@
+                                                                <a href="@Url.Action("ViewFarmsFail", new {idCriteria= @TASQAssessment.Id,idAssessment= @ViewBag.id, start = @ViewBag.start, end = @ViewBag.end, searchDepartment = @ViewBag.CurrentDepartment, searchMunicipality = @ViewBag.CurrentMunicipality, searchVillage = @ViewBag.CurrentVillage})" data-toggle="modal" data-target="#modalspa">
+                                                                    <span class="glyphicon glyphicon-list-alt"></span>
+                                                                    Ver Fincas fallan
+                                                                </a>
+                                                            </td>
+                                                    </tr>
+                                                }
+
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
